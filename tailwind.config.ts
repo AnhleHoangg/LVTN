@@ -23,6 +23,33 @@ export default {
           900: 'rgb(var(--tw-color-primary-900) / <alpha-value>)',
           950: 'rgb(var(--tw-color-primary-950) / <alpha-value>)',
         },
+        light: {
+          'bg-icon': 'rgba(115, 220, 233, 0.18)',
+          primary: '#1363DF',
+          dark: '#0847AA',
+          hoverPrimary: '#F5F9FF',
+          secondary: '#007eff',
+          tertiary: '#0037ff',
+          gray: '#fafafa',
+          grayDarker: '#e5e5e5',
+          sectionSelected: '#E7EFFC',
+          text: {
+            primary: '#4C4E64',
+            sencondary: 'rgba(76, 78, 100, 0.68)',
+            main: '#4D92FF',
+            placeholder: '#adb5bd',
+            lessonContent: '#2D2D2D',
+          },
+          error: {
+            main: '#FF4D49',
+            background: '#ffe9e9',
+            content: '#e64542',
+          },
+          warning: {
+            main: '#FDB528',
+          },
+          border: '#ced4da',
+        },
         dark: '#222222',
       },
       keyframes: {
