@@ -12,6 +12,7 @@ function PrimaryButton({
   endIcon,
   isOrginalPadding = true,
   customHeightWidthTailWind,
+  disabled,
 }: {
   text: string;
   onClick?: () => void;
@@ -24,17 +25,19 @@ function PrimaryButton({
   endIcon?: React.ReactNode;
   isOrginalPadding?: boolean;
   customHeightWidthTailWind?: string;
+  disabled?: boolean;
 }) {
   return (
     <button
       type={type}
       onClick={onClick}
       // eslint-disable-next-line tailwindcss/no-custom-classname
-      className={`${
-        className || ''
-      } flex  cursor-pointer items-center justify-center rounded-md ${
-        isOrginalPadding ? 'px-10 py-3' : ''
+      className={`${className || ''} ${
+        disabled ? 'bg-[#7a9ed6] hover:bg-[#7a9ed6] ' : ''
       }
+       flex  cursor-pointer items-center justify-center rounded-md ${
+         isOrginalPadding ? 'px-10 py-3' : ''
+       }
       ${customHeightWidthTailWind}
       transition-colors duration-300 ease-in ${bgColor} ${hoverBgColor}`}
     >

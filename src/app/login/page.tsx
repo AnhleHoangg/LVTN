@@ -8,11 +8,10 @@ import {
   MantineProvider,
   rem,
 } from '@mantine/core';
-import type { NextPageContext } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import router from 'next/router';
-import { getSession, signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BiError } from 'react-icons/bi';
@@ -24,7 +23,7 @@ import RHFPasswordField from '@/components/hook-form/RHFPasswordField';
 import { PATH_AUTH, PATH_DASHBOARD } from '@/routes/path';
 import { PrimaryButton } from '@/components/Button';
 
-type FormValuesProps = {
+export type FormValuesProps = {
   email: string;
   password: string;
   afterSubmit?: string;
