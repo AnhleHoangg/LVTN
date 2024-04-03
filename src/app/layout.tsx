@@ -1,6 +1,5 @@
+import SessionWrapper from '@/components/SessionWrapper';
 import '../styles/globals.css';
-
-import Header from '@/components/header/Header';
 
 export const metadata = {
   title: 'Next.js',
@@ -13,13 +12,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
-      <body>
-        <div>
-          <Header />
-        </div>
-        {children}
-      </body>
-    </html>
+    <SessionWrapper>
+      <html lang='en'>
+        <body>
+          <div className='flex justify-center'>{children}</div>
+        </body>
+      </html>
+    </SessionWrapper>
   );
 }

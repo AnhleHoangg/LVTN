@@ -5,8 +5,16 @@ export default {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
+      width: {
+        primary: "1200px"
+      },
       fontFamily: {
         primary: ['Inter', ...defaultTheme.fontFamily.sans],
+      },
+      backgroundPosition: {
+        bottom: "bottom",
+        'bottom-14': "14% 100%",
+        'bottom-1': "-1% 100%"
       },
       colors: {
         primary: {
@@ -57,7 +65,7 @@ export default {
           '0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100%': {
             opacity: '0.99',
             filter:
-              'drop-shadow(0 0 1px rgba(252, 211, 77)) drop-shadow(0 0 15px rgba(245, 158, 11)) drop-shadow(0 0 1px rgba(252, 211, 77))',
+              'drop-shadow(0 0 1px rgba(59, 130, 246)) drop-shadow(0 0 15px rgba(245, 158, 11)) drop-shadow(0 0 1px rgba(59, 130, 246))',
           },
           '20%, 21.999%, 63%, 63.999%, 65%, 69.999%': {
             opacity: '0.4',
@@ -72,10 +80,19 @@ export default {
             backgroundPosition: '700px 0',
           },
         },
+        moveUp: {
+          '0%': {
+            transform: 'translateY(0)',
+          },
+          '100%': {
+            transform: 'translateY(-10px)',
+          },
+        }
       },
       animation: {
         flicker: 'flicker 3s linear infinite',
         shimmer: 'shimmer 1.3s linear infinite',
+        moveUp: 'moveUp 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
       },
     },
   },

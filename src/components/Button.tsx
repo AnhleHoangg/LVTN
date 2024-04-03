@@ -14,7 +14,7 @@ function PrimaryButton({
   customHeightWidthTailWind,
   disabled,
 }: {
-  text: string;
+  text?: string;
   onClick?: () => void;
   className?: string;
   textClassName?: string;
@@ -41,7 +41,7 @@ function PrimaryButton({
       ${customHeightWidthTailWind}
       transition-colors duration-300 ease-in ${bgColor} ${hoverBgColor}`}
     >
-      {startIcon && <div className='mr-2'>{startIcon}</div>}
+      {startIcon && <div className='my-1'>{startIcon}</div>}
 
       <p
         className={`${

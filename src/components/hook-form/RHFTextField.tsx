@@ -37,7 +37,7 @@ export default function RHFTextField({
               field.onChange(event);
               other.onChange?.(event);
             }}
-            value={typeof field.value === 'number' && field.value === 0 ? '' : field.value}
+            value={field.value}
             className={className}
           />
         </Input.Wrapper>

@@ -10,8 +10,8 @@ import {
 } from '@mantine/core';
 import Image from 'next/image';
 import Link from 'next/link';
-import router from 'next/router';
-import { signIn } from 'next-auth/react';
+
+import { signIn, useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BiError } from 'react-icons/bi';
@@ -22,10 +22,12 @@ import FormProvider from '@/components/hook-form/FormProvider';
 import RHFPasswordField from '@/components/hook-form/RHFPasswordField';
 import { PATH_AUTH, PATH_DASHBOARD } from '@/routes/path';
 import { PrimaryButton } from '@/components/Button';
+import { useRouter } from 'next/navigation';
 
 export type FormValuesProps = {
   email: string;
   password: string;
+  confirmpassword?: string;
   afterSubmit?: string;
 };
 
@@ -80,10 +82,15 @@ export function Social() {
             className='border-light-border flex h-[55px] w-[100px] cursor-pointer items-center justify-center rounded-[5px] border'
             onClick={() => signIn('google')}
           >
-            <img src='/images/icons/Google.svg' alt='google' />
+            <img
+              className='h-[45px]'
+              src='/images/icons/Google.svg'
+              alt='google'
+            />
           </div>
           <div className='border-light-border flex h-[55px] w-[100px] cursor-pointer items-center justify-center rounded-[5px] border'>
             <img
+              className='h-[45px]'
               src='/images/icons/Github.svg'
               alt='github'
               onClick={() => signIn('github')}
@@ -91,6 +98,7 @@ export function Social() {
           </div>
           <div className='border-light-border flex h-[55px] w-[100px] cursor-pointer items-center justify-center rounded-[5px] border'>
             <img
+              className='h-[45px]'
               src='/images/icons/Facebook.svg'
               alt='facebook'
               onClick={() => signIn('facebook')}
@@ -101,11 +109,10 @@ export function Social() {
     </MantineProvider>
   );
 }
-
+// page Login
 const Login = () => {
-  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const [errorLogin, setErrorLogin] = useState<string | null>(null);
-
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .required('Email là bắt buộc')
@@ -119,14 +126,27 @@ const Login = () => {
   };
 
   const methods = useForm<FormValuesProps>({
+    mode: 'all',
     resolver: yupResolver(LoginSchema),
     defaultValues,
   });
+  interface User {
+    message: string;
+    data: {
+      access_token: string;
+      refresh_token: string;
+      expires_at: number;
+      user_info: {
+        id: string;
+        email: string;
+        first_name: string;
+        last_name: string;
+      };
+    };
+  }
   const { reset, handleSubmit } = methods;
-
   const onSubmit = async (data: FormValuesProps) => {
     const { email, password } = data;
-    setLoading(true);
     const result: any = await signIn('credentials', {
       email,
       password,
@@ -135,12 +155,17 @@ const Login = () => {
     });
     if (result?.error) {
       setErrorLogin(result.error);
-      setLoading(false);
+      reset(defaultValues);
     } else {
       reset(defaultValues);
       router.push(PATH_DASHBOARD.home);
     }
   };
+
+  const { data: session } = useSession();
+  if (session) {
+    router.push(PATH_DASHBOARD.home);
+  }
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       {/* <AuthWrapper> */}
@@ -163,7 +188,7 @@ const Login = () => {
           <div className='w-full'>
             <Flex justify='center' mb={45}>
               <Link href='/'>
-                <Image src='/logo-96.png' alt='logo' width={80} height={80} />
+                <Image src='/Logo.svg' alt='logo' width={100} height={100} />
               </Link>
             </Flex>
             <Flex direction='column' gap={16} mb={rem(80)}>

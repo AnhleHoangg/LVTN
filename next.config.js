@@ -3,7 +3,6 @@ const nextConfig = {
   eslint: {
     dirs: ['src'],
   },
-
   reactStrictMode: true,
   experimental: {
     forceSwcTransforms: true,
