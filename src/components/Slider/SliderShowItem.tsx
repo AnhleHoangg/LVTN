@@ -23,16 +23,49 @@ const SliderShowItem = ({
   return (
     <div>
       {type === 'info' ? (
-        <ul>
-          <li>
-            <a href='/'>
-              <img
-                className='h-[250px]'
-                src='https://marketingai.mediacdn.vn/wp-content/uploads/2022/04/imager_2_15162_700.jpg'
-              ></img>
-            </a>
-          </li>
-        </ul>
+        <div
+          className='swiper h-[500px] text-center'
+          style={{
+            backgroundImage: `url("https://inuvdp.com/wp-content/uploads/2023/07/Download-File-Vector-Logo-MU-Manchester-United-01.jpg")`,
+            backgroundRepeat: `no-repeat`,
+            backgroundPosition: `center`,
+          }}
+        >
+          <div
+            className='parallax-bg'
+            data-swiper-parallax-duration='2000'
+            data-swiper-parallax='-50%'
+          ></div>
+          <div className='swiper-wrapper'>
+            <div className='swiper-slide'>
+              <div className=' flex h-[700px] flex-col items-center justify-center'>
+                <div
+                  data-swiper-parallax='-200'
+                  data-swiper-parallax-duration='2000'
+                >
+                  <h1 className='text-[27px] font-bold'>Lee Hoagn ANh</h1>
+                </div>
+                <div
+                  data-swiper-parallax='-100'
+                  data-swiper-parallax-duration='1000'
+                >
+                  <p className='text-[50px] font-semibold'>1</p>
+                </div>
+                <div
+                  data-swiper-parallax-duration='1000'
+                  data-swiper-parallax-scale='0.5'
+                >
+                  <a href='/'>
+                    <button className='ct-hoverDefault bg-web-100 mt-[20px] rounded-full px-6 py-2 font-semibold'>
+                      Shop Now
+                    </button>
+                  </a>
+                </div>
+              </div>
+            </div>
+            ...
+          </div>
+        </div>
       ) : (
         <ul className='grid grid-cols-10 grid-rows-2'>
           {item?.page.map(() => (

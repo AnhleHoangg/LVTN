@@ -1,29 +1,6 @@
 import React from 'react';
 import { Container, Grid } from '@mantine/core';
 import { productionDetail } from '@/components/mock-data';
-import ReactQuill from 'react-quill';
-
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const CopounCard = () => {
-  return (
-    <Grid grow gutter='sm'>
-      {numbers.map((n, index) => (
-        <Grid.Col span={1}>
-          <a key={index} href='/'>
-            <div className='hover:animate-flicker flex h-[100px] flex-col justify-center p-[15px]'>
-              <div className='flex flex-col items-center justify-center '>
-                <div className='h-[45px] w-[45px] rounded-xl bg-[url("https://www.gosell.vn/blog/wp-content/uploads/2023/03/san-sale-shopee-3.jpg")]'></div>
-              </div>
-              <div className='flex justify-center' key={n}>
-                1{n}
-              </div>
-            </div>
-          </a>
-        </Grid.Col>
-      ))}
-    </Grid>
-  );
-};
 
 const PorductFiller = () => {
   return (
@@ -175,4 +152,4 @@ const ProductionDetail = () => {
   );
 };
 
-export { PorductFiller, CopounCard, ProductionItem, ProductionDetail };
+export { PorductFiller, ProductionItem, ProductionDetail };

@@ -2,14 +2,11 @@
 
 import * as React from 'react';
 import { Container, Grid } from '@mantine/core';
-
-import BannerProduct from '@/components/banner/BannerProduct';
-import { CopounCard, ProductionItem } from '@/components/product/Product';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+import 'swiper/css/parallax';
+import { ProductionItem } from '@/components/product/Product';
+import { Autoplay, Pagination, Parallax } from 'swiper/modules';
 import { danhMuc } from '@/components/mock-data';
 import Countdown from '@/components/Countdown';
 import HeaderTag from '@/components/HeaderTag';
@@ -23,11 +20,11 @@ import LayoutDefault from '@/components/layout/LayoutDefault.tsx/LayoutDefault';
 export default function HomePage() {
   return (
     <LayoutDefault>
-      <div className='mt-[120px] bg-[white]'>
+      <div className='mt-[165px] bg-[white]'>
         <div className='border-b-2 drop-shadow-sm'>
           <Container className='mx container flex flex-col pt-[20px]'>
-            <div className='flex w-[100%] '>
-              <div className='group relative w-[75%]'>
+            <div className='flex w-full '>
+              <div className='group relative w-full'>
                 <Swiper
                   className='w-full'
                   spaceBetween={30}
@@ -36,7 +33,7 @@ export default function HomePage() {
                     disableOnInteraction: false,
                   }}
                   loopAdditionalSlides={0}
-                  modules={[Autoplay, Pagination]}
+                  modules={[Autoplay, Pagination, Parallax]}
                 >
                   <SwiperSlide>
                     <SliderShowItem type='info' />
@@ -56,19 +53,6 @@ export default function HomePage() {
                   </div>
                 </Swiper>
               </div>
-              <div className='w-[25%]'>
-                <BannerProduct
-                  src='https://japans.vn/wp-content/uploads/2023/07/avt-anh-gai-xinh-1.jpg'
-                  size='small'
-                />
-                <BannerProduct
-                  src='https://japans.vn/wp-content/uploads/2023/07/avt-anh-gai-xinh-1.jpg'
-                  size='small'
-                />
-              </div>
-            </div>
-            <div className='mt-[20px] '>
-              <CopounCard />
             </div>
           </Container>
         </div>
@@ -159,7 +143,8 @@ export default function HomePage() {
             </div>
           </div>
         </Container>
-        <Container className=' mx container mt-[30px] h-[110px] bg-[red] px-[0px]'>
+        {/* Banner quảng cáo */}
+        <Container className='mx container mt-[30px] h-[110px] bg-[red] px-[0px]'>
           <div className='grid h-full grid-cols-3 p-[5px] pr-0'>
             {[1, 2, 3].map((item, index) => (
               <a
@@ -211,7 +196,7 @@ export default function HomePage() {
             </div>
           </div>
         </Container>
-        <Container className='mx container relative my-[20px] border bg-[#f5f5f5]  px-[0px]'>
+        <Container className='mx container relative my-[20px] border bg-[#f5f5f5] px-[0px]'>
           <HeaderTag itemLeft>Gợi Ý Hôm Nay</HeaderTag>
           <div className='border-4 border-[blue]'></div>
           <div className=' px-[20px] pb-[20px]'>

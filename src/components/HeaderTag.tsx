@@ -17,7 +17,7 @@ const HeaderTag = ({
       <div
         className={`${
           className || ''
-        } flex h-[61px] w-full items-center justify-between border-b bg-[#f5f5f5] px-[20px] text-[16px]  text-[blue] `}
+        } flex h-[61px] w-full items-center justify-between border-b bg-[#f5f5f5] px-[20px] text-[16px]  text-[red] `}
       >
         <div className={`${textclassName || ''} uppercase`}>{children}</div>
         {itemLeft && (
