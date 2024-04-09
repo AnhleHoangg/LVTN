@@ -21,13 +21,11 @@ import { PrimaryButton, PrimaryOutlineButton } from '@/components/Button';
 import { FaCartArrowDown, FaMinus, FaPlus } from 'react-icons/fa';
 import RHFArea from '@/components/hook-form/RHFArea';
 import { ProductionDetail, ProductionItem } from '@/components/product/Product';
-import Countdown from '@/components/Countdown';
 import HeaderTag from '@/components/HeaderTag';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/parallax';
-import { Autoplay, Pagination, Parallax } from 'swiper/modules';
 
 const production = () => {
   const [count, setCount] = useState(1);
@@ -126,7 +124,7 @@ const production = () => {
                     <div className='mb-[2px]  mr-[10px]'>14,6K</div>
                     <div>Đã Bán</div>
                   </div>
-                  <div>
+                  <div className='px-[5px]'>
                     Mã Sản Phẩm :
                     <span className='ml-[5px] font-semibold italic '>ABC</span>
                   </div>
@@ -176,7 +174,7 @@ const production = () => {
                           <RHFMutiSelect
                             className='w-[185px]'
                             name='select'
-                            options={['xanh']}
+                            options={['29', '30', '40']}
                             placeholder='kk'
                             type='select'
                           ></RHFMutiSelect>
@@ -238,10 +236,33 @@ const production = () => {
                 </div>
               </FormProvider>
               <div>
-                <span>Gọi điện để được tư vấn:</span>
-                <a className='ml-[10px] text-[25px] text-[red]' href='tel'>
-                  0927993249
-                </a>
+                <div className='item flex'>
+                  <span>Gọi điện để được tư vấn:</span>
+                  <a className='ml-[10px] text-[25px] text-[red]' href='tel'>
+                    0927993249
+                  </a>
+                </div>
+                <div className='flex items-center'>
+                  <span className='mr-2'>Chất nhận mọi thanh toán:</span>
+                  <div className='flex'>
+                    <img
+                      className='ml-2 h-[40px] w-[40px]'
+                      src='https://bizweb.dktcdn.net/100/415/445/themes/804210/assets/payment-1.svg?1708498874444'
+                    ></img>
+                    <img
+                      className='ml-2 h-[40px] w-[40px]'
+                      src='https://bizweb.dktcdn.net/100/415/445/themes/804210/assets/payment-4.svg?1708498874444'
+                    ></img>
+                    <img
+                      className='ml-2 h-[40px] w-[40px]'
+                      src='https://bizweb.dktcdn.net/100/415/445/themes/804210/assets/payment-2.svg?1708498874444'
+                    ></img>
+                    <img
+                      className='ml-2 h-[40px] w-[40px]'
+                      src='https://bizweb.dktcdn.net/100/415/445/themes/804210/assets/payment-3.svg?1708498874444'
+                    ></img>
+                  </div>
+                </div>
               </div>
             </Grid.Col>
           </Grid>

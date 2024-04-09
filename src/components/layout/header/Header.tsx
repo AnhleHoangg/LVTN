@@ -1,8 +1,7 @@
 import { PrimaryButton } from '@/components/Button';
-import { ColorScheme, Container, Popover, Menu, Text } from '@mantine/core';
+import { Container, Popover, Menu, Text } from '@mantine/core';
 import React from 'react';
 import { CiFacebook, CiInstagram, CiSearch } from 'react-icons/ci';
-import { IoIosNotificationsOutline } from 'react-icons/io';
 import { HiOutlineQuestionMarkCircle } from 'react-icons/hi2';
 import { AiOutlineGlobal } from 'react-icons/ai';
 import { IoMdArrowDropdown } from 'react-icons/io';
@@ -10,8 +9,9 @@ import { IoMdArrowDropdown } from 'react-icons/io';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useDisclosure } from '@mantine/hooks';
 import Taskbar from '@/components/layout/header/Taskbar';
+import { taskbarname } from '@/components/mock-data';
 
-const HeaderPage = (props: { colorScheme: ColorScheme }) => {
+const HeaderPage = () => {
   const [opened, { close, open }] = useDisclosure(false);
 
   return (
@@ -54,9 +54,11 @@ const HeaderPage = (props: { colorScheme: ColorScheme }) => {
           </div>
         </div>
       </Container>
+      {/* Logo */}
       <div className='mx container flex h-[85px] items-center justify-between py-[20px]'>
-        <a href='/' className='pr-[40px]'>
-          <img src='./images/logo/Shopee.jpg' className='h-[50px]'></img>
+        <a href='/' className='tex-[35px] pr-[40px] uppercase text-[white]'>
+          {/* <img src='./images/logo/gaosport.jpg' className='h-[50px]'></img> */}
+          Gạo Sport
         </a>
         <form className='flex h-[40px] w-[840px] justify-between rounded-sm bg-[white] p-[5px]	'>
           <div className='flex w-full justify-around'>
@@ -108,7 +110,7 @@ const HeaderPage = (props: { colorScheme: ColorScheme }) => {
           </Menu.Dropdown>
         </Menu>
       </div>
-      <Taskbar />
+      <Taskbar data={taskbarname} />
     </Container>
   );
 };

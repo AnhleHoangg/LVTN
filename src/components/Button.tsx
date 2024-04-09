@@ -5,8 +5,8 @@ function PrimaryButton({
   onClick,
   className,
   textClassName,
-  hoverBgColor = 'hover:bg-light-dark',
-  bgColor = 'bg-light-primary',
+  hoverBgColor = 'hover:bg-slate-600',
+  bgColor = 'bg-[#ff0000d7]',
   type = 'button',
   startIcon,
   endIcon,
@@ -33,7 +33,7 @@ function PrimaryButton({
       onClick={onClick}
       // eslint-disable-next-line tailwindcss/no-custom-classname
       className={`${className || ''} ${
-        disabled ? 'bg-[#7a9ed6] hover:bg-[#7a9ed6] ' : ''
+        disabled ? 'bg-[#ff0000d7] hover:bg-[#ff00005d] ' : ''
       }
        flex  cursor-pointer items-center justify-center rounded-md ${
          isOrginalPadding ? 'px-10 py-3' : ''
@@ -60,8 +60,8 @@ function PrimaryOutlineButton({
   onClick,
   className,
   textClassName,
-  textHoverClassName = 'text-light-primary',
-  bgHoverColor = 'hover:bg-light-hoverPrimary',
+  textHoverClassName = 'text-[white]',
+  bgHoverColor = 'hover:bg-slate-600',
   type = 'button',
   disabled,
   leftIcon,
@@ -89,13 +89,13 @@ function PrimaryOutlineButton({
       disabled={disabled}
       className={`${
         className || ''
-      } border-light-primary flex cursor-pointer items-center justify-center rounded-md border transition-colors duration-200 ease-in ${bgHoverColor} px-10 py-3 `}
+      } flex cursor-pointer items-center justify-center rounded-md border border-[#ff0000d7] transition-colors duration-200 ease-in ${bgHoverColor} px-10 py-3 `}
     >
       {rightIcon && rightIcon}
       <p
         className={`${
           textClassName || ''
-        } font-lexend-deca text-light-primary text-base font-semibold leading-5 tracking-[0.15px] ${
+        } font-lexend-deca text-base font-semibold leading-5 tracking-[0.15px] text-[#ff0000d7] ${
           isHover && textHoverClassName
         }`}
       >

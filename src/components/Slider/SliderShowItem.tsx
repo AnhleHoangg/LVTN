@@ -17,7 +17,10 @@ const SliderShowItem = ({
 }: {
   type: 'info' | 'button';
   item?: {
-    page: number[];
+    page: {
+      title: string;
+      src: string;
+    }[];
   };
 }) => {
   return (
@@ -67,19 +70,17 @@ const SliderShowItem = ({
           </div>
         </div>
       ) : (
-        <ul className='grid grid-cols-10 grid-rows-2'>
-          {item?.page.map(() => (
-            <li className=' flex h-[150px] items-center justify-center bg-[red]'>
-              <div className='mb-[5px]  '>
-                <a
-                  className='flex flex-col items-center justify-center'
-                  href='/'
-                >
-                  <div className='h-[50px] w-[50px] rounded-full bg-[url("https://img.lazcdn.com/g/p/ce03645345c4b23ecdf9e0de006931e5.jpg_720x720q80.jpg")] object-contain'></div>
-                  <div className='mt-[30px] text-[14px]'>Thời trang Nam</div>
-                </a>
-              </div>
-            </li>
+        <ul className='grid grid-cols-4 gap-2'>
+          {item?.page.map((item) => (
+            <a href='/'>
+              <li className='relative h-[150px] items-center justify-center bg-[url("https://cafefcdn.com/thumb_w/640/203337114487263232/2023/6/3/avatar1685811576305-1685811577092432322327.jpg")] bg-center bg-no-repeat'>
+                <div className='mb-[5px]'>
+                  <div className='absolute bottom-4 left-2 z-50 mt-[30px] text-[14px] font-semibold uppercase text-[white]'>
+                    {item.title}
+                  </div>
+                </div>
+              </li>
+            </a>
           ))}
         </ul>
       )}

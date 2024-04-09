@@ -1,6 +1,8 @@
 import React from 'react';
-import { Container, Grid } from '@mantine/core';
+import { Container } from '@mantine/core';
 import { productionDetail } from '@/components/mock-data';
+import { PrimaryButton } from '@/components/Button';
+import { BsCart2 } from 'react-icons/bs';
 
 const PorductFiller = () => {
   return (
@@ -24,13 +26,13 @@ const ProductionItem = ({
   switch (type) {
     case 'flashSale':
       buttonContent = (
-        <button>
+        <button className='mt-[15px] border hover:drop-shadow-md'>
           <Container className=' w-[186px] px-[0] '>
-            <div className=' relative transition hover:drop-shadow-md'>
+            <div className=' relative transition '>
               <div className='p-[1px]'>
                 <div className='relative'>
                   <span className='absolute right-0 top-0 bg-[yellow] px-[10px] text-[12px]'>
-                    -47%
+                    -50%
                   </span>
                   <img src='https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lrv6e24bfb2c88_tn'></img>
                 </div>
@@ -41,15 +43,15 @@ const ProductionItem = ({
                   ></img>
                 </div>
               </div>
-              <div className='px-[7px] py-[15px]'>
-                <div className='mt-[10px] flex flex-col justify-center'>
-                  <div className='mb-[15px] text-[blue]'>$99,000</div>
-                  <div className='h-[20px] w-[150px] rounded-full bg-gradient-to-r from-blue-500 to-green-500'>
-                    <span className='font-lights py-2 text-[12px] uppercase text-[white]'>
-                      Đã bán 5
-                    </span>
-                  </div>
+              <div className='flex justify-center'>
+                <div className='mr-[5px] text-[14px] text-slate-300 line-through'>
+                  $180,000
                 </div>
+                <div className='text-[red]'>$90,000</div>
+              </div>
+
+              <div className='p-[10px]'>
+                <PrimaryButton className='w-full' text='Mua Ngay' />
               </div>
             </div>
           </Container>
@@ -60,7 +62,16 @@ const ProductionItem = ({
       buttonContent = (
         <button>
           <Container className=' mt-[15px] w-[235px] border-[1px] bg-[white] px-[0]'>
-            <div className=' relative transition hover:-translate-y-[2px] hover:outline-double hover:outline-[blue] hover:drop-shadow-md'>
+            <div className=' group relative transition hover:-translate-y-[2px] hover:border-2 hover:border-[black] hover:drop-shadow-md'>
+              <div className='absolute z-50 hidden p-[10px] group-hover:block'>
+                <PrimaryButton
+                  className='px-[20px]'
+                  text=''
+                  startIcon={
+                    <BsCart2 className='text-[16px] font-medium text-[white]' />
+                  }
+                ></PrimaryButton>
+              </div>
               <div className='p-[1px]'>
                 <div className=''>
                   <img src='https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lrv6e24bfb2c88_tn'></img>
@@ -72,17 +83,18 @@ const ProductionItem = ({
                   ></img>
                 </div>
               </div>
-              <div className='px-[7px] pb-[7px]'>
-                <div className='h-[40px] '>Bút Gel</div>
-                <span className=' border-x-inherit bg-[yellow] p-[5px] text-[10px] text-[blue]'>
-                  15% Giảm giá
-                </span>
-                <div className='mt-[10px] flex justify-between'>
-                  <div className='text-[blue] '>$99,000</div>
-                  <div>
-                    <span className='font-lights text-[12px]'>Đã bán 5,5k</span>
-                  </div>
+              <div className='p-[7px]'>
+                <div className='mb-3 h-[20px] px-[5px]'>
+                  <p className='m-auto truncate'>
+                    Quần bóng đá Grand Sport 001478 Trắng
+                  </p>
                 </div>
+                <div className='mt-[5px] font-semibold text-[red] '>
+                  $99,000
+                </div>
+              </div>
+              <div className='p-[10px]'>
+                <PrimaryButton className='w-full' text='Mua Ngay' />
               </div>
             </div>
           </Container>

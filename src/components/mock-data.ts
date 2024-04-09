@@ -6,8 +6,60 @@ import { ImPinterest2 } from "react-icons/im";
 import { FaXTwitter } from "react-icons/fa6";
 
 export const danhMuc = [
-  {page: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]},
-  {page: [1,2,3,4,5]},
+  {
+    page: [
+    {
+      title: "Sản Phẩm HOT",
+      src: ""
+    },
+    {
+      title: "Thời Trang Nữ Nam",
+      src: ""
+    },
+    {
+      title: "Các CLB",
+      src: ""
+    },
+    {
+      title: "Manchester United",
+      src: ""
+    },
+    {
+      title: "Real Madrid",
+      src: ""
+    },
+    {
+      title: "Barcelona",
+      src: ""
+    },
+    {
+      title: "Juventus",
+      src: ""
+    },
+    {
+      title: "Bayern Munich",
+      src: ""
+    },
+
+    
+  ]},
+  {
+    page: [{
+    title: "Sản Phẩm HOT",
+    src: ""
+  },
+  {
+    title: "Thời Trang Nữ Nam",
+    src: ""
+  },
+  {
+    title: "Các CLB",
+    src: ""
+  },
+  {
+    title: "Manchester United",
+    src: ""
+  },]},
 ]
 export const danhMuc1 = [
   {page: [1,2,3,4,5,6]},
@@ -15,25 +67,18 @@ export const danhMuc1 = [
 ]
 export const danhMucChamSocKhach = [
   "Trung Tâm Trợ Giúp",
-          "Shopee Blog",
-          "Shopee Mall",
-          "Hướng Dẫn Mua Hàng",
-          "Hướng Dẫn Bán Hàng",
+          "Gạo Blog",
           "Thanh Toán",
-          "Shopee Xu",
           "Vận Chuyển",
           "Trả Hàng & Hoàn Tiền",
           "Chăm Sóc Khách Hàng",
           "Chính Sách Bảo Hàng",
 ]
 export const danhMucVeShopee = [
-  "Giới Thiệu Về Shopee Việt Nam",
-  "Tuyển Dụng",
-  "Điều Khoản Shopee",
-  "Chính Sách Bảo Mật",
+  "Giới Thiệu Về Gạo Sport",
+  "Điều Khoản Gạo Sport",
   "Chính Hãng",
   "Flash Sales",
-  "Chương Trình Tiếp Thị Liên Kết Shopee",
   "Liên Hệ Với Truyền Thông"
 ]
 export const danhMucThanhToan = [
@@ -120,4 +165,132 @@ export const productionDetail:{
   list: "Địa chỉ",
   title: "Hồ Chí Minh"
 }
+]
+export const taskbarname: {
+  title: string;
+  list: {
+      title: string;
+      src: string;
+  }[];
+}[] = [
+  {
+    title: "Sản phẩm hot",
+    list: [
+      {title: "Manchester united",
+      src: "https://image.nhandan.vn/w800/Uploaded/2024/cvjntcbxcwigjcv/2023_10_24/mu111-9696.jpg.webp"
+    },
+    {
+      title: "Việt Nam",
+      src: "https://phapluatxahoi.kinhtedothi.vn/stores/news_dataimages/2023/012023/18/11/in_article/a85bfd3769faee5a318a79cbfef145fa.jpg?rt=20230118115842"
+    },
+    {
+      title: "Ngoại Hạng Anh",
+      src: "https://vtv1.mediacdn.vn/zoom/640_400/2021/9/24/zq5ch5o7z1f51-1632462430543798483865.jpg"
+    },
+    {
+      title: "Laliga",
+      src: "https://www.forbesindia.com/media/images/2023/Jun/img_209045_laligabg.jpg"
+    },
+    ]
+  },
+  {
+    title: "Các câu lạc bộ",
+    list: [
+      {
+        title: "Manchester united",
+        src: "https://image.nhandan.vn/w800/Uploaded/2024/cvjntcbxcwigjcv/2023_10_24/mu111-9696.jpg.webp"
+      },
+      {
+        title: "Real Madrid",
+        src: "https://image.sggp.org.vn/w1000/Uploaded/2024/dqmbbcvo/2024_01_25/real-madrid-578.jpg.webp"
+      },
+      {
+        title: "Barcelona",
+        src: "https://baodongnai.com.vn/file/e7837c02876411cd0187645a2551379f/dataimages/202004/original/images2282729_18e.jpg"
+      },
+      {
+        title: "Bayern Munich",
+        src: "https://image.nhandan.vn/w800/Files/Images/2020/08/24/a1-1598257835527.jpg.webp"
+      },
+      
+    ]
+  },
+  {
+    title: "Bóng đá",
+    list: [
+      {
+        title: "Quần áo bóng đá",
+        src: "https://image.nhandan.vn/w800/Uploaded/2024/cvjntcbxcwigjcv/2023_10_24/mu111-9696.jpg.webp"
+      },
+      {
+        title: "Giày Bóng Đá",
+        src: "https://image.sggp.org.vn/w1000/Uploaded/2024/dqmbbcvo/2024_01_25/real-madrid-578.jpg.webp"
+      },
+      {
+        title: "Găng Tay Thủ Môn",
+        src: "https://baodongnai.com.vn/file/e7837c02876411cd0187645a2551379f/dataimages/202004/original/images2282729_18e.jpg"
+      },
+      {
+        title: "Đồ Bảo Vệ",
+        src: "https://image.nhandan.vn/w800/Files/Images/2020/08/24/a1-1598257835527.jpg.webp"
+      },
+      {
+        title: "Phụ Kiện Bóng Đá Khác",
+        src: "https://image.nhandan.vn/w800/Files/Images/2020/08/24/a1-1598257835527.jpg.webp"
+      },
+    ]
+  },
+  {
+    title: "Quần Áo Thể Thao",
+    list: [
+      {
+        title: "Quần áo bóng đá",
+        src: "https://image.nhandan.vn/w800/Uploaded/2024/cvjntcbxcwigjcv/2023_10_24/mu111-9696.jpg.webp"
+      },
+      {
+        title: "Áo Khoác - Áo Gió Thể Thao",
+        src: "https://image.sggp.org.vn/w1000/Uploaded/2024/dqmbbcvo/2024_01_25/real-madrid-578.jpg.webp"
+      },
+      {
+        title: "Áo Quần Môn Thể Thao Khác",
+        src: "https://baodongnai.com.vn/file/e7837c02876411cd0187645a2551379f/dataimages/202004/original/images2282729_18e.jpg"
+      },
+      {
+        title: "Quần Ngắn Thể Thảo",
+        src: "https://image.nhandan.vn/w800/Files/Images/2020/08/24/a1-1598257835527.jpg.webp"
+      },
+    ]
+  },
+  {
+    title: "Khuyến Mãi Hot",
+    list: [
+      {
+        title: "Giảm giá",
+        src: "https://image.nhandan.vn/w800/Uploaded/2024/cvjntcbxcwigjcv/2023_10_24/mu111-9696.jpg.webp"
+      },
+      {
+        title: "Sự Kiện",
+        src: "https://image.sggp.org.vn/w1000/Uploaded/2024/dqmbbcvo/2024_01_25/real-madrid-578.jpg.webp"
+      },
+      {
+        title: "Lên Kèo Đá Giao Lưu",
+        src: "https://baodongnai.com.vn/file/e7837c02876411cd0187645a2551379f/dataimages/202004/original/images2282729_18e.jpg"
+      },
+    ]
+  }
+]
+export const bannerQuangCao = [
+  {
+    title: "",
+    link: "https://www.thietbisieuthivn.net/wp-content/uploads/2014/09/16102013121652sale-off263811023805.jpg"
+  },
+  {
+    title: "",
+    link: "https://media.tuha.vn/upload/default/cach%20tinh%20giam%20gia.jpg"
+  },
+  {
+    title: "",
+    link: "https://atosa.asia/wp-content/uploads/2022/11/cach-tinh-phan-tram-giam-gia.jpg"
+  },
+
 ]

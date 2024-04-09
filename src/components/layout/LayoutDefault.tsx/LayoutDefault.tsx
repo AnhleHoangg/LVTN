@@ -8,7 +8,7 @@ const LayoutDefault = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className=' w-full bg-slate-300'>
       <div className='fixed z-50 flex w-full justify-around bg-gradient-to-r from-red-700 to-slate-600'>
-        <HeaderPage colorScheme='light' />
+        <HeaderPage />
       </div>
       <div className='mt-[175px]'>{children}</div>
       <div className=' bg-slate-600 pt-[5px]'>
