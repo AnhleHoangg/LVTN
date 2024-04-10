@@ -30,40 +30,43 @@ import 'swiper/css/parallax';
 const production = () => {
   const [count, setCount] = useState(1);
   const LoginSchema = Yup.object().shape({
-    email: Yup.string()
-      .required('email là bắt buộc')
-      .email('email không hợp lệ'),
-    password: Yup.string()
-      .required('Mật khẩu là bắt buộc')
-      .min(8, 'Mật khẩu quá ngăn phải lớn hơn 8 ký tự')
-      .matches(/[a-zA-Z]/, 'Mật khẩu phải có một chữ in hoa'),
-    confirmpassword: Yup.string()
-      .oneOf([Yup.ref('password')], 'Mật khẩu xác nhận không khớp')
-      .required('Xác nhận mật khẩu là bắt buộc'),
+    note: Yup.string().required('Nên điền ghi chú để nhận đồ hợp ý nhé!'),
+    transport: Yup.string().required('Địa chỉ là bắt buộc'),
+    select: Yup.string().required('Chưa chon size'),
   });
 
   const defaultValues = {
-    email: '',
-    password: '',
-    confirmpassword: '',
+    note: '',
+    transport: '',
+    select: '',
+    count: 1,
   };
 
   type FormValuesProps = {
-    email: string;
-    password: string;
-    confirmpassword: string;
+    select: string;
+    transport: string;
+    note: string;
+    count?: number;
   };
   const methods = useForm<FormValuesProps>({
-    mode: 'all',
+    mode: 'onSubmit',
     resolver: yupResolver(LoginSchema),
     defaultValues,
   });
   const { reset, handleSubmit } = methods;
-
-  const onSubmit = async (data: FormValuesProps) => {
-    const { email, password } = data;
-    // fetch api rồi đăng ký ở đây
+  const updateFormData = (data: any, value: number) => {
+    return {
+      ...data,
+      count: value,
+    };
   };
+
+  const onSubmit = (data: any) => {
+    let Data = updateFormData(data, count);
+    reset(defaultValues);
+    setCount(1);
+  };
+
   const items = [
     { title: 'Mantine', href: '#' },
     { title: 'Mantine hooks', href: '#' },
@@ -75,7 +78,7 @@ const production = () => {
   ));
 
   return (
-    <LayoutDefault>
+    <div>
       <div className='flex justify-center'>
         <div className='mx container'>
           <Breadcrumbs>{items}</Breadcrumbs>
@@ -138,7 +141,7 @@ const production = () => {
               </div>
               {/* form bán hàng */}
               <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-                <table className='mb-[20px]'>
+                <table className='mb-[20px] w-2/3'>
                   <tbody>
                     <tr className='h-[58px]'>
                       <td className='w-[110px]'>
@@ -159,7 +162,7 @@ const production = () => {
                       <td>
                         <div className='my-[10px]'>
                           <RHFTextField
-                            name='VanChuyen'
+                            name='transport'
                             placeholder='Địa chỉ nhận hàng'
                           ></RHFTextField>
                         </div>
@@ -189,7 +192,8 @@ const production = () => {
                         <div className='my-[10px] flex w-fit'>
                           <button
                             className='border px-[10px] py-[5px]'
-                            onClick={() => {
+                            onClick={(event) => {
+                              event.preventDefault();
                               if (count > 1) {
                                 setCount(count - 1);
                               }
@@ -202,7 +206,8 @@ const production = () => {
                           </span>
                           <button
                             className='border px-[10px] py-[5px]'
-                            onClick={() => {
+                            onClick={(event) => {
+                              event.preventDefault();
                               setCount(count + 1);
                             }}
                           >
@@ -216,7 +221,7 @@ const production = () => {
                         <div>Ghi Chú</div>
                       </td>
                       <td>
-                        <RHFArea name='demso'></RHFArea>
+                        <RHFArea name='note'></RHFArea>
                       </td>
                     </tr>
                   </tbody>
@@ -231,7 +236,7 @@ const production = () => {
                     />
                   </div>
                   <div className=''>
-                    <PrimaryButton text='Mua ngay' />
+                    <PrimaryButton type='submit' text='Mua ngay' />
                   </div>
                 </div>
               </FormProvider>
@@ -318,7 +323,7 @@ const production = () => {
           </div>
         </Container>
       </div>
-    </LayoutDefault>
+    </div>
   );
 };
 export default production;

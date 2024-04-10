@@ -1,5 +1,6 @@
 import SessionWrapper from '@/components/SessionWrapper';
 import '../styles/globals.css';
+import LayoutDefault from '@/components/layout/LayoutDefault.tsx/LayoutDefault';
 
 export const metadata = {
   title: 'Next.js',
@@ -15,7 +16,9 @@ export default function RootLayout({
     <SessionWrapper>
       <html lang='en'>
         <body>
-          <div className='flex justify-center'>{children}</div>
+          <div className='flex justify-center'>
+            <LayoutDefault>{children}</LayoutDefault>
+          </div>
         </body>
       </html>
     </SessionWrapper>

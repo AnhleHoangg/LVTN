@@ -31,11 +31,15 @@ export default function RHFArea({
       render={({ field, fieldState: { error } }) => (
         <Textarea
           label={label}
-          className={className}
+          className=' focus:border focus:border-[red] focus:outline focus:outline-[red]'
           placeholder={placeholder}
           {...field}
           {...other}
-          value={typeof field.value === 'number' && field.value === 0 ? '' : field.value}
+          value={
+            typeof field.value === 'number' && field.value === 0
+              ? ''
+              : field.value
+          }
           error={error ? error?.message : helperText}
         />
       )}

@@ -87,9 +87,12 @@ const SliderShowItem = ({
     </div>
   );
 };
+import { useDisclosure } from '@mantine/hooks';
+import { Modal } from '@mantine/core';
+
 const SlideProductionCart = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
+  const [opened, { open, close }] = useDisclosure(false);
   return (
     <div className='hover:cursor-pointer'>
       <Swiper
@@ -99,11 +102,8 @@ const SlideProductionCart = () => {
         modules={[FreeMode, Navigation, Thumbs]}
         className='group relative'
       >
-        <SwiperSlide>
+        <SwiperSlide onClick={open}>
           <img src='https://swiperjs.com/demos/images/nature-1.jpg' />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src='https://swiperjs.com/demos/images/nature-2.jpg' />
         </SwiperSlide>
         <div className='hidden group-hover:block'>
           <div className='absolute top-[50%] z-50 flex w-full justify-between'>
@@ -112,6 +112,51 @@ const SlideProductionCart = () => {
           </div>
         </div>
       </Swiper>
+      <>
+        <Modal opened={opened} onClose={close} title='title'>
+          <Swiper
+            loop={true}
+            spaceBetween={10}
+            thumbs={{ swiper: thumbsSwiper }}
+            modules={[FreeMode, Navigation, Thumbs]}
+            className='group relative'
+          >
+            <SwiperSlide className=''>
+              <img
+                className=''
+                src='https://swiperjs.com/demos/images/nature-1.jpg'
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <img src='https://swiperjs.com/demos/images/nature-2.jpg' />
+            </SwiperSlide>
+
+            <div className='hidden group-hover:block'>
+              <div className='absolute top-[50%] z-50 flex w-full justify-between'>
+                <BtnPrevSlide />
+                <BtnNextSlide />
+              </div>
+            </div>
+          </Swiper>
+          <div className=''>
+            <Swiper
+              onSwiper={setThumbsSwiper}
+              loop={true}
+              spaceBetween={10}
+              slidesPerView={4}
+              freeMode={true}
+              watchSlidesProgress={true}
+              modules={[FreeMode, Navigation, Thumbs]}
+              className=' mt-2 h-[84px]'
+            >
+              <SwiperSlide>
+                <img src='https://swiperjs.com/demos/images/nature-1.jpg' />
+              </SwiperSlide>
+            </Swiper>
+          </div>
+        </Modal>
+      </>
+
       <Swiper
         onSwiper={setThumbsSwiper}
         loop={true}
@@ -124,9 +169,6 @@ const SlideProductionCart = () => {
       >
         <SwiperSlide>
           <img src='https://swiperjs.com/demos/images/nature-1.jpg' />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src='https://swiperjs.com/demos/images/nature-2.jpg' />
         </SwiperSlide>
       </Swiper>
     </div>

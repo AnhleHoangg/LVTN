@@ -37,6 +37,7 @@ export default function RHFMutiSelect(props: RHFInputAutoCompleteProps) {
       render={({ field, fieldState: { error } }) => {
         return (
           <Input.Wrapper
+            className='!outline-[red]'
             {...field}
             sx={{
               '.mantine-InputWrapper-error': {
@@ -62,7 +63,6 @@ export default function RHFMutiSelect(props: RHFInputAutoCompleteProps) {
                   data={props.options || []}
                   getCreateLabel={(query) => `${query}`}
                   onChange={(value) => {
-                    console.log('value', value);
                     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                     props.setValue && props.setValue(value);
                   }}

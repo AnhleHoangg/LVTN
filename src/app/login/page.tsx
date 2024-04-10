@@ -33,80 +33,51 @@ export type FormValuesProps = {
 
 export function Social() {
   return (
-    <MantineProvider
-      withCSSVariables
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{
-        /** Put your mantine theme override here */
-        colorScheme: 'light',
-        colors: {
-          primary: [
-            '#E7EBFD',
-            '#BCC7FA',
-            '#91A2F7',
-            '#667EF4',
-            '#3B5AF1',
-            '#1136EE',
-            '#0D2BBF',
-            '#0A208F',
-            '#07155F',
-            '#030B30',
-          ],
-        },
-        primaryColor: 'primary',
-        primaryShade: {
-          light: 4,
-        },
-        fontFamily: 'Inter, sans-serif',
-      }}
-    >
-      <div className='flex w-full flex-col'>
-        <Divider
-          className='w-full'
-          label='Hoặc tiếp tục với'
-          labelPosition='center'
-          labelProps={{
-            sx: {
-              color: '#4C4E64',
-              fontSize: '16px',
-            },
-          }}
-          sx={(theme) => ({
-            color: theme.colors.gray[5],
-            bottom: rem(110),
-          })}
-        />
-        <div className='mt-3 flex w-full justify-between'>
-          <div
-            className='border-light-border flex h-[55px] w-[100px] cursor-pointer items-center justify-center rounded-[5px] border'
-            onClick={() => signIn('google')}
-          >
-            <img
-              className='h-[45px]'
-              src='/images/icons/Google.svg'
-              alt='google'
-            />
-          </div>
-          <div className='border-light-border flex h-[55px] w-[100px] cursor-pointer items-center justify-center rounded-[5px] border'>
-            <img
-              className='h-[45px]'
-              src='/images/icons/Github.svg'
-              alt='github'
-              onClick={() => signIn('github')}
-            />
-          </div>
-          <div className='border-light-border flex h-[55px] w-[100px] cursor-pointer items-center justify-center rounded-[5px] border'>
-            <img
-              className='h-[45px]'
-              src='/images/icons/Facebook.svg'
-              alt='facebook'
-              onClick={() => signIn('facebook')}
-            />
-          </div>
+    <div className='flex w-full flex-col'>
+      <Divider
+        className='w-full'
+        label='Hoặc tiếp tục với'
+        labelPosition='center'
+        labelProps={{
+          sx: {
+            color: '#4C4E64',
+            fontSize: '16px',
+          },
+        }}
+        sx={(theme) => ({
+          color: theme.colors.gray[5],
+          bottom: rem(110),
+        })}
+      />
+      <div className='mt-3 flex w-full justify-between'>
+        <div
+          className='border-light-border flex h-[55px] w-[100px] cursor-pointer items-center justify-center rounded-[5px] border'
+          onClick={() => signIn('google')}
+        >
+          <img
+            className='h-[45px]'
+            src='/images/icons/Google.svg'
+            alt='google'
+          />
+        </div>
+        <div className='border-light-border flex h-[55px] w-[100px] cursor-pointer items-center justify-center rounded-[5px] border'>
+          <img
+            className='h-[45px]'
+            src='/images/icons/Github.svg'
+            alt='github'
+            onClick={() => signIn('github')}
+          />
+        </div>
+        <div className='border-light-border flex h-[55px] w-[100px] cursor-pointer items-center justify-center rounded-[5px] border'>
+          <img
+            className='h-[45px]'
+            src='/images/icons/Facebook.svg'
+            alt='facebook'
+            onClick={() => signIn('facebook')}
+          />
         </div>
       </div>
-    </MantineProvider>
+    </div>
   );
 }
 // page Login
@@ -130,20 +101,6 @@ const Login = () => {
     resolver: yupResolver(LoginSchema),
     defaultValues,
   });
-  interface User {
-    message: string;
-    data: {
-      access_token: string;
-      refresh_token: string;
-      expires_at: number;
-      user_info: {
-        id: string;
-        email: string;
-        first_name: string;
-        last_name: string;
-      };
-    };
-  }
   const { reset, handleSubmit } = methods;
   const onSubmit = async (data: FormValuesProps) => {
     const { email, password } = data;
@@ -168,7 +125,6 @@ const Login = () => {
   }
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      {/* <AuthWrapper> */}
       <Box
         className='shadow-md'
         sx={(theme) => ({
