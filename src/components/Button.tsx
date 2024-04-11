@@ -43,13 +43,13 @@ function PrimaryButton({
     >
       {startIcon && <div className='my-1'>{startIcon}</div>}
 
-      <p
+      <span
         className={`${
           textClassName || 'font-semibold'
         } font-lexend-deca leading-5 tracking-[0.15px] text-white`}
       >
         {text}
-      </p>
+      </span>
       {endIcon && <div className='ml-2'>{endIcon}</div>}
     </button>
   );
@@ -92,15 +92,15 @@ function PrimaryOutlineButton({
       } flex cursor-pointer items-center justify-center rounded-md border border-[#ff0000d7] transition-colors duration-200 ease-in ${bgHoverColor} px-10 py-3 `}
     >
       {rightIcon && rightIcon}
-      <p
+      <span
         className={`${
           textClassName || ''
-        } font-lexend-deca text-base font-semibold leading-5 tracking-[0.15px] text-[#ff0000d7] ${
+        } font-lexend-deca text-base font-semibold leading-5 tracking-[0.15spanx] text-[#ff0000d7] ${
           isHover && textHoverClassName
         }`}
       >
         {text}
-      </p>
+      </span>
       {leftIcon && leftIcon}
     </button>
   );

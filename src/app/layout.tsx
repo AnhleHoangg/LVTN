@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <SessionWrapper>
       <html lang='en'>
-        <body>
+        <body suppressHydrationWarning={false}>
           <div className='flex justify-center'>
             <LayoutDefault>{children}</LayoutDefault>
           </div>

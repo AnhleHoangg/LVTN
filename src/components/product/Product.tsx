@@ -26,7 +26,7 @@ const ProductionItem = ({
   switch (type) {
     case 'flashSale':
       buttonContent = (
-        <button className='mt-[15px] border hover:drop-shadow-md'>
+        <div className='mt-[15px] border hover:drop-shadow-md'>
           <Container className=' w-[186px] px-[0] '>
             <div className=' relative transition '>
               <div className='p-[1px]'>
@@ -55,12 +55,12 @@ const ProductionItem = ({
               </div>
             </div>
           </Container>
-        </button>
+        </div>
       );
       break;
     case 'product':
       buttonContent = (
-        <button>
+        <div>
           <Container className=' mt-[15px] w-[235px] border-[1px] bg-[white] px-[0]'>
             <div className=' group relative transition hover:-translate-y-[2px] hover:border-2 hover:border-[black] hover:drop-shadow-md'>
               <div className='absolute z-50 hidden p-[10px] group-hover:block'>
@@ -70,7 +70,7 @@ const ProductionItem = ({
                   startIcon={
                     <BsCart2 className='text-[16px] font-medium text-[white]' />
                   }
-                ></PrimaryButton>
+                />
               </div>
               <div className='p-[1px]'>
                 <div className=''>
@@ -98,7 +98,7 @@ const ProductionItem = ({
               </div>
             </div>
           </Container>
-        </button>
+        </div>
       );
       break;
     case 'sale':
