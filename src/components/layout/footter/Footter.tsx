@@ -1,11 +1,9 @@
 import React from 'react';
 import {
   danhMucChamSocKhach,
-  danhMucThanhToan,
   danhMucVeShopee,
   donViVanChuyen,
   listChinhSach,
-  quocGia,
   theoDoiChungToi,
 } from '@/components/mock-data';
 import { Grid } from '@mantine/core';
@@ -47,19 +45,6 @@ export const Footter = () => {
         <Grid.Col span={3}>
           <div className='mb-[20px]'>
             <div className='mb-[20px]'>
-              <div className='mb-[20px] p-1 uppercase'>Thanh Toán</div>
-              <div className='block'>
-                {danhMucThanhToan.map((item, index) => (
-                  <span
-                    key={index}
-                    className='mx-2 inline-block rounded-sm border p-[5px] shadow-lg'
-                  >
-                    <img className='h-[22px] w-[52px]' src={item}></img>
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className='mb-[20px]'>
               <div className='mb-[20px] uppercase'> Đơn Vị Vận Chuyển</div>
               <div className='block'>
                 {donViVanChuyen.map((item, index) => (
@@ -100,7 +85,7 @@ export const Footter = () => {
           </div>
         </Grid.Col>
       </Grid>
-      <div className='flex justify-center py-[40px]'>
+      <div className=' flex justify-center py-[40px]'>
         <div className='flex uppercase'>
           {listChinhSach.map((item) => (
             <span className='border-r px-[25px]'>{item}</span>
@@ -123,8 +108,7 @@ export const Footter = () => {
           Gạo Sport
         </div>
         <div className='my-[8px] text-[14px] '>
-          Địa chỉ: Bà Hom, Quận 6, Thành Phố Hồ Chí Minh, Việt Nam. Tổng đài hỗ
-          trợ: 19001221 - Email: cskh@hotro.shopee.vn
+          Địa chỉ: Bà Hom, Quận 6, Thành Phố Hồ Chí Minh, Việt Nam.
         </div>
         <div className='my-[8px] text-[14px]'>
           Chịu Trách Nhiệm Quản Lý Nội Dung: Lê Hoàng Anh - Điện thoại liên hệ:

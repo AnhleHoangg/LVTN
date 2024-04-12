@@ -3,13 +3,14 @@ import { useSwiper } from 'swiper/react';
 import { MdNavigateNext } from 'react-icons/md';
 import { GrFormPrevious } from 'react-icons/gr';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
+import { Zoom, FreeMode, Navigation, Thumbs } from 'swiper/modules';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
+import 'swiper/css/zoom';
 
 const SliderShowItem = ({
   type,
@@ -87,23 +88,26 @@ const SliderShowItem = ({
     </div>
   );
 };
-import { useDisclosure } from '@mantine/hooks';
-import { Modal } from '@mantine/core';
 
 const SlideProductionCart = () => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [opened, { open, close }] = useDisclosure(false);
   return (
     <div className='hover:cursor-pointer'>
       <Swiper
         loop={true}
         spaceBetween={10}
         thumbs={{ swiper: thumbsSwiper }}
-        modules={[FreeMode, Navigation, Thumbs]}
+        modules={[Zoom, FreeMode, Navigation, Thumbs]}
+        pagination={{
+          clickable: true,
+        }}
+        zoom={true}
         className='group relative'
       >
-        <SwiperSlide onClick={open}>
-          <img src='https://swiperjs.com/demos/images/nature-1.jpg' />
+        <SwiperSlide>
+          <div className='swiper-zoom-container'>
+            <img src='https://swiperjs.com/demos/images/nature-1.jpg' />
+          </div>
         </SwiperSlide>
         <div className='hidden group-hover:block'>
           <div className='absolute top-[50%] z-50 flex w-full justify-between'>
@@ -112,9 +116,6 @@ const SlideProductionCart = () => {
           </div>
         </div>
       </Swiper>
-      <>
-        <Modal opened={opened} onClose={close} title='title'></Modal>
-      </>
       <Swiper
         onSwiper={setThumbsSwiper}
         loop={true}

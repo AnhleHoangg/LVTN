@@ -27,7 +27,7 @@ const LayoutDefault = ({ children }: { children: React.ReactNode }) => {
       <div className='fixed z-50 flex w-full justify-around bg-gradient-to-r from-red-700 to-slate-600'>
         <HeaderPage />
       </div>
-      <div className='mt-[175px]'>{children}</div>
+      <div className='mt-[170px]'>{children}</div>
       <div className='z-100 fixed bottom-[1%] right-[2%]'>
         {showScrollButton && (
           <div

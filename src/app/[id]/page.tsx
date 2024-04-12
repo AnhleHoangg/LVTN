@@ -1,12 +1,11 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Breadcrumbs, Anchor, Container } from '@mantine/core';
 import { Grid } from '@mantine/core';
 import { Rating } from '@mantine/core';
 import { CiHeart } from 'react-icons/ci';
 import * as Yup from 'yup';
 
-import LayoutDefault from '@/components/layout/LayoutDefault.tsx/LayoutDefault';
 import {
   BtnNextSlide,
   BtnPrevSlide,
@@ -26,6 +25,9 @@ import HeaderTag from '@/components/HeaderTag';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/parallax';
+
+import { collection, getDocs } from 'firebase/firestore';
+import { getDatabase } from 'firebase/database';
 
 const production = () => {
   const [count, setCount] = useState(1);
@@ -76,7 +78,10 @@ const production = () => {
       {item.title}
     </Anchor>
   ));
-
+  const fakedata = {};
+  // Fetching data in Firebase
+  const [Customer, setCustomer] = useState<any>([fakedata]);
+  useEffect(() => {}, []);
   return (
     <div>
       <div className='flex justify-center'>

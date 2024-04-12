@@ -1,9 +1,10 @@
-import { FaFacebook } from "react-icons/fa";
+import { FaBlogger, FaFacebook, FaRegFolderOpen } from "react-icons/fa";
 import { TiSocialInstagram } from "react-icons/ti";
 import { FaLinkedin } from "react-icons/fa";
-import { CiFacebook } from "react-icons/ci";
+import { CiFacebook, CiShoppingCart } from "react-icons/ci";
 import { ImPinterest2 } from "react-icons/im";
 import { FaXTwitter } from "react-icons/fa6";
+import { IoMdNotificationsOutline } from "react-icons/io";
 
 export const danhMuc = [
   {
@@ -81,18 +82,7 @@ export const danhMucVeShopee = [
   "Flash Sales",
   "Liên Hệ Với Truyền Thông"
 ]
-export const danhMucThanhToan = [
-  "https://down-vn.img.susercontent.com/file/d4bbea4570b93bfd5fc652ca82a262a8",
-  "https://down-vn.img.susercontent.com/file/a0a9062ebe19b45c1ae0506f16af5c16",
-  "https://down-vn.img.susercontent.com/file/38fd98e55806c3b2e4535c4e4a6c4c08",
-  "https://down-vn.img.susercontent.com/file/bc2a874caeee705449c164be385b796c",
-  "https://down-vn.img.susercontent.com/file/2c46b83d84111ddc32cfd3b5995d9281",
-  "https://down-vn.img.susercontent.com/file/5e3f0bee86058637ff23cfdf2e14ca09",
-  "https://down-vn.img.susercontent.com/file/9263fa8c83628f5deff55e2a90758b06",
-  "https://down-vn.img.susercontent.com/file/0217f1d345587aa0a300e69e2195c492"
-]
 export const donViVanChuyen = [
-  "https://down-vn.img.susercontent.com/file/vn-50009109-159200e3e365de418aae52b840f24185",
   "https://down-vn.img.susercontent.com/file/d10b0ec09f0322f9201a4f3daf378ed2",
   "https://down-vn.img.susercontent.com/file/vn-50009109-64f0b242486a67a3d29fd4bcf024a8c6",
   "https://down-vn.img.susercontent.com/file/59270fb2f3fbb7cbc92fca3877edde3f",
@@ -292,5 +282,11 @@ export const bannerQuangCao = [
     title: "",
     link: "https://atosa.asia/wp-content/uploads/2022/11/cach-tinh-phan-tram-giam-gia.jpg"
   },
+
+]
+export const navigationDashboard = [
+  {title: "Sản Phẩm", icon: FaRegFolderOpen},
+  {title: "Đơn Hàng", icon: CiShoppingCart},
+  {title: "Blog", icon: FaBlogger},
 
 ]

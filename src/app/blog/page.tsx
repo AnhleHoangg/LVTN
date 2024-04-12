@@ -1,5 +1,4 @@
 'use client';
-import LayoutDefault from '@/components/layout/LayoutDefault.tsx/LayoutDefault';
 import { Card } from '@mantine/core';
 import React from 'react';
 

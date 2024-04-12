@@ -46,6 +46,7 @@ const Register = () => {
     defaultValues,
   });
   const { reset, handleSubmit } = methods;
+  
 
   const onSubmit = async (data: FormValuesProps) => {
     const { email, password } = data;
