@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 
-const page = () => {
+const CartPage = () => {
   const [count, setCount] = useState(1);
   return (
     <div className='mx container mx-auto mb-[10px]'>
@@ -89,4 +89,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default CartPage;

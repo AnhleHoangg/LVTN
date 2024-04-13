@@ -3,6 +3,8 @@ import { Container } from '@mantine/core';
 import { productionDetail } from '@/components/mock-data';
 import { PrimaryButton } from '@/components/Button';
 import { BsCart2 } from 'react-icons/bs';
+import { CiSettings } from 'react-icons/ci';
+import { IoMdClose } from 'react-icons/io';
 
 const PorductFiller = () => {
   return (
@@ -19,7 +21,13 @@ const PorductFiller = () => {
 };
 const ProductionItem = ({
   type,
+  btnBuy = false,
+  btnCart = false,
+  btnSettingProduction = false,
 }: {
+  btnBuy?: boolean;
+  btnCart?: boolean;
+  btnSettingProduction?: boolean;
   type: 'flashSale' | 'product' | 'sale';
 }) => {
   let buttonContent;
@@ -63,15 +71,37 @@ const ProductionItem = ({
         <div>
           <Container className=' mt-[15px] w-[235px] border-[1px] bg-[white] px-[0]'>
             <div className=' group relative transition hover:-translate-y-[2px] hover:border-2 hover:border-[black] hover:drop-shadow-md'>
-              <div className='absolute z-50 hidden p-[10px] group-hover:block'>
-                <PrimaryButton
-                  className='px-[20px]'
-                  text=''
-                  startIcon={
-                    <BsCart2 className='text-[16px] font-medium text-[white]' />
-                  }
-                />
-              </div>
+              {btnCart && (
+                <div className='absolute z-50 hidden p-[10px] group-hover:block'>
+                  <PrimaryButton
+                    className='px-[20px]'
+                    text=''
+                    startIcon={
+                      <BsCart2 className='text-[16px] font-medium text-[white]' />
+                    }
+                  />
+                </div>
+              )}
+              {btnSettingProduction && (
+                <div className='absolute z-50 hidden w-full p-2 group-hover:block'>
+                  <div className='flex w-full justify-between'>
+                    <PrimaryButton
+                      className='px-[15px]'
+                      text=''
+                      startIcon={
+                        <CiSettings className=' text-[16px] font-medium text-[white]' />
+                      }
+                    />
+                    <PrimaryButton
+                      className='px-[15px]'
+                      text=''
+                      startIcon={
+                        <IoMdClose className='text-[16px] font-medium text-[white]' />
+                      }
+                    />
+                  </div>
+                </div>
+              )}
               <div className='p-[1px]'>
                 <div className=''>
                   <img src='https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lrv6e24bfb2c88_tn'></img>
@@ -89,13 +119,21 @@ const ProductionItem = ({
                     Quần bóng đá Grand Sport 001478 Trắng
                   </p>
                 </div>
-                <div className='mt-[5px] font-semibold text-[red] '>
-                  $99,000
+                <div className='flex justify-between'>
+                  <div className='mt-[5px] font-semibold text-[red] '>
+                    $99,000
+                  </div>
+                  <div className='mt-[5px] font-semibold '>
+                    Còn lại:
+                    <span className='ml-2 text-[green]'>100 SP</span>
+                  </div>
                 </div>
               </div>
-              <div className='p-[10px]'>
-                <PrimaryButton className='w-full' text='Mua Ngay' />
-              </div>
+              {btnBuy && (
+                <div className='p-[10px]'>
+                  <PrimaryButton className='w-full' text='Mua Ngay' />
+                </div>
+              )}
             </div>
           </Container>
         </div>

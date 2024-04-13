@@ -5,6 +5,7 @@ import { CiFacebook, CiShoppingCart } from "react-icons/ci";
 import { ImPinterest2 } from "react-icons/im";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoMdNotificationsOutline } from "react-icons/io";
+import { PATH_DASHBOARD } from "@/routes/path";
 
 export const danhMuc = [
   {
@@ -285,8 +286,10 @@ export const bannerQuangCao = [
 
 ]
 export const navigationDashboard = [
-  {title: "Sản Phẩm", icon: FaRegFolderOpen},
-  {title: "Đơn Hàng", icon: CiShoppingCart},
-  {title: "Blog", icon: FaBlogger},
+  {title: "Sản Phẩm", icon: FaRegFolderOpen,
+    to: PATH_DASHBOARD.productionItem
+  },
+  {title: "Đơn Hàng", icon: CiShoppingCart, to: PATH_DASHBOARD.oder},
+  {title: "Blog", icon: FaBlogger,  to: PATH_DASHBOARD.dashboardblog},
 
 ]

@@ -17,7 +17,7 @@ const NavigationDashBoard = () => {
       </Text>
       <ul className='mt-[20px] font-medium'>
         {navigationDashboard.map((item) => (
-          <Link href='/dashboard/oder'>
+          <Link href={item.to}>
             <li
               key={item.title}
               className='flex items-center from-red-700 to-slate-600 p-4 hover:bg-gradient-to-r hover:text-[white]'

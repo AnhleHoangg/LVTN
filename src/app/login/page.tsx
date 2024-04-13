@@ -1,13 +1,6 @@
 'use client';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  Box,
-  Container,
-  Divider,
-  Flex,
-  MantineProvider,
-  rem,
-} from '@mantine/core';
+import { Box, Container, Divider, Flex, rem } from '@mantine/core';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -181,59 +174,54 @@ const Login = () => {
                   Quên mật khẩu?
                 </p>
               </Link>
-              <MantineProvider
-                theme={{
-                  fontFamily: 'Inter, sans-serif',
-                }}
-              >
-                <PrimaryButton
-                  type='submit'
-                  className='mt-2 h-[55px]'
-                  text='Đăng nhập'
-                />
-                {errorLogin && (
-                  <Container
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'flex-end',
-                      justifyContent: 'center',
-                      bottom: rem(285),
-                      gap: rem(8),
-                      color: '#FF3D71',
-                      width: rem(326),
-                      padding: rem(8),
-                      borderRadius: rem(4),
-                      fontSize: rem(12),
-                    }}
-                  >
-                    <BiError size={20} />
-                    <span>{errorLogin}</span>
-                  </Container>
-                )}
+
+              <PrimaryButton
+                type='submit'
+                className='mt-2 h-[55px]'
+                text='Đăng nhập'
+              />
+              {errorLogin && (
                 <Container
                   sx={{
                     display: 'flex',
                     alignItems: 'flex-end',
                     justifyContent: 'center',
+                    bottom: rem(285),
                     gap: rem(8),
-                    height: rem(32),
+                    color: '#FF3D71',
                     width: rem(326),
                     padding: rem(8),
                     borderRadius: rem(4),
-                    fontSize: rem(14),
+                    fontSize: rem(12),
                   }}
                 >
-                  <span className='text-light-text-primary text-[16px]'>
-                    Chưa có tài khoản?
-                  </span>
-                  <Link
-                    href={PATH_AUTH.register}
-                    className='text-light-text-primary text-[16px] no-underline'
-                  >
-                    Đăng ký
-                  </Link>
+                  <BiError size={20} />
+                  <span>{errorLogin}</span>
                 </Container>
-              </MantineProvider>
+              )}
+              <Container
+                sx={{
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'center',
+                  gap: rem(8),
+                  height: rem(32),
+                  width: rem(326),
+                  padding: rem(8),
+                  borderRadius: rem(4),
+                  fontSize: rem(14),
+                }}
+              >
+                <span className='text-light-text-primary text-[16px]'>
+                  Chưa có tài khoản?
+                </span>
+                <Link
+                  href={PATH_AUTH.register}
+                  className='text-light-text-primary text-[16px] no-underline'
+                >
+                  Đăng ký
+                </Link>
+              </Container>
             </Flex>
           </div>
           <Social />

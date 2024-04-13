@@ -1,6 +1,6 @@
 'use client';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Container, Flex, MantineProvider, rem } from '@mantine/core';
+import { Box, Container, Flex, rem } from '@mantine/core';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
@@ -46,7 +46,6 @@ const Register = () => {
     defaultValues,
   });
   const { reset, handleSubmit } = methods;
-  
 
   const onSubmit = async (data: FormValuesProps) => {
     const { email, password } = data;
@@ -69,96 +68,90 @@ const Register = () => {
           margin: 'auto',
         })}
       >
-        <MantineProvider
-          theme={{
-            fontFamily: 'Inter, sans-serif',
-          }}
-        >
-          <Flex className='mt-[50px]' direction='column' gap={16} mb={rem(80)}>
-            <RHFTextField
-              name='email'
-              placeholder='Email'
-              sx={{
-                '& input': {
-                  height: rem(55),
-                  borderRadius: rem(8),
+        <Flex className='mt-[50px]' direction='column' gap={16} mb={rem(80)}>
+          <RHFTextField
+            name='email'
+            placeholder='Email'
+            sx={{
+              '& input': {
+                height: rem(55),
+                borderRadius: rem(8),
+              },
+            }}
+          />
+          <RHFPasswordField
+            name='password'
+            placeholder='Mật khẩu'
+            styles={{
+              wrapper: {
+                '& input:focus': {
+                  border: '0 !important',
                 },
-              }}
-            />
-            <RHFPasswordField
-              name='password'
-              placeholder='Mật khẩu'
-              styles={{
-                wrapper: {
-                  '& input:focus': {
-                    border: '0 !important',
-                  },
+              },
+              input: {
+                height: rem(55),
+                borderRadius: rem(8),
+              },
+              innerInput: {
+                height: 'auto',
+              },
+            }}
+          />
+          <RHFPasswordField
+            name='confirmpassword'
+            placeholder='Nhập lại mật khẩu'
+            styles={{
+              wrapper: {
+                '& input:focus': {
+                  border: '0 !important',
                 },
-                input: {
-                  height: rem(55),
-                  borderRadius: rem(8),
-                },
-                innerInput: {
-                  height: 'auto',
-                },
-              }}
-            />
-            <RHFPasswordField
-              name='confirmpassword'
-              placeholder='Nhập lại mật khẩu'
-              styles={{
-                wrapper: {
-                  '& input:focus': {
-                    border: '0 !important',
-                  },
-                },
-                input: {
-                  height: rem(55),
-                  borderRadius: rem(8),
-                },
-                innerInput: {
-                  height: 'auto',
-                },
-              }}
-            />
-            <PrimaryButton
-              type='submit'
-              className='mt-2 h-[55px]'
-              text='Đăng ký'
-              disabled={!text}
-              onClick={() => {
-                console.log();
-              }}
-            />
-            <div className='mt-[20px]'>
-              <Social />
-            </div>
-            <Container
-              sx={{
-                display: 'flex',
-                alignItems: 'flex-end',
-                justifyContent: 'center',
-                gap: rem(8),
-                height: rem(32),
-                width: rem(326),
-                padding: rem(8),
-                borderRadius: rem(4),
-                fontSize: rem(12),
-                marginTop: rem(30),
-              }}
+              },
+              input: {
+                height: rem(55),
+                borderRadius: rem(8),
+              },
+              innerInput: {
+                height: 'auto',
+              },
+            }}
+          />
+          <PrimaryButton
+            type='submit'
+            className='mt-2 h-[55px]'
+            text='Đăng ký'
+            disabled={!text}
+            onClick={() => {
+              console.log();
+            }}
+          />
+          <div className='mt-[20px]'>
+            <Social />
+          </div>
+          <Container
+            sx={{
+              display: 'flex',
+              alignItems: 'flex-end',
+              justifyContent: 'center',
+              gap: rem(8),
+              height: rem(32),
+              width: rem(326),
+              padding: rem(8),
+              borderRadius: rem(4),
+              fontSize: rem(12),
+              marginTop: rem(30),
+            }}
+          >
+            <span className='text-light-text-primary text-[16px]'>
+              Đã có tài khoản?
+            </span>
+            <Link
+              href={PATH_AUTH.login}
+              className='text-light-text-primary text-[16px] no-underline'
             >
-              <span className='text-light-text-primary text-[16px]'>
-                Đã có tài khoản?
-              </span>
-              <Link
-                href={PATH_AUTH.login}
-                className='text-light-text-primary text-[16px] no-underline'
-              >
-                Đăng nhập
-              </Link>
-            </Container>
-          </Flex>
-        </MantineProvider>
+              Đăng nhập
+            </Link>
+          </Container>
+        </Flex>
       </Box>
     </FormProvider>
   );

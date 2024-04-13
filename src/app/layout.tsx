@@ -1,6 +1,7 @@
 import SessionWrapper from '@/components/SessionWrapper';
 import '../styles/globals.css';
 import LayoutDefault from '@/components/layout/LayoutDefault.tsx/LayoutDefault';
+import { MantineProvider } from '@mantine/core';
 
 export const metadata = {
   title: 'Next.js',
@@ -17,7 +18,9 @@ export default function RootLayout({
       <html lang='en'>
         <body suppressHydrationWarning={false}>
           <div className='flex justify-center'>
-            <LayoutDefault>{children}</LayoutDefault>
+            <MantineProvider>
+              <LayoutDefault>{children}</LayoutDefault>
+            </MantineProvider>
           </div>
         </body>
       </html>
