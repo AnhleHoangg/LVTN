@@ -2,7 +2,7 @@
 import { PrimaryButton } from '@/components/Button';
 import { ProductionItem } from '@/components/product/Product';
 import { Card, Grid, Text } from '@mantine/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { useDisclosure } from '@mantine/hooks';
 import { Modal } from '@mantine/core';
@@ -12,6 +12,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import RHFInputPicture from '@/components/hook-form/RHFInputPicture';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { db } from '@/firebaseConfig';
 
 const ProducItemDashboard = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -29,11 +31,6 @@ const ProducItemDashboard = () => {
     price: Yup.number().required('Nhập giá vào'),
     quanlity: Yup.number().required('Nhập số lượng vào'),
     material: Yup.string().required('Nhập loại vào'),
-    // file: Yup.mixed().test(
-    //   'required',
-    //   'Please select a file',
-    //   (files: any) => (files as FileList)?.length > 0
-    // ),
   });
   type Value = {
     nameitem: string;
@@ -41,7 +38,7 @@ const ProducItemDashboard = () => {
     price: number;
     quanlity: number;
     material: string;
-    file?: FileList;
+    // file?: FileList;
   };
   const methods = useForm<Value>({
     mode: 'onBlur',
@@ -50,11 +47,39 @@ const ProducItemDashboard = () => {
   });
   const { reset, handleSubmit } = methods;
 
+  const getDataFireBase = async (value: Value) => {
+    try {
+      const docRef = await addDoc(collection(db, 'Product'), {
+        value,
+      });
+    } catch (e) {
+      console.error('Error adding document: ', e);
+    }
+  };
   const onSubmit = async (data: Value) => {
-    console.log(data.nameitem);
-    console.log(data);
+    getDataFireBase(data);
     reset(defaultValues);
   };
+
+  type ValueData = {
+    nameitem: string;
+    UDK: string;
+    price: number;
+    quanlity: number;
+    material: string;
+  }[];
+  const [dataInFirebase, setDataInFirebase] = useState<ValueData>();
+  useEffect(() => {
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, 'Product'));
+      const data: any[] = [];
+      querySnapshot.forEach((doc) => {
+        data.push(doc.data());
+      });
+      setDataInFirebase(data);
+    };
+    fetchData();
+  }, []);
   return (
     <Card className='relative'>
       <Text
@@ -66,9 +91,15 @@ const ProducItemDashboard = () => {
         Tất cả hàng hóa
       </Text>
       <Grid className='mt-[20px]'>
-        <Grid.Col span={2}>
-          <ProductionItem type='product' btnSettingProduction />
-        </Grid.Col>
+        {dataInFirebase?.map((item: any) => (
+          <Grid.Col span={2}>
+            <ProductionItem
+              type='product'
+              btnSettingProduction
+              data={item.value}
+            />
+          </Grid.Col>
+        ))}
       </Grid>
       <PrimaryButton
         onClick={open}
@@ -76,6 +107,7 @@ const ProducItemDashboard = () => {
         text='Thêm Sản Phẩm'
         endIcon={<FaPlus />}
       ></PrimaryButton>
+      {/* Modal thêm sản phẩm */}
       <Modal opened={opened} onClose={close} title='Thêm sản phẩm'>
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
           <div className='p-4'>
@@ -103,16 +135,16 @@ const ProducItemDashboard = () => {
               <span>Chất liệu </span>
               <RHFTextField name='material' placeholder='Loại Vải' />
             </div>
-            <div className='mb-2'>
+            {/* <div className='mb-2'>
               <RHFInputPicture label='Tải ảnh đại diện' name='avatar' />
-            </div>
-            <div className='mb-2'>
+            </div> */}
+            {/* <div className='mb-2'>
               <RHFInputPicture
                 multiple
                 label='Tải album sản phẩm'
                 name='album'
               />
-            </div>
+            </div> */}
           </div>
           <PrimaryButton
             type='submit'

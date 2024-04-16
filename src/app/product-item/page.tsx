@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Breadcrumbs, Anchor, Container } from '@mantine/core';
 import { Grid } from '@mantine/core';
 import { Rating } from '@mantine/core';
-import { CiHeart } from 'react-icons/ci';
 import * as Yup from 'yup';
 
 import {
@@ -11,7 +10,7 @@ import {
   BtnPrevSlide,
   SlideProductionCart,
 } from '@/components/Slider/SliderShowItem';
-import { danhMuc, listMediaSocial } from '@/components/mock-data';
+import { danhMuc } from '@/components/mock-data';
 import FormProvider from '@/components/hook-form/FormProvider';
 import { RHFMutiSelect, RHFTextField } from '@/components/hook-form';
 import { useForm } from 'react-hook-form';
@@ -34,18 +33,18 @@ const production = () => {
   const LoginSchema = Yup.object().shape({
     note: Yup.string().required('Nên điền ghi chú để nhận đồ hợp ý nhé!'),
     transport: Yup.string().required('Địa chỉ là bắt buộc'),
-    select: Yup.string().required('Chưa chon size'),
+    size: Yup.string().required('Chưa chon size'),
   });
 
   const defaultValues = {
     note: '',
     transport: '',
-    select: '',
+    size: '29',
     count: 1,
   };
 
   type FormValuesProps = {
-    select: string;
+    size: string;
     transport: string;
     note: string;
     count?: number;
@@ -78,14 +77,12 @@ const production = () => {
       {item.title}
     </Anchor>
   ));
-  const fakedata = {};
   // Fetching data in Firebase
-  const [Customer, setCustomer] = useState<any>([fakedata]);
   useEffect(() => {}, []);
   return (
     <div>
       <div className='flex justify-center'>
-        <div className='mx container'>
+        <div className='mx container mt-2'>
           <Breadcrumbs>{items}</Breadcrumbs>
         </div>
       </div>
@@ -96,22 +93,6 @@ const production = () => {
             <Grid.Col span={4}>
               <div className='mr-[10px]'>
                 <SlideProductionCart />
-              </div>
-              <div className='mt-[20px] flex items-center justify-center'>
-                <div className='flex items-center border-r px-[30px]'>
-                  <div className='mr-[5px]'>Chia sẻ:</div>
-                  {listMediaSocial.map((item, index) => (
-                    <button key={index} className='mr-[5px] text-[25px]'>
-                      <item.icon />
-                    </button>
-                  ))}
-                </div>
-                <div className='ml-[30px] flex items-center'>
-                  <button className='p-2'>
-                    <CiHeart className='font-bold text-[red]' size={25} />
-                  </button>
-                  <div> Yêu Thích (3k)</div>
-                </div>
               </div>
             </Grid.Col>
             <Grid.Col span={8}>
@@ -149,21 +130,15 @@ const production = () => {
                 <table className='mb-[20px] w-2/3'>
                   <tbody>
                     <tr className='h-[58px]'>
-                      <td className='w-[110px]'>
-                        <div className='mx-2'>Tình Trạng : </div>
-                      </td>
+                      <td className='mx-2 w-[110px]'>Tình Trạng:</td>
                       <td className=' flex h-[58px] items-center'>
-                        <div className='mr-[5px]'>
-                          <span className=' border-x-inherit p-[5px] text-[green]'>
-                            Còn 300 sản phẩm
-                          </span>
-                        </div>
+                        <span className=' mr-[5px] p-[5px] text-[green]'>
+                          Còn 300 sản phẩm
+                        </span>
                       </td>
                     </tr>
                     <tr className='h-[58px]'>
-                      <td className='w-[110px]'>
-                        <div className='mx-2 w-[110px]'>Vận Chuyển</div>
-                      </td>
+                      <td className='mx-2 w-[110px]'>Vận Chuyển</td>
                       <td>
                         <div className='my-[10px]'>
                           <RHFTextField
@@ -174,14 +149,12 @@ const production = () => {
                       </td>
                     </tr>
                     <tr className='h-[58px]'>
-                      <td className=' w-[110px]'>
-                        <div className='mx-2'>Size</div>
-                      </td>
+                      <td className=' mx-2 w-[110px]'>Size</td>
                       <td>
                         <div>
                           <RHFMutiSelect
                             className='w-[185px]'
-                            name='select'
+                            name='size'
                             options={['29', '30', '40']}
                             placeholder='kk'
                             type='select'
@@ -190,9 +163,7 @@ const production = () => {
                       </td>
                     </tr>
                     <tr className='h-[58px]'>
-                      <td className='w-[110px]'>
-                        <div className='font-bold'>Số Lượng</div>
-                      </td>
+                      <td className='w-[110px]'>Số Lượng</td>
                       <td>
                         <div className='my-[10px] flex w-fit'>
                           <button
@@ -246,29 +217,32 @@ const production = () => {
                 </div>
               </FormProvider>
               <div>
-                <div className='item flex'>
-                  <span>Gọi điện để được tư vấn:</span>
-                  <a className='ml-[10px] text-[25px] text-[red]' href='tel'>
+                <div className='item flex items-center'>
+                  <p className='my-auto'>Gọi điện để được tư vấn:</p>
+                  <a
+                    className='ml-[5px] text-[16px] font-semibold text-[red]'
+                    href='tel:0927993249'
+                  >
                     0927993249
                   </a>
                 </div>
-                <div className='flex items-center'>
-                  <span className='mr-2'>Chất nhận mọi thanh toán:</span>
+                <div className='mt-[10px] flex items-center'>
+                  <p className='mr-2'>Chất nhận mọi thanh toán:</p>
                   <div className='flex'>
                     <img
-                      className='ml-2 h-[40px] w-[40px]'
+                      className='ml-4 h-[30px] w-[30px]'
                       src='https://bizweb.dktcdn.net/100/415/445/themes/804210/assets/payment-1.svg?1708498874444'
                     ></img>
                     <img
-                      className='ml-2 h-[40px] w-[40px]'
+                      className='ml-4 h-[30px] w-[30px]'
                       src='https://bizweb.dktcdn.net/100/415/445/themes/804210/assets/payment-4.svg?1708498874444'
                     ></img>
                     <img
-                      className='ml-2 h-[40px] w-[40px]'
+                      className='ml-4 h-[30px] w-[30px]'
                       src='https://bizweb.dktcdn.net/100/415/445/themes/804210/assets/payment-2.svg?1708498874444'
                     ></img>
                     <img
-                      className='ml-2 h-[40px] w-[40px]'
+                      className='ml-4 h-[30px] w-[30px]'
                       src='https://bizweb.dktcdn.net/100/415/445/themes/804210/assets/payment-3.svg?1708498874444'
                     ></img>
                   </div>

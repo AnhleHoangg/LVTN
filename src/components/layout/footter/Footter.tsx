@@ -1,20 +1,14 @@
 import React from 'react';
-import {
-  danhMucChamSocKhach,
-  danhMucVeShopee,
-  donViVanChuyen,
-  listChinhSach,
-  theoDoiChungToi,
-} from '@/components/mock-data';
+import { danhMucChamSocKhach, theoDoiChungToi } from '@/components/mock-data';
 import { Grid } from '@mantine/core';
 
 export const Footter = () => {
   return (
-    <div className='text-[white]'>
+    <div className='uppercase text-[white]'>
       <Grid className='border-b'>
-        <Grid.Col span={3}>
+        <Grid.Col span={4}>
           <div>
-            <div className='mb-[20px] p-1 uppercase'>Chắm sóc khách hàng</div>
+            <div className='mb-[20px] p-1 '>Chắm sóc khách hàng</div>
             <ul>
               {danhMucChamSocKhach.map((item, index) => (
                 <li
@@ -27,25 +21,10 @@ export const Footter = () => {
             </ul>
           </div>
         </Grid.Col>
-        <Grid.Col span={3}>
-          <div>
-            <div className='mb-[20px] p-1 uppercase'>Gạo Sport</div>
-            <ul>
-              {danhMucVeShopee.map((item, index) => (
-                <li
-                  key={index}
-                  className='mb-[12px] text-[14px] hover:text-[red]'
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Grid.Col>
-        <Grid.Col span={3}>
+        {/* <Grid.Col span={3}>
           <div className='mb-[20px]'>
             <div className='mb-[20px]'>
-              <div className='mb-[20px] uppercase'> Đơn Vị Vận Chuyển</div>
+              <div className='mb-[20px] '> Đơn Vị Vận Chuyển</div>
               <div className='block'>
                 {donViVanChuyen.map((item, index) => (
                   <span
@@ -58,40 +37,40 @@ export const Footter = () => {
               </div>
             </div>
           </div>
-        </Grid.Col>
-        <Grid.Col span={3}>
-          <div className='mb-[20px] uppercase'>Theo Dõi Chúng Tôi Trên</div>
-          <ul>
+        </Grid.Col> */}
+        <Grid.Col span={4}>
+          <div className='mb-[20px] '>Theo Dõi Chúng Tôi Trên</div>
+          <ul className='flex justify-around'>
             {theoDoiChungToi.map((item, index) => (
-              <li
-                className='mb-[8px] flex items-center hover:text-[red]'
-                key={index}
-              >
-                <span className='mr-[8px] text-[16px]'>
+              <li className='flex items-center hover:text-[red]' key={index}>
+                <span className='mr-[2px] text-[16px]'>
                   <item.icon />
                 </span>
                 <span>{item.tittle}</span>
               </li>
             ))}
           </ul>
-          <div>
-            <div className='mb-[20px] uppercase'>Fanpage</div>
-            <a href='/'>
+          <a href='/'>
+            <div className='mt-[10px] flex items-center '>
               <img
-                className='h-[120px] w-full object-cover '
-                src='https://scontent.fsgn5-14.fna.fbcdn.net/v/t39.30808-6/384781164_187908367670948_2676517665423334773_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGAcbgoM7zD8xUf9QSEpEmMsTyHWSE5hi2xPIdZITmGLVkBeOufTh-4w3Hbvf2PtF49zhJICAz02jB5xVPjDu6i&_nc_ohc=fPRDzlzLxf0Ab7okpYT&_nc_oc=AdiisjO6na5QaY1UQXny_hQ3hnddhlVIVoMLvueQkse0Xhs_C3q2cbKdZkqWRtubObA&_nc_ht=scontent.fsgn5-14.fna&oh=00_AfCt1lpzDz65QaAl1APk9g6AcX3vLvE0iB9gymqgGf4p6Q&oe=6619C3B6'
-              />
-            </a>
+                className='h-[100px] w-[100px] rounded-xl object-cover p-2'
+                src='https://i.pinimg.com/736x/30/b5/49/30b54999b098050158ed13a1ecdcaab0.jpg'
+              ></img>
+              <span className='ml-2'>Hội Anh Em MU VIP Pro</span>
+            </div>
+          </a>
+        </Grid.Col>
+        <Grid.Col span={4}>
+          <span>Kết nối với chúng tôi</span>
+          <div className='mt-2'>
+            <iframe
+              title='Gạo Sport'
+              className='!h-full w-full'
+              src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d244.89940621069618!2d106.62733181350781!3d10.857874608648986!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752b12a68a5f37%3A0xa6a1162f251bd3fa!2zMTEzIMSQw7RuZyBC4bqvYywgVMOibiBIxrBuZyBUaHXhuq1uLCBRdeG6rW4gMTIsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCA3MTUwNiwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1695487076965!5m2!1svi!2s'
+            ></iframe>
           </div>
         </Grid.Col>
       </Grid>
-      <div className=' flex justify-center py-[40px]'>
-        <div className='flex uppercase'>
-          {listChinhSach.map((item) => (
-            <span className='border-r px-[25px]'>{item}</span>
-          ))}
-        </div>
-      </div>
       <div className='flex flex-col items-center justify-center'>
         <div className='flex items-center '>
           <a className='mx-[20px]' href='/'>
@@ -104,11 +83,8 @@ export const Footter = () => {
             <div className='bg-bottom-1 h-[80px] w-[80px]  bg-[url("https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/9765d68a8945750d.png")] bg-no-repeat'></div>
           </a>
         </div>
-        <div className='mb-[25px]  mt-[8px] text-[24px] uppercase tracking-widest'>
+        <div className='mb-[25px]  mt-[8px] text-[24px]  tracking-widest'>
           Gạo Sport
-        </div>
-        <div className='my-[8px] text-[14px] '>
-          Địa chỉ: Bà Hom, Quận 6, Thành Phố Hồ Chí Minh, Việt Nam.
         </div>
         <div className='my-[8px] text-[14px]'>
           Chịu Trách Nhiệm Quản Lý Nội Dung: Lê Hoàng Anh - Điện thoại liên hệ:

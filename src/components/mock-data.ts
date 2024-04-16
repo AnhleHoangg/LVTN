@@ -1,10 +1,7 @@
 import { FaBlogger, FaFacebook, FaRegFolderOpen } from "react-icons/fa";
 import { TiSocialInstagram } from "react-icons/ti";
 import { FaLinkedin } from "react-icons/fa";
-import { CiFacebook, CiShoppingCart } from "react-icons/ci";
-import { ImPinterest2 } from "react-icons/im";
-import { FaXTwitter } from "react-icons/fa6";
-import { IoMdNotificationsOutline } from "react-icons/io";
+import { CiShoppingCart } from "react-icons/ci";
 import { PATH_DASHBOARD } from "@/routes/path";
 
 export const danhMuc = [
@@ -68,13 +65,10 @@ export const danhMuc1 = [
   {page: [1,2,3,4,5,6]},
 ]
 export const danhMucChamSocKhach = [
-  "Trung Tâm Trợ Giúp",
-          "Gạo Blog",
-          "Thanh Toán",
-          "Vận Chuyển",
-          "Trả Hàng & Hoàn Tiền",
-          "Chăm Sóc Khách Hàng",
-          "Chính Sách Bảo Hàng",
+          "Gạo Sport",
+          "Bà Hom, Quận 6, Thành Phố Hồ Chí Minh, Việt Nam",
+          "Gọi điện đặt lịch hẹn: 0966243941",
+          "Zalo hỗ trợ",
 ]
 export const danhMucVeShopee = [
   "Giới Thiệu Về Gạo Sport",
@@ -124,17 +118,6 @@ export const listChinhSach = [
   "Quy Chế Hoạt Động",
   "Chính Sách Vận Chuyển",
   "Chính Sách Trả Hàng Và Hoàn Tiền"
-]
-export const listMediaSocial = [
-  {
-    icon: CiFacebook
-  }, 
-  {
-    icon: ImPinterest2
-  },
-  {
-    icon: FaXTwitter
-  }
 ]
 export const productionDetail:{
   list: string;

@@ -19,16 +19,25 @@ const PorductFiller = () => {
     </div>
   );
 };
+type ValueData = {
+  nameitem: string;
+  UDK: string;
+  price: number;
+  quanlity: number;
+  material: string;
+};
 const ProductionItem = ({
+  data,
   type,
   btnBuy = false,
   btnCart = false,
   btnSettingProduction = false,
 }: {
+  data?: ValueData;
   btnBuy?: boolean;
   btnCart?: boolean;
   btnSettingProduction?: boolean;
-  type: 'flashSale' | 'product' | 'sale';
+  type: 'flashSale' | 'product';
 }) => {
   let buttonContent;
   switch (type) {
@@ -115,17 +124,19 @@ const ProductionItem = ({
               </div>
               <div className='p-[7px]'>
                 <div className='mb-3 h-[20px] px-[5px]'>
-                  <p className='m-auto truncate'>
-                    Quần bóng đá Grand Sport 001478 Trắng
+                  <p className='m-auto truncate text-[black]'>
+                    {data?.nameitem}
                   </p>
                 </div>
                 <div className='flex justify-between'>
                   <div className='mt-[5px] font-semibold text-[red] '>
-                    $99,000
+                    {data?.price}
                   </div>
                   <div className='mt-[5px] font-semibold '>
                     Còn lại:
-                    <span className='ml-2 text-[green]'>100 SP</span>
+                    <span className='ml-2 text-[green]'>
+                      {data?.quanlity} SP
+                    </span>
                   </div>
                 </div>
               </div>
@@ -138,9 +149,6 @@ const ProductionItem = ({
           </Container>
         </div>
       );
-      break;
-    case 'sale':
-      buttonContent = <button>Sale</button>;
       break;
     default:
       buttonContent = null;

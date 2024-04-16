@@ -11,6 +11,8 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import 'swiper/css/zoom';
+import 'swiper/css/parallax';
+import Link from 'next/link';
 
 const SliderShowItem = ({
   type,
@@ -28,39 +30,43 @@ const SliderShowItem = ({
     <div>
       {type === 'info' ? (
         <div
-          className='swiper h-[500px] text-center'
+          className='swiper h-[500px] bg-cover object-contain text-center'
           style={{
-            backgroundImage: `url("https://inuvdp.com/wp-content/uploads/2023/07/Download-File-Vector-Logo-MU-Manchester-United-01.jpg")`,
+            backgroundImage: `url("https://scontent.fsgn5-14.fna.fbcdn.net/v/t39.30808-6/384781164_187908367670948_2676517665423334773_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=DZUVcW6j86gAb5ijlv-&_nc_oc=Adh0ZcfDTX31Ka0y7EsjFTTAMKuF5roBZBOrMmFoaoQJrrKCGLrFWTzmpvSvOAwqmGw&_nc_ht=scontent.fsgn5-14.fna&oh=00_AfDXsJUmfv0Wd0D3eIUqthWtMhIc7ADIrgYV0upsPwcx-w&oe=66241776")`,
             backgroundRepeat: `no-repeat`,
             backgroundPosition: `center`,
           }}
         >
           <div
             className='parallax-bg'
-            data-swiper-parallax-duration='2000'
+            data-swiper-parallax-duration='3000'
             data-swiper-parallax='-50%'
           ></div>
           <div className='swiper-wrapper'>
             <div className='swiper-slide'>
-              <div className=' flex h-[700px] flex-col items-center justify-center'>
+              <div className=' flex h-[700px] flex-col items-center justify-center text-[white]'>
                 <div
                   data-swiper-parallax='-200'
-                  data-swiper-parallax-duration='2000'
+                  data-swiper-parallax-duration='3000'
                 >
-                  <h1 className='text-[27px] font-bold'>Lee Hoagn ANh</h1>
+                  <h1 className='text-[27px] font-bold uppercase tracking-widest'>
+                    Gạo Sport
+                  </h1>
                 </div>
                 <div
                   data-swiper-parallax='-100'
                   data-swiper-parallax-duration='1000'
                 >
-                  <p className='text-[50px] font-semibold'>1</p>
+                  <p className='text-[50px] font-semibold'>
+                    Sản Phẩm Chất Lượng - Uy Tín
+                  </p>
                 </div>
                 <div
                   data-swiper-parallax-duration='1000'
-                  data-swiper-parallax-scale='0.5'
+                  data-swiper-parallax-scale='0.6'
                 >
                   <a href='/'>
-                    <button className='ct-hoverDefault bg-web-100 mt-[20px] rounded-full px-6 py-2 font-semibold'>
+                    <button className='mt-[20px] rounded-full bg-slate-500 px-6 py-2 font-semibold hover:bg-red-400'>
                       Shop Now
                     </button>
                   </a>
@@ -90,7 +96,7 @@ const SliderShowItem = ({
 };
 
 const SlideProductionCart = () => {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
   return (
     <div className='hover:cursor-pointer'>
       <Swiper

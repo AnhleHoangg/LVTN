@@ -11,6 +11,10 @@ import {
 } from 'mantine-data-grid';
 import NavigationDashBoard from '@/components/layout/nav/NavigationDashBoard';
 
+interface Cell<T> {
+  getValue<U>(): U | null | undefined;
+}
+
 const demoData = [
   {
     id: 1,
@@ -37,7 +41,7 @@ const demoData = [
 
 const page = () => {
   return (
-    <Card className='flex'>
+    <Card className='flex flex-row'>
       <div className=' !h-full w-1/4'>
         <NavigationDashBoard />
       </div>
@@ -85,7 +89,7 @@ const page = () => {
             { accessorKey: 'Số lượng', filterFn: numberFilterFn },
             {
               accessorKey: 'Ngày Giờ',
-              cell: (cell) => cell.getValue<Date>()?.toLocaleDateString(),
+              cell: (cell: Cell<Date>) => cell.getValue<Date>()?.toUTCString(),
               filterFn: dateFilterFn,
             },
             {

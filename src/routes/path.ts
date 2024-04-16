@@ -4,7 +4,7 @@ export const PATH_DASHBOARD = {
   dashboard: '/dashboard',
   oder: '/dashboard/oder',
   productionItem: '/dashboard/productionItem',
-  dashboardblog: '/dashboard/dashboardblog',
+  dashboardblog: '/dashboard/blog',
 };
 
 export const PATH_AUTH = {

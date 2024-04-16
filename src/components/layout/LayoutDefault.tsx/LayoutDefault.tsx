@@ -4,43 +4,42 @@ import HeaderPage from '@/components/layout/header/Header';
 import { Container } from '@mantine/core';
 import { Footter } from '@/components/layout/footter/Footter';
 import { Tooltip } from '@mantine/core';
-import { FaArrowCircleUp } from 'react-icons/fa';
 import { useWindowScroll } from '@mantine/hooks';
+import { MdKeyboardArrowUp } from 'react-icons/md';
 
 const LayoutDefault = ({ children }: { children: React.ReactNode }) => {
   const [scroll, scrollTo] = useWindowScroll();
   const [showScrollButton, setShowScrollButton] = useState(false);
+
   useEffect(() => {
     handleScroll();
   }, [scroll.y]);
 
   const handleScroll = () => {
     if (scroll.y > 0) {
-      setShowScrollButton(true); // Hiển thị nút cuộn lên
+      setShowScrollButton(true);
     } else {
-      setShowScrollButton(false); // Ẩn nút cuộn lên
+      setShowScrollButton(false);
     }
   };
 
   return (
-    <div className=' relative w-full bg-slate-300'>
-      <div className='fixed z-50 flex w-full justify-around bg-gradient-to-r from-red-700 to-slate-600'>
+    <div className='relative flex w-full flex-col bg-slate-300'>
+      <div className='sticky top-0 z-50 flex w-full justify-around bg-gradient-to-r from-red-700 to-slate-600'>
         <HeaderPage />
       </div>
-      <div className='mt-[170px]'>{children}</div>
-      <div className='z-100 fixed bottom-[1%] right-[2%]'>
-        {showScrollButton && (
-          <div
-            onClick={() => scrollTo({ y: 0 })}
-            className=' group mb-[30px] h-[30px] w-[30px] items-center justify-center hover:cursor-pointer'
-          >
-            <FaArrowCircleUp
-              size={30}
-              className='text-[red] group-hover:text-slate-300'
-            />
-          </div>
-        )}
-
+      <div className='mt-[5px]'>{children}</div>
+      <div className='z-100 fixed bottom-[5%] right-[2%]'>
+        <div className='w-full'>
+          {showScrollButton && (
+            <div
+              onClick={() => scrollTo({ y: 0 })}
+              className='group mx-auto mb-[30px] h-[30px] w-[30px] items-center justify-center bg-[red] hover:cursor-pointer'
+            >
+              <MdKeyboardArrowUp size={30} className='text-[white]' />
+            </div>
+          )}
+        </div>
         <Tooltip
           className='z-100'
           label='Gởi tin nhắn Messenger'
@@ -48,7 +47,7 @@ const LayoutDefault = ({ children }: { children: React.ReactNode }) => {
           position='left'
           offset={5}
         >
-          <div className='h-[70px] w-[70px]'>
+          <div className='h-[50px] w-[50px]'>
             <a href='/'>
               <img
                 className='rounded-full'
@@ -67,7 +66,7 @@ const LayoutDefault = ({ children }: { children: React.ReactNode }) => {
           <div className='mt-[20px]'>
             <a href='/'>
               <img
-                className='h-[70px] w-[70px] rounded-full object-cover'
+                className='h-[50px] w-[50px] rounded-full object-cover'
                 src='https://inuvdp.com/wp-content/uploads/2022/08/logo-zalo-02.jpg'
               ></img>
             </a>
@@ -75,7 +74,7 @@ const LayoutDefault = ({ children }: { children: React.ReactNode }) => {
         </Tooltip>
       </div>
       <div className=' bg-slate-600 pt-[5px]'>
-        <Container className='mx container mt-[50px]  p-[5px]'>
+        <Container className='mx container mt-[50px] p-[5px]'>
           <Footter />
         </Container>
       </div>
