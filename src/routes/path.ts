@@ -5,6 +5,10 @@ export const PATH_DASHBOARD = {
   oder: '/dashboard/oder',
   productionItem: '/dashboard/productionItem',
   dashboardblog: '/dashboard/blog',
+  cart: '/cart',
+  blog: '/blog',
+  productitem: '/product-item',
+  // production: '/production/[...slug]'
 };
 
 export const PATH_AUTH = {

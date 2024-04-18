@@ -1,5 +1,5 @@
 // @mui
-import type { FileInputProps, Sx } from '@mantine/core';
+import type { FileInputProps } from '@mantine/core';
 import { Input } from '@mantine/core';
 import { Controller, useFormContext } from 'react-hook-form';
 import { FileInput } from '@mantine/core';
@@ -10,7 +10,6 @@ type Props = {
   name: string;
   helperText?: string;
   placeholder?: string;
-  sx?: Sx | (Sx | undefined)[];
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   label: string;

@@ -7,13 +7,14 @@ import { FaPlus } from 'react-icons/fa';
 import { useDisclosure } from '@mantine/hooks';
 import { Modal } from '@mantine/core';
 import FormProvider from '@/components/hook-form/FormProvider';
-import { RHFTextField } from '@/components/hook-form';
+import { RHFMutiSelect, RHFTextField } from '@/components/hook-form';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import RHFInputPicture from '@/components/hook-form/RHFInputPicture';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
+import { UploadPicture } from '@/components/handle/upload-picture/UploadPicture';
+import RHFInputPicture from '@/components/hook-form/RHFInputPicture';
 
 const ProducItemDashboard = () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -23,6 +24,7 @@ const ProducItemDashboard = () => {
     price: 0,
     quanlity: 0,
     material: '',
+    category: '',
   };
 
   const LoginSchema = Yup.object().shape({
@@ -38,6 +40,7 @@ const ProducItemDashboard = () => {
     price: number;
     quanlity: number;
     material: string;
+    category?: string;
     // file?: FileList;
   };
   const methods = useForm<Value>({
@@ -58,7 +61,8 @@ const ProducItemDashboard = () => {
   };
   const onSubmit = async (data: Value) => {
     getDataFireBase(data);
-    reset(defaultValues);
+    console.log(data);
+    // reset(defaultValues);
   };
 
   type ValueData = {
@@ -135,16 +139,27 @@ const ProducItemDashboard = () => {
               <span>Chất liệu </span>
               <RHFTextField name='material' placeholder='Loại Vải' />
             </div>
-            {/* <div className='mb-2'>
-              <RHFInputPicture label='Tải ảnh đại diện' name='avatar' />
-            </div> */}
-            {/* <div className='mb-2'>
-              <RHFInputPicture
-                multiple
-                label='Tải album sản phẩm'
-                name='album'
+            <div className='mb-[10px]'>
+              <span>Danh mục</span>
+              <RHFMutiSelect
+                type='select'
+                name='category'
+                options={['CLB', 'Keep&Fly']}
+                placeholder='Loại Vải'
               />
-            </div> */}
+            </div>
+            <div className='mt-3'>
+              <div className='mb-2'>
+                <RHFInputPicture label='Tải ảnh đại diện' name='avatar' />
+              </div>
+              <div className='mb-2'>
+                <RHFInputPicture
+                  multiple
+                  label='Tải album sản phẩm'
+                  name='album'
+                />
+              </div>
+            </div>
           </div>
           <PrimaryButton
             type='submit'
@@ -153,6 +168,7 @@ const ProducItemDashboard = () => {
           ></PrimaryButton>
         </FormProvider>
       </Modal>
+      <UploadPicture />
     </Card>
   );
 };
