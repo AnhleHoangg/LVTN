@@ -6,6 +6,8 @@ import { Footter } from '@/components/layout/footter/Footter';
 import { Tooltip } from '@mantine/core';
 import { useWindowScroll } from '@mantine/hooks';
 import { MdKeyboardArrowUp } from 'react-icons/md';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/store';
 
 const LayoutDefault = ({ children }: { children: React.ReactNode }) => {
   const [scroll, scrollTo] = useWindowScroll();

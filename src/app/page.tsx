@@ -25,6 +25,9 @@ import { PrimaryButton } from '@/components/Button';
 import Link from 'next/link';
 import { PATH_DASHBOARD } from '@/routes/path';
 
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/store';
+
 type ValueData = {
   nameitem: string;
   UDK: string;
@@ -32,7 +35,6 @@ type ValueData = {
   quanlity: number;
   material: string;
 }[];
-
 export default function HomePage() {
   const [dataInFirebase, setDataInFirebase] = useState<ValueData>();
   useEffect(() => {
@@ -46,7 +48,7 @@ export default function HomePage() {
     };
     fetchData();
   }, []);
-
+  
   return (
     <div className='bg-[white]'>
       <div className='border-b-2 drop-shadow-sm'>

@@ -11,11 +11,42 @@ import { RHFMutiSelect, RHFTextField } from '@/components/hook-form';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
-import { UploadPicture } from '@/components/handle/upload-picture/UploadPicture';
 import RHFInputPicture from '@/components/hook-form/RHFInputPicture';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 
+export const uploadAndReturnDownloadUrl = async (
+  storage: any,
+  folder: string,
+  item: any
+) => {
+  const name = item?.name;
+  const storageRef = ref(storage, `${folder}/${name}`);
+  await uploadBytes(storageRef, item);
+  const url = await getDownloadURL(ref(storage, `${folder}/${name}`));
+  return url;
+};
+export const getDataFireBase = async (value: any) => {
+  try {
+    const docRef = await addDoc(collection(db, 'Product'), {
+      value,
+    });
+    console.log(docRef.id);
+  } catch (e) {
+    console.error('Error adding document: ', e);
+  }
+};
+export type Value = {
+  nameitem: string;
+  UDK: string;
+  price: number;
+  quanlity: number;
+  material: string;
+  category?: string;
+  avatar: object;
+  album: object[];
+};
 const ProducItemDashboard = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const defaultValues = {
@@ -25,8 +56,9 @@ const ProducItemDashboard = () => {
     quanlity: 0,
     material: '',
     category: '',
+    avatar: {},
+    album: [{}],
   };
-
   const LoginSchema = Yup.object().shape({
     nameitem: Yup.string().required('Nhập tên vào'),
     UDK: Yup.string().required('Nhập mã sản phẩm vào'),
@@ -34,37 +66,53 @@ const ProducItemDashboard = () => {
     quanlity: Yup.number().required('Nhập số lượng vào'),
     material: Yup.string().required('Nhập loại vào'),
   });
-  type Value = {
-    nameitem: string;
-    UDK: string;
-    price: number;
-    quanlity: number;
-    material: string;
-    category?: string;
-    // file?: FileList;
-  };
+
   const methods = useForm<Value>({
     mode: 'onBlur',
-    resolver: yupResolver(LoginSchema),
+    resolver: yupResolver<any>(LoginSchema),
     defaultValues,
   });
   const { reset, handleSubmit } = methods;
 
-  const getDataFireBase = async (value: Value) => {
+  const onSubmit = async (data: Value) => {
+    const storage = getStorage();
+    const { avatar, album, ...newObject } = data;
+    const pictureAvatarAlbum = {
+      avatar: data.avatar,
+      album: data.album,
+    };
+
     try {
-      const docRef = await addDoc(collection(db, 'Product'), {
-        value,
-      });
-    } catch (e) {
-      console.error('Error adding document: ', e);
+      const avatarUrl = await uploadAndReturnDownloadUrl(
+        storage,
+        'avatar',
+        pictureAvatarAlbum.avatar
+      );
+
+      const albumUrls = await Promise.all(
+        pictureAvatarAlbum?.album.map(async (item: any) => {
+          return await uploadAndReturnDownloadUrl(storage, 'album', item);
+        })
+      );
+
+      const modifiedObject = {
+        ...newObject,
+        avatar: avatarUrl,
+        album: albumUrls,
+      };
+
+      getDataFireBase(modifiedObject)
+        .then((id) => {
+          console.log(id);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      reset(defaultValues);
+    } catch (error) {
+      console.error('Error:', error);
     }
   };
-  const onSubmit = async (data: Value) => {
-    getDataFireBase(data);
-    console.log(data);
-    // reset(defaultValues);
-  };
-
   type ValueData = {
     nameitem: string;
     UDK: string;
@@ -78,7 +126,11 @@ const ProducItemDashboard = () => {
       const querySnapshot = await getDocs(collection(db, 'Product'));
       const data: any[] = [];
       querySnapshot.forEach((doc) => {
-        data.push(doc.data());
+        let dataMod = {
+          ...doc.data().value,
+          id: doc.id,
+        };
+        data.push(dataMod);
       });
       setDataInFirebase(data);
     };
@@ -95,13 +147,9 @@ const ProducItemDashboard = () => {
         Tất cả hàng hóa
       </Text>
       <Grid className='mt-[20px]'>
-        {dataInFirebase?.map((item: any) => (
+        {dataInFirebase?.map((item?: any) => (
           <Grid.Col span={2}>
-            <ProductionItem
-              type='product'
-              btnSettingProduction
-              data={item.value}
-            />
+            <ProductionItem type='product' btnSettingProduction data={item} />
           </Grid.Col>
         ))}
       </Grid>
@@ -168,7 +216,6 @@ const ProducItemDashboard = () => {
           ></PrimaryButton>
         </FormProvider>
       </Modal>
-      <UploadPicture />
     </Card>
   );
 };

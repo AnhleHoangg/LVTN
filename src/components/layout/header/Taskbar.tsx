@@ -8,6 +8,12 @@ import { PrimaryButton } from '@/components/Button';
 import { Container, Popover, Menu, Text } from '@mantine/core';
 import { CiSearch } from 'react-icons/ci';
 import { FaShoppingCart } from 'react-icons/fa';
+import { useDisclosure } from '@mantine/hooks';
+import { ProductionItem } from '@/components/product/Product';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/store';
+import { PATH_DASHBOARD } from '@/routes/path';
+import Link from 'next/link';
 
 type Taskbarname = {
   title: string;
@@ -39,6 +45,7 @@ const TaskbarMenuSelect = (props: { data: Taskbarname }) => {
               <Menu.Item>
                 {item.list.map((item) => (
                   <Menu
+                    key={item.title}
                     trigger='hover'
                     openDelay={100}
                     closeDelay={150}
@@ -119,9 +126,12 @@ const TaskbarContact = () => {
   );
 };
 
-import { useDisclosure } from '@mantine/hooks';
-
 const SearchAndCart = () => {
+  const product = useSelector((state: RootState) => state.product.arr);
+  const productNumber = useSelector((state: RootState) => state.product.number);
+  const formattedNumber = productNumber?.totalProduct.toLocaleString('vi-VN');
+  localStorage.setItem('listItem', JSON.stringify(product));
+
   const [opened, { close, open }] = useDisclosure(false);
 
   return (
@@ -165,17 +175,41 @@ const SearchAndCart = () => {
         width={400}
       >
         <Menu.Target>
-          <a href='/'>
+          <Link className='relative' href={PATH_DASHBOARD.cart}>
             <FaShoppingCart className='text-[26px] text-[white]' />
-          </a>
+            <div className='absolute right-[-10px] top-[8px] h-[20px] w-[20px] rounded-full border border-[red] bg-[white]'>
+              <p className=' text-center text-[13px] font-bold text-[red]'>
+                {productNumber.numberProduct}
+              </p>
+            </div>
+          </Link>
         </Menu.Target>
-        <Menu.Dropdown>
+        <Menu.Dropdown className='!w-[50%]'>
           <Menu.Label>Giỏ Hàng</Menu.Label>
-          {
+          <Menu.Label>
+            <div className=' flex items-center justify-between bg-[white] px-4'>
+              <div className='flex w-full justify-between text-[14px] text-[red]'>
+                <Text className='font-bold'>Tổng tiền: </Text>
+                <span className='mr-7 font-bold'>{formattedNumber}đ</span>
+              </div>
+              <Link href={PATH_DASHBOARD.cart}>
+                <PrimaryButton text='Thanh Toán' />
+              </Link>
+            </div>
+          </Menu.Label>
+          {product ? (
+            <div className=' h-[50vh] overflow-auto'>
+              {product?.map((item) => (
+                <Menu.Item>
+                  <ProductionItem data={item} type='cart' />
+                </Menu.Item>
+              ))}
+            </div>
+          ) : (
             <div className='flex h-[400px] items-center justify-center font-bold'>
               <Text size={'xl'}> Chưa có sản phẩm nào !</Text>
             </div>
-          }
+          )}
         </Menu.Dropdown>
       </Menu>
     </div>

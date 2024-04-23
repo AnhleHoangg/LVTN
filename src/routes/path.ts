@@ -8,6 +8,7 @@ export const PATH_DASHBOARD = {
   cart: '/cart',
   blog: '/blog',
   productitem: '/product-item',
+  
   // production: '/production/[...slug]'
 };
 

@@ -2,6 +2,7 @@ import SessionWrapper from '@/components/SessionWrapper';
 import '../styles/globals.css';
 import LayoutDefault from '@/components/layout/LayoutDefault.tsx/LayoutDefault';
 import { MantineProvider, createTheme } from '@mantine/core';
+import StoreProvider from '@/app/StoreProvider';
 
 export const metadata = {
   title: 'Next.js',
@@ -18,16 +19,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <SessionWrapper>
-      <html lang='en'>
-        <body suppressHydrationWarning={false}>
-          <div className='flex justify-center'>
-            <MantineProvider theme={theme}>
-              <LayoutDefault>{children}</LayoutDefault>
-            </MantineProvider>
-          </div>
-        </body>
-      </html>
-    </SessionWrapper>
+    <StoreProvider>
+      <SessionWrapper>
+        <html lang='en'>
+          <body suppressHydrationWarning={false}>
+            <div className='flex justify-center'>
+              <MantineProvider theme={theme}>
+                <LayoutDefault>{children}</LayoutDefault>
+              </MantineProvider>
+            </div>
+          </body>
+        </html>
+      </SessionWrapper>
+    </StoreProvider>
   );
 }
