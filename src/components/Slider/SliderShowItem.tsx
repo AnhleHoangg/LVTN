@@ -12,7 +12,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import 'swiper/css/zoom';
 import 'swiper/css/parallax';
-import Link from 'next/link';
 
 const SliderShowItem = ({
   type,
@@ -30,9 +29,9 @@ const SliderShowItem = ({
     <div>
       {type === 'info' ? (
         <div
-          className='swiper h-[500px] bg-cover object-contain text-center'
+          className=' swiper h-[500px] bg-cover object-contain text-center'
           style={{
-            backgroundImage: `url("https://scontent.fsgn5-14.fna.fbcdn.net/v/t39.30808-6/384781164_187908367670948_2676517665423334773_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=DZUVcW6j86gAb5ijlv-&_nc_oc=Adh0ZcfDTX31Ka0y7EsjFTTAMKuF5roBZBOrMmFoaoQJrrKCGLrFWTzmpvSvOAwqmGw&_nc_ht=scontent.fsgn5-14.fna&oh=00_AfDXsJUmfv0Wd0D3eIUqthWtMhIc7ADIrgYV0upsPwcx-w&oe=66241776")`,
+            backgroundImage: `url("https://scontent.fsgn5-14.fna.fbcdn.net/v/t39.30808-6/384781164_187908367670948_2676517665423334773_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGAcbgoM7zD8xUf9QSEpEmMsTyHWSE5hi2xPIdZITmGLVkBeOufTh-4w3Hbvf2PtF49zhJICAz02jB5xVPjDu6i&_nc_ohc=y6q-nImUF8QQ7kNvgHE4_Ys&_nc_oc=AdgLpi5GFwYpYYO0LZT_-BduG4kFqz1cIY4gzP-HCIU2_c7D0j0nNcKNyaiTfYMjR0A&_nc_ht=scontent.fsgn5-14.fna&oh=00_AfAyrX16EGEP5UMmwOhaouqYSEKz-wryJ55pneZQIf7QbQ&oe=66411876")`,
             backgroundRepeat: `no-repeat`,
             backgroundPosition: `center`,
           }}
@@ -77,14 +76,26 @@ const SliderShowItem = ({
           </div>
         </div>
       ) : (
-        <ul className='grid grid-cols-4 gap-2'>
+        <ul className='grid grid-cols-3 gap-2'>
           {item?.page.map((item) => (
-            <a href='/'>
-              <li className='relative h-[150px] items-center justify-center bg-[url("https://cafefcdn.com/thumb_w/640/203337114487263232/2023/6/3/avatar1685811576305-1685811577092432322327.jpg")] bg-center bg-no-repeat'>
+            <a className='col-span-1' href='/' key={item.src}>
+              <li
+                style={{
+                  backgroundImage: item.src ? `url(${item.src})` : '',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'cover',
+                }}
+                className={`${
+                  item.src
+                    ? 'group relative h-[30vh] border-2 border-transparent hover:border-[red]'
+                    : 'relative h-[150px] hover:border-2 hover:border-[red]'
+                }`}
+              >
                 <div className='mb-[5px]'>
-                  <div className='absolute bottom-4 left-2 z-50 mt-[30px] text-[14px] font-semibold uppercase text-[white]'>
+                  <span className=' absolute bottom-4 left-2 z-50 mt-[20px] text-[18px] font-bold uppercase text-white group-hover:border-b-2 group-hover:border-[red] group-hover:text-[red]'>
                     {item.title}
-                  </div>
+                  </span>
                 </div>
               </li>
             </a>

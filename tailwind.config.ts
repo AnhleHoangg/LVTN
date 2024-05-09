@@ -87,12 +87,24 @@ export default {
           '100%': {
             transform: 'translateY(-10px)',
           },
+        },
+
+        moveReverse: {
+
+          '0%': {
+            transform: 'translateY(-10px)',
+          },
+          '100%': {
+            transform: 'translateY(0)',
+          },
+          
         }
       },
       animation: {
         flicker: 'flicker 3s linear infinite',
         shimmer: 'shimmer 1.3s linear infinite',
-        moveUp: 'moveUp 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        moveUp: 'moveUp 0.3s forwards cubic-bezier(0.4, 0, 0.2, 1)',
+        moveReverse: 'moveReverse 0.3s forwards cubic-bezier(0.4, 0, 0.2, 1)',
       },
     },
   },

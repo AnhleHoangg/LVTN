@@ -1,11 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaAngleRight } from 'react-icons/fa';
 import { CiFacebook, CiInstagram } from 'react-icons/ci';
-import { HiOutlineQuestionMarkCircle } from 'react-icons/hi2';
-import { AiOutlineGlobal } from 'react-icons/ai';
-import { IoMdArrowDropdown } from 'react-icons/io';
 import { PrimaryButton } from '@/components/Button';
-import { Container, Popover, Menu, Text } from '@mantine/core';
+import { Container, Popover, Menu, Text, Card } from '@mantine/core';
 import { CiSearch } from 'react-icons/ci';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useDisclosure } from '@mantine/hooks';
@@ -14,7 +11,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import { PATH_DASHBOARD } from '@/routes/path';
 import Link from 'next/link';
-
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '@/firebaseConfig';
 type Taskbarname = {
   title: string;
   list: {
@@ -85,7 +83,7 @@ const TaskbarMenuSelect = (props: { data: Taskbarname }) => {
 
 const TaskbarContact = () => {
   return (
-    <Container className='container flex h-[5vh] items-center justify-between font-semibold text-[white]'>
+    <Container className='container flex h-[3vh] items-center justify-between font-semibold text-[white]'>
       <div className='flex items-center text-[13px]'>
         <a className='mr-[2px] px-[4px]' href='/'>
           Hotline: 0927 993 249
@@ -105,53 +103,55 @@ const TaskbarContact = () => {
           </a>
         </span>
       </div>
-      <div className='flex items-center py-[5px] text-[13px]'>
-        <span className='mr-[10px] flex items-center'>
-          <HiOutlineQuestionMarkCircle className='mr-[2px]' />
-          Hỗ trợ
-        </span>
-        <span className='mr-[10px] flex items-center'>
-          <AiOutlineGlobal className='mr-[2px]' />
-          Tiếng việt
-          <IoMdArrowDropdown className='ml-[2px]' />
-        </span>
-        <div className='mx-2 flex rounded-xl'>
-          <div className='mr-[2px]'>
-            <img src='/'></img>
-          </div>
-          <div className='font-bold'>Lê Hoàng Anh</div>
-        </div>
-      </div>
     </Container>
   );
 };
 
 const SearchAndCart = () => {
+  const [openSearch, setOpenSearch] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   const product = useSelector((state: RootState) => state.product.arr);
   const productNumber = useSelector((state: RootState) => state.product.number);
   const formattedNumber = productNumber?.totalProduct.toLocaleString('vi-VN');
   localStorage.setItem('listItem', JSON.stringify(product));
-
-  const [opened, { close, open }] = useDisclosure(false);
-
+  useEffect(() => {
+    const fetchData = async () => {
+      if (searchTerm.trim() === '') {
+        setSearchResults([]);
+        return;
+      }
+      const q = query(
+        collection(db, 'Product'),
+        where('value.nameitem', '>=', searchTerm)
+      );
+      const querySnapshot = await getDocs(q);
+      let searchResult: any[] = [];
+      querySnapshot.forEach((doc) => {
+        searchResult.push({ id: doc.id, ...doc.data() });
+      });
+      setSearchResults(searchResult);
+    };
+    fetchData();
+  }, [searchTerm]);
   return (
-    <div className='mx container flex h-[10vh] items-center justify-between py-[20px]'>
+    <div className='mx container flex h-[7vh] items-center justify-between py-[20px]'>
       <a href='/' className='tex-[35px] pr-[40px] uppercase text-[white]'>
         Gạo Sport
       </a>
-      <form className='flex h-[40px] w-[840px] justify-between rounded-sm bg-[white] p-[5px]	'>
+      <div className='flex h-[40px] w-[840px] justify-between rounded-sm bg-[white] p-[5px]	'>
         <div className='flex w-full justify-around'>
-          <Popover width='target' position='bottom' shadow='md'>
-            <Popover.Target>
-              <input
-                onFocus={open}
-                onBlur={close}
-                className='mr-[5px] w-[750px] border-0 px-[10px] focus:outline-none'
-                placeholder='Tìm sản phẩm, thương hiệu, và tên shop'
-              ></input>
-            </Popover.Target>
-            <Popover.Dropdown>Hello</Popover.Dropdown>
-          </Popover>
+          <input
+            onBlur={() => {
+              setOpenSearch(false);
+            }}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setOpenSearch(true);
+            }}
+            className='group relative mr-[5px] w-[750px] border-0 px-[10px] focus:border-transparent focus:outline-none'
+            placeholder='Tìm sản phẩm, thương hiệu'
+          ></input>
           <PrimaryButton
             isOrginalPadding={false}
             type='button'
@@ -164,7 +164,14 @@ const SearchAndCart = () => {
             }
           ></PrimaryButton>
         </div>
-      </form>
+        {openSearch && (
+          <Card className='absolute top-20 z-50 h-[685px] w-[840px] overflow-hidden overflow-y-scroll'>
+            {searchResults.map((item) => (
+              <ProductionItem key={item.id} type='product' data={item.value} />
+            ))}
+          </Card>
+        )}
+      </div>
       <Menu
         position='bottom-end'
         trigger='hover'
@@ -187,29 +194,29 @@ const SearchAndCart = () => {
         <Menu.Dropdown className='!w-[50%]'>
           <Menu.Label>Giỏ Hàng</Menu.Label>
           <Menu.Label>
-            <div className=' flex items-center justify-between bg-[white] px-4'>
-              <div className='flex w-full justify-between text-[14px] text-[red]'>
+            <div className=' flex items-center justify-between bg-[white]'>
+              <span className='text-[14px] text-[red]'>
                 <Text className='font-bold'>Tổng tiền: </Text>
                 <span className='mr-7 font-bold'>{formattedNumber}đ</span>
-              </div>
+              </span>
               <Link href={PATH_DASHBOARD.cart}>
                 <PrimaryButton text='Thanh Toán' />
               </Link>
             </div>
           </Menu.Label>
-          {product ? (
-            <div className=' h-[50vh] overflow-auto'>
-              {product?.map((item) => (
-                <Menu.Item>
-                  <ProductionItem data={item} type='cart' />
-                </Menu.Item>
-              ))}
-            </div>
+          <div className=' h-[50vh] overflow-auto'>
+            {product?.map((item) => (
+              <Menu.Item key={item.id}>
+                <ProductionItem data={item} type='cart' />
+              </Menu.Item>
+            ))}
+          </div>
+          {/* {product ? (
           ) : (
             <div className='flex h-[400px] items-center justify-center font-bold'>
               <Text size={'xl'}> Chưa có sản phẩm nào !</Text>
             </div>
-          )}
+          )} */}
         </Menu.Dropdown>
       </Menu>
     </div>

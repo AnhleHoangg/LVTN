@@ -15,6 +15,7 @@ import { db } from '@/firebaseConfig';
 import RHFInputPicture from '@/components/hook-form/RHFInputPicture';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
+import { createSlug } from '@/components/func';
 
 export const uploadAndReturnDownloadUrl = async (
   storage: any,
@@ -27,6 +28,7 @@ export const uploadAndReturnDownloadUrl = async (
   const url = await getDownloadURL(ref(storage, `${folder}/${name}`));
   return url;
 };
+
 export const getDataFireBase = async (value: any) => {
   try {
     const docRef = await addDoc(collection(db, 'Product'), {
@@ -97,10 +99,10 @@ const ProducItemDashboard = () => {
 
       const modifiedObject = {
         ...newObject,
+        slug: createSlug(data.nameitem),
         avatar: avatarUrl,
         album: albumUrls,
       };
-
       getDataFireBase(modifiedObject)
         .then((id) => {
           console.log(id);
@@ -138,17 +140,12 @@ const ProducItemDashboard = () => {
   }, []);
   return (
     <Card className='relative'>
-      <Text
-        fw={900}
-        variant='gradient'
-        gradient={{ from: 'rgba(255, 0, 0, 1)', to: 'gray', deg: 90 }}
-        className='mx-3 text-[26px]'
-      >
+      <div className='mx-3 text-[26px] font-semibold text-[red]'>
         Tất cả hàng hóa
-      </Text>
+      </div>
       <Grid className='mt-[20px]'>
         {dataInFirebase?.map((item?: any) => (
-          <Grid.Col span={2}>
+          <Grid.Col key={item.UDK} span={2}>
             <ProductionItem type='product' btnSettingProduction data={item} />
           </Grid.Col>
         ))}
@@ -192,7 +189,7 @@ const ProducItemDashboard = () => {
               <RHFMutiSelect
                 type='select'
                 name='category'
-                options={['CLB', 'Keep&Fly']}
+                options={['CLB', 'FlashSale', 'LocalBrand', 'MU']}
                 placeholder='Loại Vải'
               />
             </div>

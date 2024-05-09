@@ -13,11 +13,11 @@ const HeaderTag = ({
   textclassName?: string;
 }) => {
   return (
-    <div className='flex items-center'>
+    <div className='mb-[10px] flex items-center'>
       <div
         className={`${
           className || ''
-        } flex h-[61px] w-full items-center justify-between border-b bg-[#f5f5f5] px-[20px] text-[16px]  text-[red] `}
+        } flex h-[5vh] w-full items-center justify-between border-b pb-[5px] text-[16px]  text-[red] `}
       >
         <div className={`${textclassName || ''} uppercase`}>{children}</div>
         {itemLeft && (

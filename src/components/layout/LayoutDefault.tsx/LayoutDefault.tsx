@@ -6,8 +6,6 @@ import { Footter } from '@/components/layout/footter/Footter';
 import { Tooltip } from '@mantine/core';
 import { useWindowScroll } from '@mantine/hooks';
 import { MdKeyboardArrowUp } from 'react-icons/md';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/lib/store';
 
 const LayoutDefault = ({ children }: { children: React.ReactNode }) => {
   const [scroll, scrollTo] = useWindowScroll();
@@ -30,7 +28,7 @@ const LayoutDefault = ({ children }: { children: React.ReactNode }) => {
       <div className='sticky top-0 z-50 flex w-full justify-around bg-gradient-to-r from-red-700 to-slate-600'>
         <HeaderPage />
       </div>
-      <div className='mt-[5px]'>{children}</div>
+      <div className='mt-[1px]'>{children}</div>
       <div className='z-100 fixed bottom-[5%] right-[2%]'>
         <div className='w-full'>
           {showScrollButton && (

@@ -5,60 +5,43 @@ import { CiShoppingCart } from "react-icons/ci";
 import { PATH_DASHBOARD } from "@/routes/path";
 
 export const danhMuc = [
-  {
+  { id: 'abc',
     page: [
     {
       title: "Sản Phẩm HOT",
-      src: ""
+      src: "./images/club/Trending.png"
     },
     {
-      title: "Thời Trang Nữ Nam",
-      src: ""
+      title: "Việt Nam",
+      src: "./images/club/VietNam.png"
     },
     {
       title: "Các CLB",
-      src: ""
+      src: "./images/club/FC_CLB.png"
     },
     {
       title: "Manchester United",
-      src: ""
+      src: "./images/club/FC_MU.png"
     },
-    {
+   
+  ]},
+  { id: 'abc123',
+    page: [ {
       title: "Real Madrid",
-      src: ""
+      src: "./images/club/FC_Real.png"
     },
     {
       title: "Barcelona",
-      src: ""
-    },
-    {
-      title: "Juventus",
-      src: ""
+      src: "./images/club/FC_Barcelona.png"
     },
     {
       title: "Bayern Munich",
-      src: ""
+      src: "./images/club/FC_Bayern_logo.png"
     },
-
-    
-  ]},
-  {
-    page: [{
-    title: "Sản Phẩm HOT",
-    src: ""
-  },
-  {
-    title: "Thời Trang Nữ Nam",
-    src: ""
-  },
-  {
-    title: "Các CLB",
-    src: ""
-  },
-  {
-    title: "Manchester United",
-    src: ""
-  },]},
+    {
+      title: "Juventus",
+      src: "./images/club/FC_Juventus.png"
+    },]},
 ]
 export const danhMuc1 = [
   {page: [1,2,3,4,5,6]},

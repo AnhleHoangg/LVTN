@@ -33,7 +33,7 @@ const NavFilter = () => {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Card className=' rounded-none'>
+      <Card className=' h-[100vh] rounded-none'>
         <div className='mb-[10px] border-b py-3'>
           <div className='mb-4 border-4 p-2'>
             <Text size='lg' className='px-2 font-bold'>
@@ -95,7 +95,7 @@ const NavFilter = () => {
           </div>
         </div>
         <div className='mb-[10px] border-b py-2'>
-          <div className='mb-4 w-fit border-4 p-2'>
+          <div className='mb-4 w-fit p-2'>
             <PrimaryButton
               type='submit'
               text='Chọn Lọc'

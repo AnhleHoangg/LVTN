@@ -27,6 +27,8 @@ import 'swiper/css/parallax';
 
 import { collection, getDocs } from 'firebase/firestore';
 import { getDatabase } from 'firebase/database';
+import { ValueData } from '@/app/page';
+import { db } from '@/firebaseConfig';
 
 const production = () => {
   const [count, setCount] = useState(1);
@@ -77,8 +79,7 @@ const production = () => {
       {item.title}
     </Anchor>
   ));
-  // Fetching data in Firebase
-  useEffect(() => {}, []);
+
   return (
     <div>
       <div className='flex justify-center'>

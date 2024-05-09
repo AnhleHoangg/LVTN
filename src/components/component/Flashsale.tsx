@@ -1,0 +1,74 @@
+import Countdown from '@/components/Countdown';
+import HeaderTag from '@/components/HeaderTag';
+import { BtnNextSlide, BtnPrevSlide } from '@/components/Slider/SliderShowItem';
+import { ProductItem, ProductionItem } from '@/components/product/Product';
+import { db } from '@/firebaseConfig';
+import { Container, Grid } from '@mantine/core';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+export type DataInFirebase = {
+  id: string;
+  value: ProductItem;
+}[];
+
+const Flashsale = () => {
+  const [dataFlashSale, setDataFlashSale] = useState<DataInFirebase>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const q = query(
+        collection(db, 'Product'),
+        where('value.category', '==', 'FlashSale')
+      );
+      const querySnapshot = await getDocs(q);
+      let searchResult: any[] = [];
+      querySnapshot.forEach((doc) => {
+        searchResult.push({ id: doc.id, ...doc.data() });
+      });
+      setDataFlashSale(searchResult);
+    };
+    fetchData();
+  }, []);
+  return (
+    <Container className='container my-[20px] px-[0px]'>
+      <div className='h-[361px] overflow-hidden'>
+        <div className='relative'>
+          <HeaderTag>Giảm giá</HeaderTag>
+          <div className='absolute left-[90px] top-[5px] z-50'>
+            <Countdown initialTime={6000} />
+          </div>
+        </div>
+        <div className='group relative z-0 h-full '>
+          <Swiper loopAdditionalSlides={0}>
+            {dataFlashSale?.map((item) => (
+              <SwiperSlide key={item.id}>
+                <Grid gutter={'xs'}>
+                  <Grid.Col span={2}>
+                    <ProductionItem data={item.value} type='flashSale' />
+                  </Grid.Col>
+                </Grid>
+              </SwiperSlide>
+            ))}
+            <div className='hidden group-hover:block'>
+              <div className='absolute right-[20px] top-[42%] z-50'>
+                <BtnNextSlide
+                  size={20}
+                  className='flex w-fit items-center justify-center rounded-full border bg-[white] shadow-inner transition-all hover:scale-150'
+                />
+              </div>
+              <div className='absolute left-[20px] top-[42%] z-50'>
+                <BtnPrevSlide
+                  size={20}
+                  className='flex w-fit items-center justify-center rounded-full border bg-[white] shadow-inner transition-all hover:scale-150'
+                />
+              </div>
+            </div>
+          </Swiper>
+        </div>
+      </div>
+    </Container>
+  );
+};
+
+export default Flashsale;

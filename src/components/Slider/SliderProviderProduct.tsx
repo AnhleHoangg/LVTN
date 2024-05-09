@@ -26,7 +26,7 @@ export const SliderProviderProduct = ({
   }[];
 }) => {
   let buttonContent: any;
-  
+
   return (
     <Container className='mx container relative my-[20px]  border px-[0px]'>
       <div className='h-[361px] overflow-hidden bg-[#ffffff]'>

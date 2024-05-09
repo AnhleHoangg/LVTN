@@ -1,40 +1,18 @@
 'use client';
-
-import React, { useEffect, useState } from 'react';
-
-import { Container, Grid } from '@mantine/core';
-//swipper
+import React from 'react';
+import { Container } from '@mantine/core';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/parallax';
 import { Autoplay, Pagination, Parallax } from 'swiper/modules';
-//components
-import { ProductionItem } from '@/components/product/Product';
-import { danhMuc } from '@/components/mock-data';
-import Countdown from '@/components/Countdown';
-import HeaderTag from '@/components/HeaderTag';
 import {
   BtnNextSlide,
   BtnPrevSlide,
   SliderShowItem,
 } from '@/components/Slider/SliderShowItem';
-
 import { PrimaryButton } from '@/components/Button';
-
 import Category from '@/components/component/Category';
 import RecommendToDay from '@/components/component/RecommendToDay';
 import Flashsale from '@/components/component/Flashsale';
 
-export type ValueData = {
-  nameitem: string;
-  UDK: string;
-  price: number;
-  quanlity: number;
-  material: string;
-  category: string;
-  album: string[];
-  avatar: string;
-}[];
 export default function HomePage() {
   return (
     <div className='bg-[white]'>

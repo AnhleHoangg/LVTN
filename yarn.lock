@@ -1850,13 +1850,13 @@
     "@types/node" ">=12.12.47"
 
 "@grpc/proto-loader@^0.7.8":
-  version "0.7.12"
-  resolved "https://registry.npmjs.org/@grpc/proto-loader/-/proto-loader-0.7.12.tgz"
-  integrity sha512-DCVwMxqYzpUCiDMl7hQ384FqP4T3DbNpXU8pt681l3UWCip1WUiD5JrkImUwCB9a7f2cq4CUTmi5r/xIMRPY1Q==
+  version "0.7.13"
+  resolved "https://registry.npmjs.org/@grpc/proto-loader/-/proto-loader-0.7.13.tgz"
+  integrity sha512-AiXO/bfe9bmxBjxxtYxFAXGZvMaN5s8kO+jBHAJCON8rJoB5YS/D6X7ZNc6XQkuHNmyl4CYaMI1fJ/Gn27RGGw==
   dependencies:
     lodash.camelcase "^4.3.0"
     long "^5.0.0"
-    protobufjs "^7.2.4"
+    protobufjs "^7.2.5"
     yargs "^17.7.2"
 
 "@hookform/resolvers@^3.3.4":
@@ -8066,7 +8066,7 @@ prosemirror-view@^1.0.0, prosemirror-view@^1.1.0, prosemirror-view@^1.13.3, pros
     prosemirror-state "^1.0.0"
     prosemirror-transform "^1.1.0"
 
-protobufjs@^7.2.4:
+protobufjs@^7.2.5:
   version "7.2.6"
   resolved "https://registry.npmjs.org/protobufjs/-/protobufjs-7.2.6.tgz"
   integrity sha512-dgJaEDDL6x8ASUZ1YqWciTRrdOuYNzoOf27oHNfdyvKqHr5i0FV7FSLU+aIeFjyFgVxrpTOtQUi0BLLBymZaBw==
