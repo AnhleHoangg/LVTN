@@ -34,7 +34,7 @@ const PorductFiller = () => {
     </div>
   );
 };
-export type ProductItem = {
+export interface ProductItem {
   nameitem: string;
   UDK: string;
   id: string;

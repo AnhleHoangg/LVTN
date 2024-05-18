@@ -17,11 +17,16 @@ import 'swiper/css/parallax';
 import { ProductItem } from '@/components/product/Product';
 import { useDispatch } from 'react-redux';
 import { addCart } from '@/lib/features/ShoppingCart/ShoppingCartSlice';
+import { setDataFireBase } from '@/app/dashboard/productitem/page';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '@/firebaseConfig';
 
-const FormBuyProduct = ({ data }: { data?: ProductItem }) => {
+const FormBuyProduct = ({ data }: { data: ProductItem }) => {
   const [count, setCount] = useState(1);
   const LoginSchema = Yup.object().shape({
-    note: Yup.string().required('Nên điền ghi chú để nhận đồ hợp ý nhé!'),
+    note: Yup.string().required(
+      'Nên điền ghi chú để nhận đồ hợp ý nhé!, Ghi tên người nhận hàng zô đây!'
+    ),
     transport: Yup.string().required('Địa chỉ là bắt buộc'),
     size: Yup.string().required('Chưa chon size'),
     phoneNumber: Yup.string()
@@ -36,7 +41,6 @@ const FormBuyProduct = ({ data }: { data?: ProductItem }) => {
     note: '',
     transport: '',
     size: '29',
-    count: 1,
     phoneNumber: '',
   };
 
@@ -44,7 +48,6 @@ const FormBuyProduct = ({ data }: { data?: ProductItem }) => {
     size: string;
     transport: string;
     note: string;
-    count?: number;
     phoneNumber: string;
   };
   const methods = useForm<FormValuesProps>({
@@ -53,18 +56,26 @@ const FormBuyProduct = ({ data }: { data?: ProductItem }) => {
     defaultValues,
   });
   const { reset, handleSubmit } = methods;
-  const updateFormData = (data: any, value: number) => {
+  const updateFormData = (
+    data: FormValuesProps,
+    value: number,
+    UDK: string
+  ) => {
     return {
       ...data,
       count: value,
+      UDK: UDK,
     };
   };
   const formattedNumber = data?.price.toLocaleString('vi-VN');
-  const onSubmit = (data: any) => {
-    let Data = updateFormData(data, count);
+  const onSubmit = async (dataForm: FormValuesProps) => {
+    let Data = updateFormData(dataForm, count, data?.UDK);
     reset(defaultValues);
     setCount(1);
-    console.log(Data);
+    const docRef = await addDoc(collection(db, 'Buyer'), {
+      Data,
+    });
+    console.log('Document written with ID: ', docRef.id);
   };
   const dispatch = useDispatch();
   return (
@@ -116,7 +127,7 @@ const FormBuyProduct = ({ data }: { data?: ProductItem }) => {
           {/* form bán hàng */}
           <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <table className='mb-[20px] w-2/3'>
-              <tbody>
+              <tbody className='mt-[10px]'>
                 <tr className='h-[58px]'>
                   <td className='mx-2 w-[110px]'>Vận Chuyển</td>
                   <td className='my-[10px]'>
@@ -197,9 +208,7 @@ const FormBuyProduct = ({ data }: { data?: ProductItem }) => {
                   text='Thêm vào giỏ hàng'
                 />
               </div>
-              <div className=''>
-                <PrimaryButton type='submit' text='Mua ngay' />
-              </div>
+              <PrimaryButton type='submit' text='Mua ngay' />
             </div>
           </FormProvider>
           <div className='item flex items-center'>

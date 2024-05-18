@@ -8,7 +8,18 @@ import { usePathname } from 'next/navigation';
 import BreadCrums from '@/components/BreadCrums';
 
 const production = () => {
-  const [dataInFirebase, setDataInFirebase] = useState<ProductItem>();
+  const [dataInFirebase, setDataInFirebase] = useState<ProductItem>({
+    nameitem: '',
+    UDK: '',
+    id: '',
+    price: 0,
+    quanlity: 0,
+    material: '',
+    avatar: '',
+    album: [''],
+    quanlityCart: 0,
+    slug: '',
+  });
   const pathname = usePathname();
   const slugProduct = pathname?.replace('/product/', '');
   useEffect(() => {
