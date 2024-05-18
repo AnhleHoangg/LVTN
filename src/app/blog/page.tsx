@@ -1,12 +1,12 @@
 'use client';
-import { Card } from '@mantine/core';
+import { Card, Container } from '@mantine/core';
 import React from 'react';
 
 const Blog = () => {
   return (
-    <div className='mx container m-auto'>
-      <Card className='mb-[20px] flex w-[full] rounded-none'>
-        <div className='w-[65%] '>
+    <Container className='container mx-auto'>
+      <Card className='mb-[20px] grid grid-cols-3 rounded-none'>
+        <div className='col-span-2 '>
           <article className='mb-[10px] flex'>
             <img
               className='h-[300px] w-[300px] rounded-lg object-cover'
@@ -28,7 +28,7 @@ const Blog = () => {
             </div>
           </article>
         </div>
-        <div className='w-[35%]'>
+        <div className='col-span-1'>
           <img
             className='mb-[20px] h-[300px] rounded-lg object-cover'
             src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNVqCb1t8h_yG9Y97Rv1B9va3MucRwyfiodbNiny1INQ&s'
@@ -58,7 +58,7 @@ const Blog = () => {
           </div>
         </div>
       </Card>
-    </div>
+    </Container>
   );
 };
 

@@ -37,7 +37,7 @@ export default function RHFMutiSelect(props: RHFInputAutoCompleteProps) {
       render={({ field, fieldState: { error } }) => {
         return (
           <Input.Wrapper
-            className='!outline-[red]'
+            className='!outline-primary'
             {...field}
             sx={{
               '.mantine-InputWrapper-error': {

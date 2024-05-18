@@ -1,26 +1,34 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { FilterTime, NavFilter } from '@/components/layout/nav/NavFilter';
-import { Anchor, Breadcrumbs, Grid } from '@mantine/core';
+import { Grid } from '@mantine/core';
 import { ProductionItem } from '@/components/product/Product';
-import { ValueData } from '@/app/page';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
-
-const PageItem = () => {
-  const items = [
-    { title: 'Mantine', href: '#' },
-    { title: 'Mantine hooks', href: '#' },
-    { title: 'use-id', href: '#' },
-  ].map((item, index) => (
-    <Anchor href={item.href} key={index}>
-      {item.title}
-    </Anchor>
-  ));
+import { useSearchParams } from 'next/navigation';
+const page = () => {
   const [dataInFirebase, setDataInFirebase] = useState<any>();
+  const searchParams = useSearchParams();
+
+  const search = searchParams?.get('q');
+  let datas;
   useEffect(() => {
     const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, 'Product'));
+      //search bằng array
+      // const filterProducts = (
+      //   items: any,
+      //   searchValue: string | null | undefined
+      // ): any =>
+      //   items.filter((item: any) =>
+      //     item.title.toLowerCase().includes(searchValue?.toLowerCase())
+      //   );
+      // datas = filterProducts(dataInFirebase, search);
+      const reference = query(
+        collection(db, 'Product'),
+        where('value.nameitem', '>=', search)
+      );
+
+      const querySnapshot = await getDocs(reference);
       const data: any[] = [];
       querySnapshot.forEach((doc) => {
         data.push(doc.data());
@@ -28,7 +36,8 @@ const PageItem = () => {
       setDataInFirebase(data);
     };
     fetchData();
-  }, []);
+  }, [search]);
+
   return (
     <div className='container mx-auto'>
       <div className='grid grid-cols-4'>
@@ -36,13 +45,11 @@ const PageItem = () => {
           <NavFilter />
         </div>
         <div className='col-span-3 bg-[white] px-4 py-6'>
-          <Breadcrumbs>{items}</Breadcrumbs>
           <FilterTime />
           <Grid>
             {dataInFirebase?.map((item: any) => (
-              <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
+              <Grid.Col key={item.UDK} span={{ base: 12, md: 6, lg: 3 }}>
                 <ProductionItem
-                  key={item.UDK}
                   type='product'
                   btnBuy
                   btnCart
@@ -57,4 +64,4 @@ const PageItem = () => {
   );
 };
 
-export default PageItem;
+export default page;

@@ -1,3 +1,4 @@
+'use client';
 import { ProductItem } from '@/components/product/Product'
 import { RootState } from '@/lib/store'
 import { createSlice } from '@reduxjs/toolkit'
@@ -24,10 +25,18 @@ const totalCart = () => {
   };
 } return 0;
 }
-const numberList = totalCart();
+let numberList: any;
+if (typeof window !== 'undefined') {
+  numberList = totalCart();
+}
+let arr: any;
+if (typeof window !== 'undefined') {
+  arr = JSON.parse(localStorage.getItem("listItem")!) ;
+}
+
 const initialState: listCart = {
-    arr:  JSON.parse(localStorage.getItem("listItem")!) || [],
-    number:  numberList || 
+    arr: arr || [],
+    number:  numberList ||
     {
       numberProduct:0,
       totalProduct:0
@@ -61,7 +70,6 @@ export const addShoppingSlice = createSlice({
         const index = newList.findIndex((item)=> (
           item.UDK === action.payload.data.UDK
           ))
-          console.log(index);
         if(newList[index].quanlityCart !== undefined){ 
           newList[index].quanlityCart =  newList[index].quanlityCart + 1;
           state.number.numberProduct = state.number.numberProduct + 1;
@@ -103,11 +111,33 @@ export const addShoppingSlice = createSlice({
         
     }else {console.log("ko co du lieu");
     return {...state}}
+    },
+    minusCart: (state, action )=> {
+      const oldList = localStorage.getItem("listItem");
+
+      if(oldList){
+        let parsedData = JSON.parse(oldList);
+        const objIndex = parsedData.findIndex((obj:ProductItem) =>  obj.UDK === action.payload.data.UDK);
+        parsedData[objIndex].quanlityCart--        
+         if(action.payload.data.quanlityCart !== undefined){
+             const oldNumber = state.number.numberProduct - 1;
+             const totalProduct = oldNumber*action.payload.data.price
+              const numberList= {
+              numberProduct: oldNumber,
+              totalProduct: totalProduct
+             }
+            return {
+                ...state,
+                 arr: parsedData,
+                 number: numberList
+             };
+         }
+    }else {console.log("ko co du lieu");
+    return {...state}}
     }
   },
 })
-
-export const { addCart, deleteCart } = addShoppingSlice.actions
+export const { addCart, deleteCart, minusCart } = addShoppingSlice.actions
 
 export const selectProduct = (state: RootState) => state.product
 

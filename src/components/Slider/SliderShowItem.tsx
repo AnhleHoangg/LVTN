@@ -12,6 +12,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import 'swiper/css/zoom';
 import 'swiper/css/parallax';
+import ZoomPicture from '@/components/ZoomPictureHover';
 
 const SliderShowItem = ({
   type,
@@ -88,12 +89,12 @@ const SliderShowItem = ({
                 }}
                 className={`${
                   item.src
-                    ? 'group relative h-[30vh] border-2 border-transparent hover:border-[red]'
-                    : 'relative h-[150px] hover:border-2 hover:border-[red]'
+                    ? 'hover:border-primary group relative h-[30vh] border-2 border-transparent'
+                    : 'hover:border-primary relative h-[150px] hover:border-2'
                 }`}
               >
                 <div className='mb-[5px]'>
-                  <span className=' absolute bottom-4 left-2 z-50 mt-[20px] text-[18px] font-bold uppercase text-white group-hover:border-b-2 group-hover:border-[red] group-hover:text-[red]'>
+                  <span className=' group-hover:border-primary group-hover:text-primary absolute bottom-4 left-2 z-50 mt-[20px] text-[18px] font-bold uppercase text-white group-hover:border-b-2'>
                     {item.title}
                   </span>
                 </div>
@@ -106,7 +107,7 @@ const SliderShowItem = ({
   );
 };
 
-const SlideProductionCart = () => {
+const SlideProductCart = ({ data }: { data?: string[] }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
   return (
     <div className='hover:cursor-pointer'>
@@ -114,43 +115,37 @@ const SlideProductionCart = () => {
         loop={true}
         spaceBetween={10}
         thumbs={{ swiper: thumbsSwiper }}
-        modules={[Zoom, FreeMode, Navigation, Thumbs]}
+        modules={[FreeMode, Navigation, Thumbs]}
         pagination={{
           clickable: true,
         }}
-        zoom={true}
-        className='group relative'
       >
-        <SwiperSlide>
-          <div className='swiper-zoom-container'>
-            <img src='https://swiperjs.com/demos/images/nature-1.jpg' />
-          </div>
-        </SwiperSlide>
-        <div className='hidden group-hover:block'>
-          <div className='absolute top-[50%] z-50 flex w-full justify-between'>
-            <BtnPrevSlide />
-            <BtnNextSlide />
-          </div>
-        </div>
+        {data?.map((item: string) => (
+          <SwiperSlide key={item}>
+            <ZoomPicture height={500} zoomScale={3} src={item} />
+          </SwiperSlide>
+        ))}
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}
         loop={true}
-        spaceBetween={10}
+        spaceBetween={8}
         slidesPerView={4}
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className=' mt-2 h-[84px]'
+        className='mt-2 h-[100px]'
       >
-        <SwiperSlide>
-          <img src='https://swiperjs.com/demos/images/nature-1.jpg' />
-        </SwiperSlide>
+        {data?.map((item: string) => (
+          <SwiperSlide key={item}>
+            <img src={item} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );
 };
-const BtnPrevSlide = ({
+const BtnPrevNextSlide = ({
   className,
   size = 30,
 }: {
@@ -159,38 +154,35 @@ const BtnPrevSlide = ({
 }) => {
   const swiper = useSwiper();
   return (
-    <div
-      className={`${
-        className ||
-        'flex w-fit items-center justify-center border hover:bg-slate-400'
-      }`}
-    >
-      <button className='p-[5px]' onClick={() => swiper.slidePrev()}>
-        <GrFormPrevious size={size} />
-      </button>
-    </div>
-  );
-};
-const BtnNextSlide = ({
-  className,
-  size = 30,
-}: {
-  className?: string;
-  size?: number;
-}) => {
-  const swiper = useSwiper();
-  return (
-    <div
-      className={`${
-        className ||
-        'flex w-fit items-center justify-center border hover:bg-slate-400'
-      }`}
-    >
-      <button className='p-[5px]' onClick={() => swiper.slideNext()}>
-        <MdNavigateNext size={size} />
-      </button>
+    <div className='flex w-full items-center justify-between'>
+      <div
+        className={`${
+          className ||
+          'flex w-fit items-center justify-center border hover:bg-slate-400'
+        }`}
+      >
+        <button className='p-[5px]' onClick={() => swiper.slidePrev()}>
+          <GrFormPrevious size={size} />
+        </button>
+      </div>
+      <div
+        className={`${
+          className ||
+          'flex w-fit items-center justify-center border hover:bg-slate-400'
+        }`}
+      >
+        <button
+          className='p-[5px]'
+          onClick={() => {
+            console.log('click');
+            swiper.slideNext();
+          }}
+        >
+          <MdNavigateNext size={size} />
+        </button>
+      </div>
     </div>
   );
 };
 
-export { SliderShowItem, BtnPrevSlide, BtnNextSlide, SlideProductionCart };
+export { SliderShowItem, BtnPrevNextSlide, SlideProductCart };

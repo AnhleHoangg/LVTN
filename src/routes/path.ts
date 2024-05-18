@@ -3,11 +3,11 @@ export const PATH_DASHBOARD = {
   home: '/home',
   dashboard: '/dashboard',
   oder: '/dashboard/oder',
-  productionItem: '/dashboard/productionItem',
+  productDashboard: '/dashboard/productitem',
   dashboardblog: '/dashboard/blog',
   cart: '/cart',
   blog: '/blog',
-  productitem: '/product-item',
+  product: '/product',
   
   // production: '/production/[...slug]'
 };

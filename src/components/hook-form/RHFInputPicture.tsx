@@ -71,7 +71,7 @@ export default function RHFInputPicture({
             onChange={(event) => {
               field.onChange(event);
             }}
-            className={`${className} focus-within:out-line-[red]`}
+            className={`${className} focus-within:out-line-primary`}
           />
         </Input.Wrapper>
       )}

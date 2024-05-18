@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { RHFMutiSelect } from '@/components/hook-form';
 import FormProvider from '@/components/hook-form/FormProvider';
@@ -7,6 +7,9 @@ import { Card, Text } from '@mantine/core';
 import { RangeSlider } from '@mantine/core';
 import { PrimaryButton } from '@/components/Button';
 import { CiFilter } from 'react-icons/ci';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '@/firebaseConfig';
+import Link from 'next/link';
 
 type FormValuesProps = {
   size: string;
@@ -30,23 +33,44 @@ const NavFilter = () => {
   };
 
   const [value, setValue] = useState<[number, number]>([0, 300000]);
+  const [dataInFirebase, setDataInFirebase] = useState<any>([]);
+  useEffect(() => {
+    let fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, 'TableContent'));
+      const data: any[] = [];
+      querySnapshot.forEach((doc) => {
+        data.push(doc.data());
+      });
+      setDataInFirebase(data);
+    };
+    fetchData();
+  }, []);
+  let dataInFirebaseList: any;
+
+  if (dataInFirebase[0] !== undefined) {
+    dataInFirebaseList = dataInFirebase[0];
+  }
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Card className=' h-[100vh] rounded-none'>
-        <div className='mb-[10px] border-b py-3'>
+      <Card className=' rounded-none'>
+        <div className='py-3'>
           <div className='mb-4 border-4 p-2'>
             <Text size='lg' className='px-2 font-bold'>
               Danh Sách Sản Phẩm
             </Text>
           </div>
           <ul className='mb-2'>
-            <li className='flex justify-between border-b px-2 py-3'>
-              <a href='/' className='hover:text-[red] hover:underline'>
-                Manchester United
-              </a>
-              <span className='mr-4 text-slate-400'>( 90 )</span>
-            </li>
+            {dataInFirebaseList?.title?.map((item: string) => (
+              <li className='flex justify-between border-b px-2 py-3'>
+                <Link
+                  href={`/product?q=${item}`}
+                  className='hover:text-primary hover:underline'
+                >
+                  {item}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div className='mb-[10px] border-b py-2'>
@@ -57,7 +81,7 @@ const NavFilter = () => {
           </div>
           <RHFMutiSelect
             name='size'
-            options={['xs', 'xl']}
+            options={dataInFirebaseList?.Zise || ['']}
             placeholder='Chọn một size thích hợp'
             type='select'
           />
@@ -70,7 +94,7 @@ const NavFilter = () => {
           </div>
           <div>
             <RangeSlider
-              color='red'
+              color='gray'
               value={value}
               onChange={setValue}
               min={0}
@@ -88,7 +112,7 @@ const NavFilter = () => {
           <div>
             <RHFMutiSelect
               name='Style'
-              options={['xs', 'xl']}
+              options={dataInFirebaseList?.Styles || ['']}
               placeholder='Chọn một style thích hợp'
               type='select'
             />

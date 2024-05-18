@@ -2,6 +2,7 @@ import { FaBlogger, FaFacebook, FaRegFolderOpen } from "react-icons/fa";
 import { TiSocialInstagram } from "react-icons/ti";
 import { FaLinkedin } from "react-icons/fa";
 import { CiShoppingCart } from "react-icons/ci";
+import { SiZalo } from "react-icons/si";
 import { PATH_DASHBOARD } from "@/routes/path";
 
 export const danhMuc = [
@@ -82,6 +83,10 @@ export const theoDoiChungToi = [
  {icon: FaLinkedin,
   tittle: "Linkedin"
 },
+{
+  icon: SiZalo,
+  tittle: "Zalo"
+}
 ]
 export const quocGia = [
   "Singapore",
@@ -111,7 +116,7 @@ export const productionDetail:{
   title: "Bóng đá"
 },
 {
-  list: "Thương hiệu",
+  list: "Kiểu dáng",
   title: "Sao Việt"
 },
 {
@@ -253,7 +258,7 @@ export const bannerQuangCao = [
 ]
 export const navigationDashboard = [
   {title: "Sản Phẩm", icon: FaRegFolderOpen,
-    to: PATH_DASHBOARD.productionItem
+    to: PATH_DASHBOARD.productDashboard
   },
   {title: "Đơn Hàng", icon: CiShoppingCart, to: PATH_DASHBOARD.oder},
   {title: "Blog", icon: FaBlogger,  to: PATH_DASHBOARD.dashboardblog},

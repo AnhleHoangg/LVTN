@@ -1,6 +1,6 @@
 import Countdown from '@/components/Countdown';
 import HeaderTag from '@/components/HeaderTag';
-import { BtnNextSlide, BtnPrevSlide } from '@/components/Slider/SliderShowItem';
+import { BtnPrevNextSlide } from '@/components/Slider/SliderShowItem';
 import { ProductItem, ProductionItem } from '@/components/product/Product';
 import { db } from '@/firebaseConfig';
 import { Container, Grid } from '@mantine/core';
@@ -35,7 +35,7 @@ const Flashsale = () => {
       <div className='h-[361px] overflow-hidden'>
         <div className='relative'>
           <HeaderTag>Giảm giá</HeaderTag>
-          <div className='absolute left-[90px] top-[5px] z-50'>
+          <div className='absolute left-[90px] top-[5px]'>
             <Countdown initialTime={6000} />
           </div>
         </div>
@@ -51,18 +51,7 @@ const Flashsale = () => {
               </SwiperSlide>
             ))}
             <div className='hidden group-hover:block'>
-              <div className='absolute right-[20px] top-[42%] z-50'>
-                <BtnNextSlide
-                  size={20}
-                  className='flex w-fit items-center justify-center rounded-full border bg-[white] shadow-inner transition-all hover:scale-150'
-                />
-              </div>
-              <div className='absolute left-[20px] top-[42%] z-50'>
-                <BtnPrevSlide
-                  size={20}
-                  className='flex w-fit items-center justify-center rounded-full border bg-[white] shadow-inner transition-all hover:scale-150'
-                />
-              </div>
+              <BtnPrevNextSlide />
             </div>
           </Swiper>
         </div>

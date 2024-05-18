@@ -25,7 +25,7 @@ const LayoutDefault = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className='relative flex w-full flex-col bg-slate-300'>
-      <div className='sticky top-0 z-50 flex w-full justify-around bg-gradient-to-r from-red-700 to-slate-600'>
+      <div className='bg-primary sticky top-0 z-50 flex w-full justify-around'>
         <HeaderPage />
       </div>
       <div className='mt-[1px]'>{children}</div>
@@ -34,7 +34,7 @@ const LayoutDefault = ({ children }: { children: React.ReactNode }) => {
           {showScrollButton && (
             <div
               onClick={() => scrollTo({ y: 0 })}
-              className='group mx-auto mb-[30px] h-[30px] w-[30px] items-center justify-center bg-[red] hover:cursor-pointer'
+              className='bg-primary group mx-auto mb-[30px] h-[30px] w-[30px] items-center justify-center hover:cursor-pointer'
             >
               <MdKeyboardArrowUp size={30} className='text-[white]' />
             </div>
@@ -73,7 +73,7 @@ const LayoutDefault = ({ children }: { children: React.ReactNode }) => {
           </div>
         </Tooltip>
       </div>
-      <div className=' bg-slate-600 pt-[5px]'>
+      <div className=' bg-slate-800 pt-[5px]'>
         <Container className='mx container mt-[50px] p-[5px]'>
           <Footter />
         </Container>

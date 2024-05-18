@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { FaAngleRight } from 'react-icons/fa';
 import { CiFacebook, CiInstagram } from 'react-icons/ci';
 import { PrimaryButton } from '@/components/Button';
-import { Container, Popover, Menu, Text, Card } from '@mantine/core';
+import { Menu, Text, Card } from '@mantine/core';
 import { CiSearch } from 'react-icons/ci';
 import { FaShoppingCart } from 'react-icons/fa';
-import { useDisclosure } from '@mantine/hooks';
 import { ProductionItem } from '@/components/product/Product';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
@@ -13,6 +12,8 @@ import { PATH_DASHBOARD } from '@/routes/path';
 import Link from 'next/link';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
+import { useDebouncedCallback } from 'use-debounce';
+import { useRouter } from 'next/navigation';
 type Taskbarname = {
   title: string;
   list: {
@@ -52,7 +53,7 @@ const TaskbarMenuSelect = (props: { data: Taskbarname }) => {
                   >
                     <ul className='px-4'>
                       <Menu.Target>
-                        <a className=' uppercase hover:text-[red]' href='/'>
+                        <a className=' hover:text-primary uppercase' href='/'>
                           <li className='my-auto flex h-[40px] items-center font-medium'>
                             <FaAngleRight className='ml-[2px] mr-[5px] text-[20px] ' />
                             {item.title}
@@ -83,8 +84,8 @@ const TaskbarMenuSelect = (props: { data: Taskbarname }) => {
 
 const TaskbarContact = () => {
   return (
-    <Container className='container flex h-[3vh] items-center justify-between font-semibold text-[white]'>
-      <div className='flex items-center text-[13px]'>
+    <div className='flex h-[3vh] items-center justify-between text-[13px] font-semibold text-[white]'>
+      <div className='container flex items-center'>
         <a className='mr-[2px] px-[4px]' href='/'>
           Hotline: 0927 993 249
         </a>
@@ -103,7 +104,7 @@ const TaskbarContact = () => {
           </a>
         </span>
       </div>
-    </Container>
+    </div>
   );
 };
 
@@ -114,9 +115,11 @@ const SearchAndCart = () => {
   const product = useSelector((state: RootState) => state.product.arr);
   const productNumber = useSelector((state: RootState) => state.product.number);
   const formattedNumber = productNumber?.totalProduct.toLocaleString('vi-VN');
+  const router = useRouter();
+
   localStorage.setItem('listItem', JSON.stringify(product));
   useEffect(() => {
-    const fetchData = async () => {
+    let fetchData = async () => {
       if (searchTerm.trim() === '') {
         setSearchResults([]);
         return;
@@ -134,6 +137,10 @@ const SearchAndCart = () => {
     };
     fetchData();
   }, [searchTerm]);
+  const handleSearch = useDebouncedCallback((searchTerm) => {
+    setSearchTerm(searchTerm);
+  }, 300);
+
   return (
     <div className='mx container flex h-[7vh] items-center justify-between py-[20px]'>
       <a href='/' className='tex-[35px] pr-[40px] uppercase text-[white]'>
@@ -146,23 +153,27 @@ const SearchAndCart = () => {
               setOpenSearch(false);
             }}
             onChange={(e) => {
-              setSearchTerm(e.target.value);
+              handleSearch(e.target.value);
               setOpenSearch(true);
             }}
             className='group relative mr-[5px] w-[750px] border-0 px-[10px] focus:border-transparent focus:outline-none'
             placeholder='Tìm sản phẩm, thương hiệu'
           ></input>
+
           <PrimaryButton
+            onClick={() => {
+              router.push(`/product?q=${searchTerm}`);
+            }}
             isOrginalPadding={false}
             type='button'
             className='  p-[12px]'
             startIcon={
               <CiSearch
                 className='text-center
-               text-[14px] text-[white]'
+                 text-[14px] text-[white]'
               />
             }
-          ></PrimaryButton>
+          />
         </div>
         {openSearch && (
           <Card className='absolute top-20 z-50 h-[685px] w-[840px] overflow-hidden overflow-y-scroll'>
@@ -184,8 +195,8 @@ const SearchAndCart = () => {
         <Menu.Target>
           <Link className='relative' href={PATH_DASHBOARD.cart}>
             <FaShoppingCart className='text-[26px] text-[white]' />
-            <div className='absolute right-[-10px] top-[8px] h-[20px] w-[20px] rounded-full border border-[red] bg-[white]'>
-              <p className=' text-center text-[13px] font-bold text-[red]'>
+            <div className='border-primary absolute right-[-10px] top-[8px] h-[20px] w-[20px] rounded-full border bg-[white]'>
+              <p className=' text-primary text-center text-[13px] font-bold'>
                 {productNumber.numberProduct}
               </p>
             </div>
@@ -195,28 +206,22 @@ const SearchAndCart = () => {
           <Menu.Label>Giỏ Hàng</Menu.Label>
           <Menu.Label>
             <div className=' flex items-center justify-between bg-[white]'>
-              <span className='text-[14px] text-[red]'>
+              <span className='text-primary text-[14px]'>
                 <Text className='font-bold'>Tổng tiền: </Text>
                 <span className='mr-7 font-bold'>{formattedNumber}đ</span>
               </span>
               <Link href={PATH_DASHBOARD.cart}>
-                <PrimaryButton text='Thanh Toán' />
+                <PrimaryButton text='THANH TOÁN' />
               </Link>
             </div>
           </Menu.Label>
           <div className=' h-[50vh] overflow-auto'>
             {product?.map((item) => (
-              <Menu.Item key={item.id}>
+              <div key={item.UDK}>
                 <ProductionItem data={item} type='cart' />
-              </Menu.Item>
+              </div>
             ))}
           </div>
-          {/* {product ? (
-          ) : (
-            <div className='flex h-[400px] items-center justify-center font-bold'>
-              <Text size={'xl'}> Chưa có sản phẩm nào !</Text>
-            </div>
-          )} */}
         </Menu.Dropdown>
       </Menu>
     </div>

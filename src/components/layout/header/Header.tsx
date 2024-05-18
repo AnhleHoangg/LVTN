@@ -26,7 +26,7 @@ const HeaderPage = () => {
 
   return (
     <Container className='container flex flex-col'>
-      {showNav && <TaskbarContact />}
+      <div className='bg-darkenprimary '>{showNav && <TaskbarContact />}</div>
       <SearchAndCart />
       {showNav && <TaskbarMenuSelect data={taskbarname} />}
     </Container>

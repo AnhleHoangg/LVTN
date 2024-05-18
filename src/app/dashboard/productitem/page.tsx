@@ -29,7 +29,7 @@ export const uploadAndReturnDownloadUrl = async (
   return url;
 };
 
-export const getDataFireBase = async (value: any) => {
+export const setDataFireBase = async (value: any) => {
   try {
     const docRef = await addDoc(collection(db, 'Product'), {
       value,
@@ -103,7 +103,7 @@ const ProducItemDashboard = () => {
         avatar: avatarUrl,
         album: albumUrls,
       };
-      getDataFireBase(modifiedObject)
+      setDataFireBase(modifiedObject)
         .then((id) => {
           console.log(id);
         })
@@ -123,6 +123,7 @@ const ProducItemDashboard = () => {
     material: string;
   }[];
   const [dataInFirebase, setDataInFirebase] = useState<ValueData>();
+  const [dataList, setDataList] = useState<any>([]);
   useEffect(() => {
     const fetchData = async () => {
       const querySnapshot = await getDocs(collection(db, 'Product'));
@@ -135,12 +136,18 @@ const ProducItemDashboard = () => {
         data.push(dataMod);
       });
       setDataInFirebase(data);
+      const q = await getDocs(collection(db, 'TableContent'));
+      const datas: any[] = [];
+      q.forEach((doc) => {
+        datas.push(doc.data());
+      });
+      setDataList(datas);
     };
     fetchData();
   }, []);
   return (
     <Card className='relative'>
-      <div className='mx-3 text-[26px] font-semibold text-[red]'>
+      <div className='text-primary mx-3 text-[26px] font-semibold'>
         Tất cả hàng hóa
       </div>
       <Grid className='mt-[20px]'>
@@ -189,8 +196,19 @@ const ProducItemDashboard = () => {
               <RHFMutiSelect
                 type='select'
                 name='category'
-                options={['CLB', 'FlashSale', 'LocalBrand', 'MU']}
-                placeholder='Loại Vải'
+                options={
+                  dataList[0]?.title || ['CLB', 'FlashSale', 'LocalBrand', 'MU']
+                }
+                placeholder='Danh mục'
+              />
+            </div>
+            <div className='mb-[10px]'>
+              <span>Kiểu Dáng</span>
+              <RHFMutiSelect
+                type='select'
+                name='style'
+                options={dataList[0]?.Styles || ['']}
+                placeholder='Kiểu dáng'
               />
             </div>
             <div className='mt-3'>

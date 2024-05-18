@@ -1,3 +1,4 @@
+import { PATH_DASHBOARD } from '@/routes/path';
 import React from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 
@@ -17,11 +18,11 @@ const HeaderTag = ({
       <div
         className={`${
           className || ''
-        } flex h-[5vh] w-full items-center justify-between border-b pb-[5px] text-[16px]  text-[red] `}
+        } text-primary flex h-[5vh] w-full items-center justify-between border-b text-[16px] font-medium`}
       >
         <div className={`${textclassName || ''} uppercase`}>{children}</div>
         {itemLeft && (
-          <a href='/'>
+          <a href={PATH_DASHBOARD.product}>
             <span className='normal flex items-center'>
               Xem Tất Cả
               <IoIosArrowForward className='p-auto ml-[5px]' />

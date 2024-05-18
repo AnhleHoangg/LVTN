@@ -1,7 +1,7 @@
 'use client';
 import { PrimaryButton, PrimaryOutlineButton } from '@/components/Button';
 import { Card, Text } from '@mantine/core';
-import React, { useState } from 'react';
+import React from 'react';
 import { ProductionItem } from '@/components/product/Product';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
@@ -11,7 +11,6 @@ const CartPage = () => {
   const product = useSelector((state: RootState) => state.product.arr);
   const number = useSelector((state: RootState) => state.product.number);
   const formattedNumber = number?.totalProduct.toLocaleString('vi-VN');
-
   return (
     <div className='mx container mx-auto mb-[10px]'>
       <Card
@@ -32,7 +31,7 @@ const CartPage = () => {
         <div className='mt-[20px] flex'>
           <div className='w-3/4 px-[5px]'>
             {product.map((item) => (
-              <ProductionItem data={item} type='cart' />
+              <ProductionItem key={item.UDK} data={item} type='cart' />
             ))}
           </div>
           <div className='w-1/4'>
@@ -42,8 +41,9 @@ const CartPage = () => {
             </div>
             <PrimaryButton
               className='mt-[10px] w-full'
-              text='THANH TOÁN NGAY'
+              text='ĐẶT HÀNG NGAY'
             ></PrimaryButton>
+            
             <Link href='/'>
               <PrimaryOutlineButton
                 className='mt-[10px] w-full'

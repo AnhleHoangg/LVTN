@@ -7,8 +7,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import HeaderTag from '@/components/HeaderTag';
 import {
-  BtnNextSlide,
-  BtnPrevSlide,
+  BtnPrevNextSlide
   SliderShowItem,
 } from '@/components/Slider/SliderShowItem';
 
@@ -42,15 +41,10 @@ export const SliderProviderProduct = ({
               </SwiperSlide>
             ))}
 
-            <div className='hidden group-hover:block'>
+            {/* <div className='hidden group-hover:block'>
               <div className='absolute right-[20px] top-[42%] z-50'>
                 <div className='flex justify-between'>
-                  <div>
-                    <BtnNextSlide
-                      size={20}
-                      className='rounded-full border bg-[white] shadow-inner transition-all hover:scale-150'
-                    />
-                  </div>
+                 
                 </div>
               </div>
               <div className='absolute left-[20px] top-[42%] z-50'>
@@ -63,7 +57,7 @@ export const SliderProviderProduct = ({
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </Swiper>
         </div>
       </div>

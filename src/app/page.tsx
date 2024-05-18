@@ -1,21 +1,16 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-import { Container, Grid } from '@mantine/core';
+import { Container } from '@mantine/core';
 //swipper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/parallax';
 import { Autoplay, Pagination, Parallax } from 'swiper/modules';
 //components
-import { ProductionItem } from '@/components/product/Product';
-import { danhMuc } from '@/components/mock-data';
-import Countdown from '@/components/Countdown';
-import HeaderTag from '@/components/HeaderTag';
 import {
-  BtnNextSlide,
-  BtnPrevSlide,
+  BtnPrevNextSlide,
   SliderShowItem,
 } from '@/components/Slider/SliderShowItem';
 
@@ -24,6 +19,7 @@ import { PrimaryButton } from '@/components/Button';
 import Category from '@/components/component/Category';
 import RecommendToDay from '@/components/component/RecommendToDay';
 import Flashsale from '@/components/component/Flashsale';
+import DescriptionPage from '@/components/component/DescriptionPage';
 
 export type ValueData = {
   nameitem: string;
@@ -63,8 +59,7 @@ export default function HomePage() {
                 </SwiperSlide>
                 <div className='absolute top-[42%] z-50 hidden w-full group-hover:block'>
                   <div className='flex justify-between'>
-                    <BtnPrevSlide />
-                    <BtnNextSlide />
+                    <BtnPrevNextSlide />
                   </div>
                 </div>
               </Swiper>
@@ -78,9 +73,8 @@ export default function HomePage() {
       <Category />
       {/* Gợi ý hốm nay*/}
       <RecommendToDay />
-      <div className='flex w-full justify-center border-t pb-3'>
-        <PrimaryButton text='Xem Thêm' />
-      </div>
+      {/* Diễn tả trang web*/}
+      <DescriptionPage />
     </div>
   );
 }

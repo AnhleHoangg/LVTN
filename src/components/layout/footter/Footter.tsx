@@ -1,18 +1,22 @@
 import React from 'react';
 import { danhMucChamSocKhach, theoDoiChungToi } from '@/components/mock-data';
 import { Grid } from '@mantine/core';
+import HeaderTag from '@/components/HeaderTag';
+import Link from 'next/link';
 
 export const Footter = () => {
   return (
-    <div className='uppercase text-[white]'>
-      <Grid className='border-b'>
+    <div className='text-[white]'>
+      <Grid className='border-b pb-[10px]'>
         <Grid.Col span={4}>
           <div>
-            <div className='mb-[20px] p-1 '>Chắm sóc khách hàng</div>
+            <HeaderTag className='uppercase text-white'>
+              Chắm sóc khách hàng
+            </HeaderTag>
             <ul>
               {danhMucChamSocKhach.map((item, index) => (
                 <li
-                  className='mb-[12px] text-[14px] hover:text-[red]'
+                  className='hover:text-primary mb-[12px] text-[14px]'
                   key={index}
                 >
                   {item}
@@ -21,47 +25,36 @@ export const Footter = () => {
             </ul>
           </div>
         </Grid.Col>
-        {/* <Grid.Col span={3}>
-          <div className='mb-[20px]'>
-            <div className='mb-[20px]'>
-              <div className='mb-[20px] '> Đơn Vị Vận Chuyển</div>
-              <div className='block'>
-                {donViVanChuyen.map((item, index) => (
-                  <span
-                    key={index}
-                    className='mx-2 inline-block rounded-sm border p-[5px] shadow-lg '
-                  >
-                    <img className='h-[22px] w-[52px]' src={item}></img>
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </Grid.Col> */}
         <Grid.Col span={4}>
-          <div className='mb-[20px] '>Theo Dõi Chúng Tôi Trên</div>
+          <HeaderTag className='uppercase text-white'>
+            Theo Dõi Chúng Tôi Trên
+          </HeaderTag>
           <ul className='flex justify-around'>
             {theoDoiChungToi.map((item, index) => (
-              <li className='flex items-center hover:text-[red]' key={index}>
-                <span className='mr-[2px] text-[16px]'>
-                  <item.icon />
+              <li
+                className='hover:text-primary flex items-center hover:cursor-pointer'
+                key={index}
+              >
+                <span className='mr-[2px]'>
+                  <item.icon size={50} />
                 </span>
-                <span>{item.tittle}</span>
               </li>
             ))}
           </ul>
-          <a href='/'>
+          <Link href='/'>
             <div className='mt-[10px] flex items-center '>
               <img
-                className='h-[100px] w-[100px] rounded-xl object-cover p-2'
+                className='h-[10vh] rounded-xl object-cover'
                 src='https://i.pinimg.com/736x/30/b5/49/30b54999b098050158ed13a1ecdcaab0.jpg'
               ></img>
-              <span className='ml-2'>Hội Anh Em MU VIP Pro</span>
+              <span className='ml-2 '>Hội Anh Em MU VIP Pro</span>
             </div>
-          </a>
+          </Link>
         </Grid.Col>
         <Grid.Col span={4}>
-          <span>Kết nối với chúng tôi</span>
+          <HeaderTag className='uppercase text-white'>
+            Kết nối với chúng tôi
+          </HeaderTag>
           <div className='mt-2'>
             <iframe
               title='Gạo Sport'
@@ -83,7 +76,7 @@ export const Footter = () => {
             <div className='bg-bottom-1 h-[80px] w-[80px]  bg-[url("https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/9765d68a8945750d.png")] bg-no-repeat'></div>
           </a>
         </div>
-        <div className='mb-[25px]  mt-[8px] text-[24px]  tracking-widest'>
+        <div className='mb-[25px]  mt-[8px] text-[24px] font-bold uppercase tracking-widest'>
           Gạo Sport
         </div>
         <div className='my-[8px] text-[14px]'>
@@ -91,7 +84,7 @@ export const Footter = () => {
           0927 993 249
         </div>
         <div className='my-[8px] text-[14px]'>
-          © 2015 - Bản quyền thuộc về Gạo Sport
+          © 2024 - Bản quyền thuộc về Gạo Sport
         </div>
       </div>
     </div>

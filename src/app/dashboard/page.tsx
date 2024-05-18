@@ -9,7 +9,7 @@ import BarChartProduction from '@/components/chart/BarChart';
 import { Text } from '@mantine/core';
 import { PrimaryButton } from '@/components/Button';
 
-const Shop = () => {
+const Page = () => {
   // const docRef = doc(db, 'cities', 'SF');
   // const docSnap = await getDoc(docRef);
 
@@ -123,4 +123,4 @@ const Shop = () => {
     </div>
   );
 };
-export default Shop;
+export default Page;

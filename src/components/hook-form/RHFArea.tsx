@@ -31,7 +31,7 @@ export default function RHFArea({
       render={({ field, fieldState: { error } }) => (
         <Textarea
           label={label}
-          className=' focus:border focus:border-[red] focus:outline focus:outline-[red]'
+          className=' focus:border-primary focus:outline-primary focus:border focus:outline'
           placeholder={placeholder}
           {...field}
           {...other}

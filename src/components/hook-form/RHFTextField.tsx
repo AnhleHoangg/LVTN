@@ -38,7 +38,7 @@ export default function RHFTextField({
               other.onChange?.(event);
             }}
             value={field.value}
-            className={`${className} focus-within:out-line-[red]`}
+            className={`${className} focus-within:out-line-primary`}
           />
         </Input.Wrapper>
       )}
