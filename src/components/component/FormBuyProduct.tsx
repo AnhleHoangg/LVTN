@@ -64,7 +64,6 @@ const FormBuyProduct = ({ data }: { data?: ProductItem }) => {
     let Data = updateFormData(data, count);
     reset(defaultValues);
     setCount(1);
-    console.log(Data);
   };
   const dispatch = useDispatch();
   return (
