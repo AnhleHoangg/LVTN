@@ -40,8 +40,8 @@ const production = () => {
 
   return (
     <div>
-      <div className='flex justify-center'>
-        <div className='mx container mt-2'>
+      <div className='relative flex justify-center'>
+        <div className='container mt-2'>
           <BreadCrums slug={slugProduct} />
         </div>
       </div>

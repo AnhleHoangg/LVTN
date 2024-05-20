@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Grid } from '@mantine/core';
+import { Alert, Grid, Notification } from '@mantine/core';
 import { Rating } from '@mantine/core';
 import * as Yup from 'yup';
 
@@ -22,7 +22,8 @@ import { addDoc, collection } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
 
 const FormBuyProduct = ({ data }: { data: ProductItem }) => {
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState<number>(1);
+  const [notification, setNotification] = useState<boolean>(false);
   const LoginSchema = Yup.object().shape({
     note: Yup.string().required(
       'Nên điền ghi chú để nhận đồ hợp ý nhé!, Ghi tên người nhận hàng zô đây!'
@@ -72,14 +73,38 @@ const FormBuyProduct = ({ data }: { data: ProductItem }) => {
     let Data = updateFormData(dataForm, count, data?.UDK);
     reset(defaultValues);
     setCount(1);
-    const docRef = await addDoc(collection(db, 'Buyer'), {
-      Data,
-    });
-    console.log('Document written with ID: ', docRef.id);
+    try {
+      const docRef = await addDoc(collection(db, 'Buyer'), {
+        Data,
+      });
+      setNotification(true);
+      console.log(docRef.id);
+    } catch (error) {
+      console.log('Lỗi');
+    }
   };
   const dispatch = useDispatch();
+  function test() {
+    setTimeout(() => {
+      setNotification(false);
+    }, 3000);
+  }
+  test();
   return (
-    <div className='mx container bg-[white] p-3'>
+    <div className='container bg-[white] p-3'>
+      {notification && (
+        <Notification
+          className={`${
+            notification
+              ? 'animate-slideIn absolute right-[1%] top-[1%] z-50 w-[50vh]'
+              : 'animate-slideOut absolute right-[1%] top-[1%] z-50 w-[50vh]'
+          }`}
+          color='teal'
+          title='Cảm ơn quý khách hàng'
+        >
+          Đã đặt hàng thành công - Tư vấn viên sẽ liên hệ mình trong giây lát!
+        </Notification>
+      )}
       <Grid>
         {/* image production */}
         <Grid.Col span={4}>

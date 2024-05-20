@@ -89,6 +89,22 @@ export default {
             transform: 'scale(1.1)',
           },
         },
+        slideIn: {
+          "0%": {
+            transform: "translateX(100%)",
+          },
+          "100%": {
+            transform: "translateX(0)",
+          },
+        },
+        slideOut: {
+          "0%": {
+            transform: "translateX(0)",
+          },
+          "100%": {
+            transform: "translateX(150%)",
+          },
+        }
       },
       animation: {
         flicker: 'flicker 3s linear infinite',
@@ -96,6 +112,8 @@ export default {
         moveUp: 'moveUp 0.3s forwards cubic-bezier(0.4, 0, 0.2, 1)',
         moveReverse: 'moveReverse 0.3s forwards cubic-bezier(0.4, 0, 0.2, 1)',
         scalsePhoto: 'scalsePhoto 0.3s forwards linear',
+        slideIn: 'slideIn 0.3s linear',
+        slideOut: 'slideOut 0.3s forwards linear'
       },
     },
   },
