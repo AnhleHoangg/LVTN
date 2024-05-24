@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container } from '@mantine/core';
+import { Card, Container } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { productionDetail } from '@/components/mock-data';
 import { PrimaryButton } from '@/components/Button';
@@ -45,17 +45,15 @@ export interface ProductItem {
   album: string[];
   quanlityCart: number;
   slug: string;
-};
+}
 const ProductionItem = ({
   data,
   type,
   btnBuy = false,
-  btnCart = false,
   btnSettingProduction = false,
 }: {
   data?: ProductItem;
   btnBuy?: boolean;
-  btnCart?: boolean;
   btnSettingProduction?: boolean;
   type: 'flashSale' | 'product' | 'cart';
 }) => {
@@ -105,22 +103,13 @@ const ProductionItem = ({
       break;
     case 'product':
       buttonContent = (
-        <div className='hover:animate-moveUp animate-moveReverse hover:border-primary group border border-black hover:cursor-pointer'>
-          <div className='px-[10px] group-hover:block '>
-            {btnCart && (
-              <div className='absolute z-50 hidden p-[10px] group-hover:block'>
-                <PrimaryButton
-                  className='px-[20px]'
-                  text=''
-                  onClick={() => {
-                    dispatch(addCart({ data }));
-                  }}
-                  startIcon={
-                    <BsCart2 className='text-[16px] font-medium text-[white]' />
-                  }
-                />
-              </div>
-            )}
+        <Card
+          className='hover:animate-moveUp animate-moveReverse hover:border-primary group p-1 hover:cursor-pointer'
+          shadow='sm'
+          radius='md'
+          withBorder
+        >
+          <div className='group-hover:block '>
             {btnSettingProduction && (
               <div className='absolute z-50 hidden w-full p-2 group-hover:block'>
                 <div className='flex w-full justify-between'>
@@ -156,16 +145,16 @@ const ProductionItem = ({
               }}
               className='p-[1px]'
             >
-              <div className='h-[260px] w-full overflow-hidden'>
+              <div className=' h-[230px] w-[230px] overflow-hidden'>
                 <img
                   className='hover:animate-scalsePhoto animate-scalseReverse  object-contain'
                   src={data?.avatar}
                 ></img>
               </div>
-              <div className='mb-3 h-[20px] px-[5px]'>
+              <div className='my-3 h-[20px] px-[5px]'>
                 <p className='m-auto truncate text-[black]'>{data?.nameitem}</p>
               </div>
-              <div className='flex justify-between'>
+              <div className='flex justify-between px-[5px]'>
                 <div className='text-primary mt-[5px] font-semibold '>
                   {formattedNumber}đ
                 </div>
@@ -190,7 +179,7 @@ const ProductionItem = ({
               </Link>
             )}
           </div>
-        </div>
+        </Card>
       );
       break;
     case 'cart':

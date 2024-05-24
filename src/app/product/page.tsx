@@ -11,7 +11,6 @@ const page = () => {
   const searchParams = useSearchParams();
 
   const search = searchParams?.get('q');
-  let datas;
   useEffect(() => {
     const fetchData = async () => {
       //search bằng array
@@ -23,11 +22,13 @@ const page = () => {
       //     item.title.toLowerCase().includes(searchValue?.toLowerCase())
       //   );
       // datas = filterProducts(dataInFirebase, search);
-      const reference = query(
-        collection(db, 'Product'),
-        where('value.nameitem', '>=', search)
-      );
-
+      let reference;
+      if (search) {
+        reference = query(
+          collection(db, 'Product'),
+          where('value.nameitem', '>=', search)
+        );
+      } else reference = collection(db, 'Product');
       const querySnapshot = await getDocs(reference);
       const data: any[] = [];
       querySnapshot.forEach((doc) => {
@@ -49,12 +50,7 @@ const page = () => {
           <Grid>
             {dataInFirebase?.map((item: any) => (
               <Grid.Col key={item.UDK} span={{ base: 12, md: 6, lg: 3 }}>
-                <ProductionItem
-                  type='product'
-                  btnBuy
-                  btnCart
-                  data={item.value}
-                />
+                <ProductionItem type='product' btnBuy data={item.value} />
               </Grid.Col>
             ))}
           </Grid>

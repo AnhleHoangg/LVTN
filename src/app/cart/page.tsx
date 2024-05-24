@@ -1,20 +1,38 @@
 'use client';
-import { PrimaryButton, PrimaryOutlineButton } from '@/components/Button';
-import { Card, Text } from '@mantine/core';
-import React from 'react';
-import { ProductionItem } from '@/components/product/Product';
+import React, { useState } from 'react';
+import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
-import Link from 'next/link';
+import { Card, Modal, Text } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import { ProductItem, ProductionItem } from '@/components/product/Product';
+import { PrimaryButton, PrimaryOutlineButton } from '@/components/Button';
+
+import NotificationValidate from '@/components/Notification';
+import FormInforCustomer from '@/components/component/FormInforCustomer';
 
 const CartPage = () => {
   const product = useSelector((state: RootState) => state.product.arr);
   const number = useSelector((state: RootState) => state.product.number);
   const formattedNumber = number?.totalProduct.toLocaleString('vi-VN');
+  const [dataInFirebase, setDataInFirebase] = useState<ProductItem>({
+    nameitem: '',
+    UDK: '',
+    id: '',
+    price: 0,
+    quanlity: 0,
+    material: '',
+    avatar: '',
+    album: [''],
+    quanlityCart: 0,
+    slug: '',
+  });
+  const [opened, { open, close }] = useDisclosure(false);
   return (
-    <div className='mx container mx-auto mb-[10px]'>
+    <div className='container mx-auto mb-[10px]'>
+      <NotificationValidate />
       <Card
-        className='mx container '
+        className='container '
         shadow='sm'
         padding='lg'
         radius='md'
@@ -40,10 +58,36 @@ const CartPage = () => {
               <span className='mr-3'>{formattedNumber}đ</span>
             </div>
             <PrimaryButton
+              onClick={open}
               className='mt-[10px] w-full'
               text='ĐẶT HÀNG NGAY'
             ></PrimaryButton>
-            
+            <Modal
+              size={'xl'}
+              opened={opened}
+              onClose={close}
+              title='Thông tin người dùng!'
+            >
+              <div className='flex'>
+                <div className='w-3/5'>
+                  <FormInforCustomer data={dataInFirebase} btnCart={false} />
+                </div>
+                <div className='w-2/5 px-[5px]'>
+                  <ul className='list-decimal px-[25px]'>
+                    {product.map((item) => (
+                      <li className='mt-[2px] h-[5vh] text-[12px]'>
+                        Tên: {item.nameitem} - SL: {item.quanlityCart} - MSP:{' '}
+                        {item.UDK} - Giá: {item.price}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className='flex justify-between border-b py-[20px] font-semibold'>
+                    <span>Thành Tiền: </span>
+                    <span className='mr-3'>{formattedNumber}đ</span>
+                  </div>
+                </div>
+              </div>
+            </Modal>
             <Link href='/'>
               <PrimaryOutlineButton
                 className='mt-[10px] w-full'

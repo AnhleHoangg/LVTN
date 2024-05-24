@@ -10,6 +10,7 @@ import {
   stringFilterFn,
 } from 'mantine-data-grid';
 import NavigationDashBoard from '@/components/layout/nav/NavigationDashBoard';
+import ProductOrder from '@/components/ProductOrder';
 
 interface Cell<T> {
   getValue<U>(): U | null | undefined;
@@ -36,16 +37,15 @@ const demoData = [
     'Ngày Giờ': new Date('2024-04-11T10:30:00'),
     Bán: false,
   },
-  // Thêm các mục dữ liệu khác nếu cần
 ];
 
 const page = () => {
   return (
     <Card className='flex flex-row'>
-      <div className=' !h-full w-1/4'>
+      <div className=' !h-full w-1/5'>
         <NavigationDashBoard />
       </div>
-      <div className='block'>
+      <div className='block w-4/5'>
         <Text
           size='xl'
           fw={900}
@@ -89,7 +89,6 @@ const page = () => {
             { accessorKey: 'Số lượng', filterFn: numberFilterFn },
             {
               accessorKey: 'Ngày Giờ',
-              cell: (cell: Cell<Date>) => cell.getValue<Date>()?.toUTCString(),
               filterFn: dateFilterFn,
             },
             {
@@ -98,6 +97,16 @@ const page = () => {
             },
           ]}
         />
+        <Text
+          size='xl'
+          fw={900}
+          variant='gradient'
+          gradient={{ from: 'rgba(255, 0, 0, 1)', to: 'gray', deg: 90 }}
+          className='mb-4 text-[30px]'
+        >
+          Order
+        </Text>
+        <ProductOrder />
       </div>
     </Card>
   );

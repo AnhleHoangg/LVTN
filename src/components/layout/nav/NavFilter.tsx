@@ -62,7 +62,10 @@ const NavFilter = () => {
           </div>
           <ul className='mb-2'>
             {dataInFirebaseList?.title?.map((item: string) => (
-              <li className='flex justify-between border-b px-2 py-3'>
+              <li
+                key={item}
+                className='flex justify-between border-b px-2 py-3'
+              >
                 <Link
                   href={`/product?q=${item}`}
                   className='hover:text-primary hover:underline'

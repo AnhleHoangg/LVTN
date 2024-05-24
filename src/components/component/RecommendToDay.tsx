@@ -32,12 +32,7 @@ const RecommendToDay = () => {
           {dataInFirebase?.map((item: any) => (
             <Grid.Col key={item.value.UDK} span={2}>
               <div>
-                <ProductionItem
-                  data={item.value}
-                  btnBuy
-                  btnCart
-                  type='product'
-                />
+                <ProductionItem data={item.value} btnBuy type='product' />
               </div>
             </Grid.Col>
           ))}

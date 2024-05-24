@@ -1,3 +1,4 @@
+import renderNotification from '@/lib/features/Notification/NotificationSlice'
 import addRemoveProduct  from '@/lib/features/ShoppingCart/ShoppingCartSlice'
 import { configureStore } from '@reduxjs/toolkit'
 
@@ -5,7 +6,7 @@ export const makeStore = () => {
   return configureStore({
     reducer: {
       product: addRemoveProduct.reducer,
-      
+      notifitcation: renderNotification.reducer
     },
   })
 }

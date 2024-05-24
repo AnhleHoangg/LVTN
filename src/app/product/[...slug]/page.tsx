@@ -1,11 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { ProductItem, ProductionDetail } from '@/components/product/Product';
-import FormBuyProduct from '@/components/component/FormBuyProduct';
+
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
 import { usePathname } from 'next/navigation';
 import BreadCrums from '@/components/BreadCrums';
+import FormBuyProduct from '@/components/component/FormBuyProduct';
 
 const production = () => {
   const [dataInFirebase, setDataInFirebase] = useState<ProductItem>({

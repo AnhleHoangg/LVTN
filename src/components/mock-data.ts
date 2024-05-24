@@ -260,7 +260,7 @@ export const navigationDashboard = [
   {title: "Sản Phẩm", icon: FaRegFolderOpen,
     to: PATH_DASHBOARD.productDashboard
   },
-  {title: "Đơn Hàng", icon: CiShoppingCart, to: PATH_DASHBOARD.oder},
+  {title: "Đơn Hàng", icon: CiShoppingCart, to: PATH_DASHBOARD.order},
   {title: "Blog", icon: FaBlogger,  to: PATH_DASHBOARD.dashboardblog},
 
 ]

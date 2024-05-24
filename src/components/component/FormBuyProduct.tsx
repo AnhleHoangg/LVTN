@@ -1,110 +1,19 @@
 'use client';
-import React, { useState } from 'react';
-import { Alert, Grid, Notification } from '@mantine/core';
+import React from 'react';
+import { Grid } from '@mantine/core';
 import { Rating } from '@mantine/core';
-import * as Yup from 'yup';
 
-import { SlideProductCart } from '@/components/Slider/SliderShowItem';
-import FormProvider from '@/components/hook-form/FormProvider';
-import { RHFMutiSelect, RHFTextField } from '@/components/hook-form';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { PrimaryButton, PrimaryOutlineButton } from '@/components/Button';
-import { FaCartArrowDown, FaMinus, FaPlus } from 'react-icons/fa';
-import RHFArea from '@/components/hook-form/RHFArea';
 import 'swiper/css';
 import 'swiper/css/parallax';
+
 import { ProductItem } from '@/components/product/Product';
-import { useDispatch } from 'react-redux';
-import { addCart } from '@/lib/features/ShoppingCart/ShoppingCartSlice';
-import { setDataFireBase } from '@/app/dashboard/productitem/page';
-import { addDoc, collection } from 'firebase/firestore';
-import { db } from '@/firebaseConfig';
+import { SlideProductCart } from '@/components/Slider/SliderShowItem';
+import FormInforCustomer from '@/components/component/FormInforCustomer';
 
 const FormBuyProduct = ({ data }: { data: ProductItem }) => {
-  const [count, setCount] = useState<number>(1);
-  const [notification, setNotification] = useState<boolean>(false);
-  const LoginSchema = Yup.object().shape({
-    note: Yup.string().required(
-      'Nên điền ghi chú để nhận đồ hợp ý nhé!, Ghi tên người nhận hàng zô đây!'
-    ),
-    transport: Yup.string().required('Địa chỉ là bắt buộc'),
-    size: Yup.string().required('Chưa chon size'),
-    phoneNumber: Yup.string()
-      .nullable()
-      .matches(/^[0-9]+$/, 'Chỉ được có số!')
-      .min(10, 'SĐT ít nhất 10 số nhé!')
-      .max(15, 'Không thể vượt quá 15 số')
-      .required('Nhập sđt để nhận hàng nhé :)'),
-  });
-
-  const defaultValues = {
-    note: '',
-    transport: '',
-    size: '29',
-    phoneNumber: '',
-  };
-
-  type FormValuesProps = {
-    size: string;
-    transport: string;
-    note: string;
-    phoneNumber: string;
-  };
-  const methods = useForm<FormValuesProps>({
-    mode: 'onSubmit',
-    resolver: yupResolver(LoginSchema),
-    defaultValues,
-  });
-  const { reset, handleSubmit } = methods;
-  const updateFormData = (
-    data: FormValuesProps,
-    value: number,
-    UDK: string
-  ) => {
-    return {
-      ...data,
-      count: value,
-      UDK: UDK,
-    };
-  };
   const formattedNumber = data?.price.toLocaleString('vi-VN');
-  const onSubmit = async (dataForm: FormValuesProps) => {
-    let Data = updateFormData(dataForm, count, data?.UDK);
-    reset(defaultValues);
-    setCount(1);
-    try {
-      const docRef = await addDoc(collection(db, 'Buyer'), {
-        Data,
-      });
-      setNotification(true);
-      console.log(docRef.id);
-    } catch (error) {
-      console.log('Lỗi');
-    }
-  };
-  const dispatch = useDispatch();
-  function test() {
-    setTimeout(() => {
-      setNotification(false);
-    }, 3000);
-  }
-  test();
   return (
     <div className='container bg-[white] p-3'>
-      {notification && (
-        <Notification
-          className={`${
-            notification
-              ? 'animate-slideIn absolute right-[1%] top-[1%] z-50 w-[50vh]'
-              : 'animate-slideOut absolute right-[1%] top-[1%] z-50 w-[50vh]'
-          }`}
-          color='teal'
-          title='Cảm ơn quý khách hàng'
-        >
-          Đã đặt hàng thành công - Tư vấn viên sẽ liên hệ mình trong giây lát!
-        </Notification>
-      )}
       <Grid>
         {/* image production */}
         <Grid.Col span={4}>
@@ -150,92 +59,7 @@ const FormBuyProduct = ({ data }: { data: ProductItem }) => {
             </div>
           </div>
           {/* form bán hàng */}
-          <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-            <table className='mb-[20px] w-2/3'>
-              <tbody className='mt-[10px]'>
-                <tr className='h-[58px]'>
-                  <td className='mx-2 w-[110px]'>Vận Chuyển</td>
-                  <td className='my-[10px]'>
-                    <RHFTextField
-                      name='transport'
-                      placeholder='Địa chỉ nhận hàng'
-                    ></RHFTextField>
-                  </td>
-                </tr>
-                <tr className='h-[58px]'>
-                  <td className='mx-2 w-[110px]'>Số điện thoại</td>
-                  <td className='my-[10px]'>
-                    <RHFTextField
-                      name='phoneNumber'
-                      placeholder='Địa chỉ nhận hàng'
-                    ></RHFTextField>
-                  </td>
-                </tr>
-                <tr className='h-[58px]'>
-                  <td className=' mx-2 w-[110px]'>Size</td>
-                  <td>
-                    <RHFMutiSelect
-                      className='w-[185px]'
-                      name='size'
-                      options={['29', '30', '40']}
-                      placeholder='kk'
-                      type='select'
-                    ></RHFMutiSelect>
-                  </td>
-                </tr>
-                <tr className='h-[58px]'>
-                  <td className='w-[110px]'>Số Lượng</td>
-                  <td className='my-[10px] flex w-fit'>
-                    <button
-                      className='border px-[10px] py-[5px]'
-                      onClick={(event) => {
-                        event.preventDefault();
-                        if (count > 1) {
-                          setCount(count - 1);
-                        }
-                      }}
-                    >
-                      <FaMinus />
-                    </button>
-                    <span className='border-y px-[20px] py-[10px]'>
-                      {count}
-                    </span>
-                    <button
-                      className='border px-[10px] py-[5px]'
-                      onClick={(event) => {
-                        event.preventDefault();
-                        setCount(count + 1);
-                      }}
-                    >
-                      <FaPlus />
-                    </button>
-                  </td>
-                </tr>
-                <tr className='h-[58px]'>
-                  <td className='w-[110px]'>
-                    <div>Ghi Chú</div>
-                  </td>
-                  <td>
-                    <RHFArea name='note'></RHFArea>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div className='m-[20px] flex justify-center'>
-              <div className='mr-[20px]'>
-                <PrimaryOutlineButton
-                  onClick={() => {
-                    dispatch(addCart({ data }));
-                  }}
-                  rightIcon={
-                    <FaCartArrowDown className='text-primary mr-[10px]' />
-                  }
-                  text='Thêm vào giỏ hàng'
-                />
-              </div>
-              <PrimaryButton type='submit' text='Mua ngay' />
-            </div>
-          </FormProvider>
+          <FormInforCustomer btnCart data={data} />
           <div className='item flex items-center'>
             <p className='my-auto'>Gọi điện để được tư vấn:</p>
             <a

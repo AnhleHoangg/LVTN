@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, Grid } from '@mantine/core';
 import { RiShoppingCartLine } from 'react-icons/ri';
 import { FcMoneyTransfer } from 'react-icons/fc';
@@ -8,22 +8,29 @@ import NavigationDashBoard from '@/components/layout/nav/NavigationDashBoard';
 import BarChartProduction from '@/components/chart/BarChart';
 import { Text } from '@mantine/core';
 import { PrimaryButton } from '@/components/Button';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/firebaseConfig';
 
 const Page = () => {
-  // const docRef = doc(db, 'cities', 'SF');
-  // const docSnap = await getDoc(docRef);
+  useEffect(() => {
+    // const docRef = doc(db, 'Order');
+    // let fetchData = async () => {
+    //   const docSnap = await getDoc(docRef);
+    //   if (docSnap.exists()) {
+    //     console.log('Document data:', docSnap.data());
+    //   } else {
+    //     console.log('No such document!');
+    //   }
+    //   fetchData();
+    // };
+  }, []);
 
-  // if (docSnap.exists()) {
-  //   console.log('Document data:', docSnap.data());
-  // } else {
-  //   console.log('No such document!');
-  // }
   return (
     <div className='flex !h-[100vh] w-full'>
-      <div className='mr-3 !h-full w-1/4 rounded-t-2xl bg-[white]'>
+      <div className='mr-3 !h-full w-1/5 rounded-t-2xl bg-[white]'>
         <NavigationDashBoard />
       </div>
-      <div className='w-3/4 px-2'>
+      <div className='w-4/5 px-2'>
         <Grid grow>
           <Grid.Col span={4}>
             <Card>

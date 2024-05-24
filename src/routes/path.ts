@@ -2,7 +2,7 @@ export const PATH_DASHBOARD = {
   main: '/',
   home: '/home',
   dashboard: '/dashboard',
-  oder: '/dashboard/oder',
+  order: '/dashboard/order',
   productDashboard: '/dashboard/productitem',
   dashboardblog: '/dashboard/blog',
   cart: '/cart',
