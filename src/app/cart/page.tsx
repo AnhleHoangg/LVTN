@@ -30,7 +30,6 @@ const CartPage = () => {
   const [opened, { open, close }] = useDisclosure(false);
   return (
     <div className='container mx-auto mb-[10px]'>
-      <NotificationValidate />
       <Card
         className='container '
         shadow='sm'
@@ -70,7 +69,11 @@ const CartPage = () => {
             >
               <div className='flex'>
                 <div className='w-3/5'>
-                  <FormInforCustomer data={dataInFirebase} btnCart={false} />
+                  <FormInforCustomer
+                    producArr={product}
+                    data={dataInFirebase}
+                    btnCart={false}
+                  />
                 </div>
                 <div className='w-2/5 px-[5px]'>
                   <ul className='list-decimal px-[25px]'>

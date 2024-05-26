@@ -8,6 +8,7 @@ import {
   TaskbarContact,
   SearchAndCart,
 } from '@/components/layout/header/Taskbar';
+import NotificationValidate from '@/components/Notification';
 
 const HeaderPage = () => {
   const [scroll, scrollTo] = useWindowScroll();
@@ -25,7 +26,8 @@ const HeaderPage = () => {
   };
 
   return (
-    <Container className='container flex flex-col'>
+    <Container className='container relative flex flex-col'>
+      <NotificationValidate />
       <div className='bg-darkenprimary '>{showNav && <TaskbarContact />}</div>
       <SearchAndCart />
       {showNav && <TaskbarMenuSelect data={taskbarname} />}

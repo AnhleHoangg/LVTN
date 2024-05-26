@@ -23,7 +23,7 @@ export default function RootLayout({
       <SessionWrapper>
         <html lang='en'>
           <body suppressHydrationWarning={false}>
-            <div className='flex justify-center'>
+            <div className='flex justify-center overflow-x-hidden'>
               <MantineProvider theme={theme}>
                 <LayoutDefault>{children}</LayoutDefault>
               </MantineProvider>

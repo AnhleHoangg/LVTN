@@ -16,16 +16,19 @@ import { addCart } from '@/lib/features/ShoppingCart/ShoppingCartSlice';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
 import { ProductItem } from '@/components/product/Product';
+import { addNotication } from '@/lib/features/Notification/NotificationSlice';
 
 const FormInforCustomer = ({
   data,
   btnCart,
+  producArr,
 }: {
   data: ProductItem;
   btnCart: boolean;
+  producArr?: ProductItem[];
 }) => {
   const [count, setCount] = useState<number>(1);
-  const [notification, setNotification] = useState<boolean>(false);
+  const dispath = useDispatch();
   const LoginSchema = Yup.object().shape({
     note: Yup.string().required(
       'Nên điền ghi chú để nhận đồ hợp ý nhé!, Ghi tên người nhận hàng zô đây!'
@@ -68,6 +71,7 @@ const FormInforCustomer = ({
       ...data,
       count: value,
       UDK: UDK,
+      producArr: producArr,
     };
   };
 
@@ -76,11 +80,12 @@ const FormInforCustomer = ({
     reset(defaultValues);
     setCount(1);
     try {
-      const docRef = await addDoc(collection(db, 'Buyer'), {
+      const docRef = await addDoc(collection(db, 'Order'), {
         Data,
       });
-      setNotification(true);
+      dispath(addNotication(true));
       test();
+      localStorage.removeItem('listItem');
       console.log(docRef.id);
     } catch (error) {
       console.log('Lỗi');
@@ -89,7 +94,7 @@ const FormInforCustomer = ({
   const dispatch = useDispatch();
   function test() {
     setTimeout(() => {
-      setNotification(false);
+      dispath(addNotication(false));
     }, 3000);
   }
   return (
