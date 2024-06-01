@@ -1,6 +1,6 @@
 'use client';
 import { Card, Text } from '@mantine/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   booleanFilterFn,
   DataGrid,
@@ -10,18 +10,14 @@ import {
   stringFilterFn,
 } from 'mantine-data-grid';
 import NavigationDashBoard from '@/components/layout/nav/NavigationDashBoard';
-import ProductOrder from '@/components/ProductOrder';
-
-interface Cell<T> {
-  getValue<U>(): U | null | undefined;
-}
+import ProductOrder, { orderProducts } from '@/components/ProductOrder';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '@/firebaseConfig';
 
 const demoData = [
   {
     id: 1,
     text: 'Khách hàng A',
-    'Loại Quần Áo': 'Áo sơ mi',
-    Size: 'M',
     'Địa Chỉ': '123 Đường ABC, Thành phố X',
     'Số lượng': 2,
     'Ngày Giờ': new Date('2024-04-12T08:00:00'),
@@ -30,8 +26,6 @@ const demoData = [
   {
     id: 2,
     text: 'Khách hàng B',
-    'Loại Quần Áo': 'Quần Jeans',
-    Size: 'L',
     'Địa Chỉ': '456 Đường XYZ, Thành phố Y',
     'Số lượng': 1,
     'Ngày Giờ': new Date('2024-04-11T10:30:00'),
@@ -40,6 +34,41 @@ const demoData = [
 ];
 
 const page = () => {
+  const [dataInFirebase, setDataInFirebase] = useState<orderProducts>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const reference = query(
+        collection(db, 'Order'),
+        where('Data.state', '>=', false)
+        // where('Data.productArr', 'array-contains', true)
+      );
+      const querySnapshot = await getDocs(reference);
+      const data: any[] = [];
+      querySnapshot.forEach((doc) => {
+        let dataMod = {
+          ...doc.data().Data,
+          id: doc.id,
+        };
+        data.push(dataMod);
+      });
+      setDataInFirebase(data);
+    };
+    fetchData();
+  }, []);
+
+  const arr = dataInFirebase?.map((item) => {
+    return {
+      id: item.UDK,
+      text: item.phoneNumber,
+      'Địa Chỉ': item.transport,
+      'Số Loại Hàng': item.productArr.length || 1,
+      'Ngày Giờ': item.timestamp.toDate(),
+      Bán: item.state,
+    };
+  });
+  console.log(arr);
+
   return (
     <Card className='flex flex-row'>
       <div className=' !h-full w-1/5'>
@@ -56,7 +85,7 @@ const page = () => {
           Đơn Hàng Của Tôi
         </Text>
         <DataGrid
-          data={demoData}
+          data={arr || []}
           striped
           highlightOnHover
           withGlobalFilter
@@ -67,26 +96,16 @@ const page = () => {
           columns={[
             {
               accessorKey: 'text',
-              header: 'Khách hàng',
+              header: 'Số điện thoại',
               filterFn: stringFilterFn,
               size: 300,
               cell: highlightFilterValue,
             },
             {
-              header: 'Đơn Hàng',
-              columns: [
-                { accessorKey: 'Loại Quần Áo', filterFn: stringFilterFn },
-                {
-                  accessorKey: 'Size',
-                  filterFn: stringFilterFn,
-                },
-              ],
-            },
-            {
               accessorKey: 'Địa Chỉ',
               filterFn: stringFilterFn,
             },
-            { accessorKey: 'Số lượng', filterFn: numberFilterFn },
+            { accessorKey: 'Số Loại Hàng', filterFn: numberFilterFn },
             {
               accessorKey: 'Ngày Giờ',
               filterFn: dateFilterFn,

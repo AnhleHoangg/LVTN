@@ -15,10 +15,11 @@ export const renderNotification = createSlice({
         render: action.payload
       }
     },
+    
   },
 })
 export const { addNotication } = renderNotification.actions
 
-export const selectNotification = (state: RootState) => state.product
+export const selectNotification = (state: RootState) => state.notifitcation
 
 export default renderNotification;

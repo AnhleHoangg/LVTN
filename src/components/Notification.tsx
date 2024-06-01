@@ -25,7 +25,7 @@ const NotificationValidate = () => {
         >
           Đã đặt hàng thành công - Tư vấn viên sẽ liên hệ mình trong giây lát!
         </Notification>
-        )}
+      )}
     </div>
   );
 };

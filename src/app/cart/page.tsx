@@ -70,7 +70,7 @@ const CartPage = () => {
               <div className='flex'>
                 <div className='w-3/5'>
                   <FormInforCustomer
-                    producArr={product}
+                    productArr={product}
                     data={dataInFirebase}
                     btnCart={false}
                   />

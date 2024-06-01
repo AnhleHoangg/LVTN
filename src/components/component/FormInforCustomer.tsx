@@ -7,7 +7,7 @@ import { RHFMutiSelect, RHFTextField } from '@/components/hook-form';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { PrimaryButton, PrimaryOutlineButton } from '@/components/Button';
-import { FaCartArrowDown, FaMinus, FaPlus } from 'react-icons/fa';
+import { FaCartArrowDown } from 'react-icons/fa';
 import RHFArea from '@/components/hook-form/RHFArea';
 import 'swiper/css';
 import 'swiper/css/parallax';
@@ -21,13 +21,12 @@ import { addNotication } from '@/lib/features/Notification/NotificationSlice';
 const FormInforCustomer = ({
   data,
   btnCart,
-  producArr,
+  productArr,
 }: {
   data: ProductItem;
   btnCart: boolean;
-  producArr?: ProductItem[];
+  productArr?: ProductItem[];
 }) => {
-  const [count, setCount] = useState<number>(1);
   const dispath = useDispatch();
   const LoginSchema = Yup.object().shape({
     note: Yup.string().required(
@@ -62,23 +61,20 @@ const FormInforCustomer = ({
     defaultValues,
   });
   const { reset, handleSubmit } = methods;
-  const updateFormData = (
-    data: FormValuesProps,
-    value: number,
-    UDK: string
-  ) => {
+  const updateFormData = (data: FormValuesProps, UDK: string) => {
+    const day = new Date();
     return {
       ...data,
-      count: value,
       UDK: UDK,
-      producArr: producArr,
+      productArr: productArr || [],
+      timestamp: day,
+      state: false,
     };
   };
 
   const onSubmit = async (dataForm: FormValuesProps) => {
-    let Data = updateFormData(dataForm, count, data?.UDK);
+    let Data = updateFormData(dataForm, data?.UDK);
     reset(defaultValues);
-    setCount(1);
     try {
       const docRef = await addDoc(collection(db, 'Order'), {
         Data,
@@ -89,6 +85,7 @@ const FormInforCustomer = ({
       console.log(docRef.id);
     } catch (error) {
       console.log('Lỗi');
+      test();
     }
   };
   const dispatch = useDispatch();
