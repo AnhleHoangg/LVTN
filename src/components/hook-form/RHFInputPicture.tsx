@@ -12,10 +12,11 @@ type Props = {
   placeholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
-  label: string;
+  label?: string;
   multiple?: boolean;
   clearable?: boolean;
   valueComponent?: FileInputProps;
+  unstyled?: boolean;
 };
 
 const ValueComponent: FileInputProps['valueComponent'] = ({ value }) => {
@@ -51,6 +52,7 @@ export default function RHFInputPicture({
   className,
   clearable = true,
   valueComponent,
+  unstyled = false,
   ...other
 }: Props) {
   const { control } = useFormContext();
@@ -62,6 +64,7 @@ export default function RHFInputPicture({
       render={({ field, fieldState: { error } }) => (
         <Input.Wrapper error={error ? error?.message : helperText}>
           <FileInput
+            variant={unstyled ? 'unstyled' : ''}
             valueComponent={ValueComponent}
             clearable
             label={label}

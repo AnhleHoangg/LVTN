@@ -14,8 +14,6 @@ import {
   SliderShowItem,
 } from '@/components/Slider/SliderShowItem';
 
-import { PrimaryButton } from '@/components/Button';
-
 import Category from '@/components/component/Category';
 import RecommendToDay from '@/components/component/RecommendToDay';
 import Flashsale from '@/components/component/Flashsale';

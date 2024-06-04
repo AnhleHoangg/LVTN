@@ -1,15 +1,19 @@
 'use client';
-import { Card, Container } from '@mantine/core';
+import ListBlog from '@/components/ListBlog';
+import { Card } from '@mantine/core';
 import React from 'react';
 
 const Blog = () => {
   return (
-    <Container className='container mx-auto'>
-      <Card className='mb-[20px] grid grid-cols-3 rounded-none'>
-        <div className='col-span-2 '>
+    <div>
+      <Card radius={'xl'} className='mb-[20px] grid grid-cols-3 rounded-none'>
+        <div className='col-span-2 pr-2'>
+          <div className='mb-[20px] border-b pb-[10px] font-medium uppercase'>
+            Hôm nay có gì?
+          </div>
           <article className='mb-[10px] flex'>
             <img
-              className='h-[300px] w-[300px] rounded-lg object-cover'
+              className='h-[250px] w-[250px] rounded-lg object-cover'
               src='https://vudigital.co/wp-content/uploads/2023/10/logo-mu-3-giai-doan-hinh-thanh-bieu-tuong-cua-quy-do.webp'
             ></img>
             <div className='flex flex-col px-3'>
@@ -30,10 +34,10 @@ const Blog = () => {
         </div>
         <div className='col-span-1'>
           <img
-            className='mb-[20px] h-[300px] rounded-lg object-cover'
+            className='h-[300px] rounded-lg object-cover'
             src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNVqCb1t8h_yG9Y97Rv1B9va3MucRwyfiodbNiny1INQ&s'
           ></img>
-          <div>
+          <div className='mt-[20px]'>
             <div className='mb-[10px] border-b pb-[10px] font-medium uppercase'>
               Tin Tức Nỗi Bật
             </div>
@@ -58,7 +62,7 @@ const Blog = () => {
           </div>
         </div>
       </Card>
-    </Container>
+    </div>
   );
 };
 

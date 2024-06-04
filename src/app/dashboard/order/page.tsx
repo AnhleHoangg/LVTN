@@ -10,9 +10,10 @@ import {
   stringFilterFn,
 } from 'mantine-data-grid';
 import NavigationDashBoard from '@/components/layout/nav/NavigationDashBoard';
-import ProductOrder, { orderProducts } from '@/components/ProductOrder';
+import ProductOrder, { orderProducts } from '@/components/product/ProductOrder';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
+import TextHeader from '@/components/TextHeader';
 
 const demoData = [
   {
@@ -75,15 +76,7 @@ const page = () => {
         <NavigationDashBoard />
       </div>
       <div className='block w-4/5'>
-        <Text
-          size='xl'
-          fw={900}
-          variant='gradient'
-          gradient={{ from: 'rgba(255, 0, 0, 1)', to: 'gray', deg: 90 }}
-          className='mb-4 text-[30px]'
-        >
-          Đơn Hàng Của Tôi
-        </Text>
+        <TextHeader>All Order</TextHeader>
         <DataGrid
           data={arr || []}
           striped

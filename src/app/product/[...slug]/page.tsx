@@ -6,7 +6,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
 import { usePathname } from 'next/navigation';
 import BreadCrums from '@/components/BreadCrums';
-import FormBuyProduct from '@/components/component/FormBuyProduct';
+import FormBuyProduct from '@/components/product/FormBuyProduct';
 
 const production = () => {
   const [dataInFirebase, setDataInFirebase] = useState<ProductItem>({

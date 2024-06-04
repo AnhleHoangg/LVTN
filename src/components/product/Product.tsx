@@ -60,7 +60,6 @@ const ProductionItem = ({
   const dispatch = useDispatch();
   const router = useRouter();
   const formattedNumber = data?.price.toLocaleString('vi-VN');
-  const [opened, { open, close }] = useDisclosure(false);
   let buttonContent;
   switch (type) {
     case 'flashSale':
@@ -111,32 +110,31 @@ const ProductionItem = ({
         >
           <div className='group-hover:block '>
             {btnSettingProduction && (
-              <div className='absolute z-50 hidden w-full p-2 group-hover:block'>
-                <div className='flex w-full justify-between'>
-                  <PrimaryButton
+              <div className='absolute right-1 z-50 hidden p-2 group-hover:block'>
+                {/* <PrimaryButton
                     onClick={() => {
                       open;
+                      console.log(data);
                     }}
                     className='px-[15px]'
                     text=''
                     startIcon={
                       <CiSettings className=' text-[16px] font-medium text-[white]' />
                     }
-                  />
-                  <PrimaryButton
-                    className='px-[15px]'
-                    text=''
-                    onClick={async () => {
-                      const id = data?.id;
-                      if (id) {
-                        await deleteDoc(doc(db, 'Product', id));
-                      }
-                    }}
-                    startIcon={
-                      <IoMdClose className='text-[16px] font-medium text-[white]' />
+                  /> */}
+                <PrimaryButton
+                  className='px-[15px]'
+                  text=''
+                  onClick={async () => {
+                    const id = data?.id;
+                    if (id) {
+                      await deleteDoc(doc(db, 'Product', id));
                     }
-                  />
-                </div>
+                  }}
+                  startIcon={
+                    <IoMdClose className='text-[16px] font-medium text-[white]' />
+                  }
+                />
               </div>
             )}
             <div
@@ -145,7 +143,7 @@ const ProductionItem = ({
               }}
               className='p-[1px]'
             >
-              <div className=' h-[230px] w-[230px] overflow-hidden'>
+              <div className='h-[230px] overflow-hidden'>
                 <img
                   className='hover:animate-scalsePhoto animate-scalseReverse  object-contain'
                   src={data?.avatar}

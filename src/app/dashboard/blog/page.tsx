@@ -1,15 +1,18 @@
 'use client';
+import React from 'react';
 import { PrimaryButton } from '@/components/Button';
 import EditorBlog from '@/components/editor/EditorBlog';
 import { Card } from '@mantine/core';
-import React from 'react';
+import ListBlog from '@/components/ListBlog';
 
 const DashboardBlog = () => {
   return (
-    <div className='!max-w-none px-4'>
-      <Card>
-        <PrimaryButton text='Đăng Bài' className='mt-3' />
-        <EditorBlog/>
+    <div className='px-4'>
+      <Card className='m-4 p-6'>
+        <ListBlog />
+      </Card>
+      <Card className='relative m-4 p-6'>
+        <EditorBlog />
       </Card>
     </div>
   );

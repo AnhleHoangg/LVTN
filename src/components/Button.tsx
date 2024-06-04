@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 
 function PrimaryButton({
@@ -36,7 +37,7 @@ function PrimaryButton({
         disabled ? 'bg-primary hover:bg-[#ff00005d] ' : ''
       }
        flex  cursor-pointer items-center justify-center rounded-md ${
-         isOrginalPadding ? 'px-10 py-3' : ''
+         isOrginalPadding ? 'px-5 py-3' : ''
        }
       ${customHeightWidthTailWind}
       transition-colors duration-300 ease-in ${bgColor} ${hoverBgColor}`}
