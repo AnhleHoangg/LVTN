@@ -8,7 +8,6 @@ import { useDisclosure } from '@mantine/hooks';
 import { ProductItem, ProductionItem } from '@/components/product/Product';
 import { PrimaryButton, PrimaryOutlineButton } from '@/components/Button';
 
-import NotificationValidate from '@/components/Notification';
 import FormInforCustomer from '@/components/component/FormInforCustomer';
 
 const CartPage = () => {

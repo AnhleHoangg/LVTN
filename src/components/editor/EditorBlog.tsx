@@ -16,13 +16,14 @@ import { RootState } from '@/lib/store';
 import { useSelector } from 'react-redux';
 import { uploadAndReturnDownloadUrl } from '@/components/product/AddProduct';
 import { getStorage } from 'firebase/storage';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '@/firebaseConfig';
 
 function EditorBlog() {
   const avatar = useSelector((state: RootState) => state.avatar);
   const editor = useCreateBlockNote();
   const [html, setHTML] = useState<string>('');
   const onChange = async () => {
-    // Converts the editor's contents from Block objects to HTML and store to state.
     const html = await editor.blocksToHTMLLossy(editor.document);
     setHTML(html);
   };
@@ -44,20 +45,17 @@ function EditorBlog() {
     defaultValues,
   });
   const { reset, handleSubmit } = methods;
+
   const onSubmit = async (data: valueContent) => {
-    const storage = getStorage();
     try {
-      const avatarUrl = await uploadAndReturnDownloadUrl(
-        storage,
-        'blogAvatar',
-        avatar
-      );
-      contentObject(data, html, avatarUrl);
+      const listBlog = contentObject(data, html, avatar.render);
+      await addDoc(collection(db, 'listBlog'), { listBlog });
+      console.log(listBlog);
     } catch (error) {
       console.log(error);
     }
-    setHTML('');
     reset(defaultValues);
+    setHTML('');
   };
 
   const contentObject = (
@@ -69,6 +67,7 @@ function EditorBlog() {
       ...data,
       html: html,
       avatar: avatarUrl,
+      date: new Date(),
     };
   };
 
