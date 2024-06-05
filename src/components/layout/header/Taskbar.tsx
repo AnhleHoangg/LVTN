@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaAngleRight } from 'react-icons/fa';
+import { CiLogout } from 'react-icons/ci';
 import { CiFacebook, CiInstagram } from 'react-icons/ci';
 import { PrimaryButton } from '@/components/Button';
 import { Menu, Text, Card } from '@mantine/core';
@@ -14,6 +15,10 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
 import { useDebouncedCallback } from 'use-debounce';
 import { useRouter } from 'next/navigation';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+
+const auth = getAuth();
+
 type Taskbarname = {
   title: string;
   list: {
@@ -83,6 +88,18 @@ const TaskbarMenuSelect = (props: { data: Taskbarname }) => {
 };
 
 const TaskbarContact = () => {
+  const [user, setUser] = useState(false);
+  const auth = getAuth();
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log('Cho đăng nhập');
+        setUser(true);
+      } else {
+        console.log('không cho đăng nhập');
+      }
+    });
+  }, []);
   return (
     <div className='flex h-[3vh] items-center justify-between text-[13px] font-semibold text-[white]'>
       <div className='container flex items-center'>
@@ -104,6 +121,23 @@ const TaskbarContact = () => {
           </a>
         </span>
       </div>
+      {user && (
+        <div
+          onClick={() => {
+            signOut(auth)
+              .then(() => {
+                console.log('Sign-out successful.');
+              })
+              .catch((error) => {
+                console.log('An error happened.', error);
+              });
+          }}
+          className='mx-auto flex w-[10vh] items-center hover:cursor-pointer'
+        >
+          <CiLogout className='ml-1' />
+          <span className='ml-1 hover:underline'>Log Out</span>
+        </div>
+      )}
     </div>
   );
 };

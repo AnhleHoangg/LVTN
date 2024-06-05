@@ -7,6 +7,9 @@ import { collection, getDocs } from 'firebase/firestore';
 
 import TextHeader from '@/components/TextHeader';
 import AddProduct from '@/components/product/AddProduct';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
+import { PATH_AUTH } from '@/routes/path';
 export type Value = {
   nameitem: string;
   UDK: string;
@@ -27,6 +30,8 @@ const ProducItemDashboard = () => {
   }[];
   const [dataInFirebase, setDataInFirebase] = useState<ValueData>();
   const [dataList, setDataList] = useState<any>([]);
+  const auth = getAuth();
+  const router = useRouter();
   useEffect(() => {
     const fetchData = async () => {
       const querySnapshot = await getDocs(collection(db, 'Product'));
@@ -47,6 +52,15 @@ const ProducItemDashboard = () => {
       setDataList(datas);
     };
     fetchData();
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log('Cho đăng nhập');
+      } else {
+        console.log('không cho đăng nhập');
+        router.push(PATH_AUTH.login);
+      }
+    });
   }, []);
 
   return (

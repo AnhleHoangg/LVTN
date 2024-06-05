@@ -10,9 +10,22 @@ import { Text } from '@mantine/core';
 import { PrimaryButton } from '@/components/Button';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { PATH_AUTH } from '@/routes/path';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
+  const auth = getAuth();
+  const router = useRouter();
   useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log('Cho đăng nhập');
+      } else {
+        console.log('không cho đăng nhập');
+        router.push(PATH_AUTH.login);
+      }
+    });
     // const docRef = doc(db, 'Order');
     // let fetchData = async () => {
     //   const docSnap = await getDoc(docRef);
@@ -26,7 +39,7 @@ const Page = () => {
   }, []);
 
   return (
-    <div className='flex !h-[100vh] w-full'>
+    <div className='flex !h-[100vh] w-full p-5'>
       <div className='mr-3 !h-full w-1/5 rounded-t-2xl bg-[white]'>
         <NavigationDashBoard />
       </div>
@@ -71,7 +84,7 @@ const Page = () => {
                 variant='gradient'
                 gradient={{ from: 'rgba(255, 0, 0, 1)', to: 'gray', deg: 90 }}
               >
-                Đơn Hàng Gần Đây
+                Đơn hàng gần đây
               </Text>
               <div className='mt-[10px] flex items-center'>
                 <div className='flex'>

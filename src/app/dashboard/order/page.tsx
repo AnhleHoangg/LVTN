@@ -14,6 +14,9 @@ import ProductOrder, { orderProducts } from '@/components/product/ProductOrder';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
 import TextHeader from '@/components/TextHeader';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
+import { PATH_AUTH } from '@/routes/path';
 
 const demoData = [
   {
@@ -36,7 +39,8 @@ const demoData = [
 
 const page = () => {
   const [dataInFirebase, setDataInFirebase] = useState<orderProducts>();
-
+  const auth = getAuth();
+  const router = useRouter();
   useEffect(() => {
     const fetchData = async () => {
       const reference = query(
@@ -56,6 +60,16 @@ const page = () => {
       setDataInFirebase(data);
     };
     fetchData();
+    const auth = getAuth();
+    const router = useRouter();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log('Cho đăng nhập');
+      } else {
+        console.log('không cho đăng nhập');
+        router.push(PATH_AUTH.login);
+      }
+    });
   }, []);
 
   const arr = dataInFirebase?.map((item) => {

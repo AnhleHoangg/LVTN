@@ -8,8 +8,6 @@ export const PATH_DASHBOARD = {
   cart: '/cart',
   blog: '/blog',
   product: '/product',
-  
-  // production: '/production/[...slug]'
 };
 
 export const PATH_AUTH = {

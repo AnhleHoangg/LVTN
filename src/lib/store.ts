@@ -8,7 +8,7 @@ export const makeStore = () => {
     reducer: {
       product: addRemoveProduct.reducer,
       notifitcation: renderNotification.reducer,
-      avatar: uploadAvatar.reducer
+      avatar: uploadAvatar.reducer,
     },
   })
 }
