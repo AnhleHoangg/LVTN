@@ -6,10 +6,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import HeaderTag from '@/components/HeaderTag';
-import {
-  BtnPrevNextSlide
-  SliderShowItem,
-} from '@/components/Slider/SliderShowItem';
+import { SliderShowItem } from '@/components/Slider/SliderShowItem';
 
 export const SliderProviderProduct = ({
   tittle,

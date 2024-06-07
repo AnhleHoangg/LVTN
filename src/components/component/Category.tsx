@@ -13,7 +13,7 @@ const Category = () => {
         <Swiper spaceBetween={30} loopAdditionalSlides={0}>
           {danhMuc.map((item) => (
             <SwiperSlide key={item.id}>
-              <SliderShowItem type='button' item={item} />
+              <SliderShowItem item={item} />
             </SwiperSlide>
           ))}
         </Swiper>

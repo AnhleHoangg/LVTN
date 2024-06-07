@@ -1,4 +1,3 @@
-import { getDocs } from "firebase/firestore";
 
 function createSlug(inputString:string) {
   let slug = inputString.toLowerCase().replace(/[^\w\s-]/g, '');

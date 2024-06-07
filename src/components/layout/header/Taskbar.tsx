@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FaAngleRight } from 'react-icons/fa';
 import { CiLogout } from 'react-icons/ci';
 import { CiFacebook, CiInstagram } from 'react-icons/ci';
@@ -17,8 +17,6 @@ import { useDebouncedCallback } from 'use-debounce';
 import { useRouter } from 'next/navigation';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 
-const auth = getAuth();
-
 type Taskbarname = {
   title: string;
   list: {
@@ -28,9 +26,13 @@ type Taskbarname = {
 }[];
 
 const TaskbarMenuSelect = (props: { data: Taskbarname }) => {
+  const searchTermRef = useRef('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const router = useRouter();
+
   return (
-    <ul className='!relative flex h-[5vh] justify-between px-5 font-medium uppercase tracking-widest '>
-      {props.data.map((item) => (
+    <ul className='!relative flex h-[5vh] justify-between px-5 font-medium uppercase tracking-widest'>
+      {props?.data.map((item) => (
         <Menu
           key={item.title}
           trigger='hover'
@@ -58,24 +60,20 @@ const TaskbarMenuSelect = (props: { data: Taskbarname }) => {
                   >
                     <ul className='px-4'>
                       <Menu.Target>
-                        <a className=' hover:text-primary uppercase' href='/'>
+                        <div
+                          className=' hover:text-primary uppercase'
+                          onClick={() => {
+                            searchTermRef.current = item.title;
+                            setSearchTerm(item.title);
+                          }}
+                        >
                           <li className='my-auto flex h-[40px] items-center font-medium'>
                             <FaAngleRight className='ml-[2px] mr-[5px] text-[20px] ' />
                             {item.title}
                           </li>
-                        </a>
+                        </div>
                       </Menu.Target>
                     </ul>
-                    <Menu.Dropdown className='!block w-[full] rounded-none p-0 !outline-none'>
-                      <div className='!w-full'>
-                        <a href='/'>
-                          <img
-                            className='h-[50vh] !w-[full] object-cover'
-                            src={item.src}
-                          ></img>
-                        </a>
-                      </div>
-                    </Menu.Dropdown>
                   </Menu>
                 ))}
               </Menu.Item>
@@ -150,8 +148,9 @@ const SearchAndCart = () => {
   const productNumber = useSelector((state: RootState) => state.product.number);
   const formattedNumber = productNumber?.totalProduct.toLocaleString('vi-VN');
   const router = useRouter();
-
-  localStorage.setItem('listItem', JSON.stringify(product));
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('listItem', JSON.stringify(product));
+  }
   useEffect(() => {
     let fetchData = async () => {
       if (searchTerm.trim() === '') {
@@ -177,9 +176,9 @@ const SearchAndCart = () => {
 
   return (
     <div className='mx container flex h-[7vh] items-center justify-between py-[20px]'>
-      <a href='/' className='tex-[35px] pr-[40px] uppercase text-[white]'>
+      <Link href={'/'} className='tex-[35px] pr-[40px] uppercase text-[white]'>
         Gạo Sport
-      </a>
+      </Link>
       <div className='flex h-[40px] w-[840px] justify-between rounded-sm bg-[white] p-[5px]	'>
         <div className='flex w-full justify-around'>
           <input

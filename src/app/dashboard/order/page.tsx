@@ -18,25 +18,6 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useRouter } from 'next/navigation';
 import { PATH_AUTH } from '@/routes/path';
 
-const demoData = [
-  {
-    id: 1,
-    text: 'Khách hàng A',
-    'Địa Chỉ': '123 Đường ABC, Thành phố X',
-    'Số lượng': 2,
-    'Ngày Giờ': new Date('2024-04-12T08:00:00'),
-    Bán: true,
-  },
-  {
-    id: 2,
-    text: 'Khách hàng B',
-    'Địa Chỉ': '456 Đường XYZ, Thành phố Y',
-    'Số lượng': 1,
-    'Ngày Giờ': new Date('2024-04-11T10:30:00'),
-    Bán: false,
-  },
-];
-
 const page = () => {
   const [dataInFirebase, setDataInFirebase] = useState<orderProducts>();
   const auth = getAuth();
@@ -60,8 +41,7 @@ const page = () => {
       setDataInFirebase(data);
     };
     fetchData();
-    const auth = getAuth();
-    const router = useRouter();
+
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log('Cho đăng nhập');

@@ -1,29 +1,70 @@
-import React from 'react';
-import { Card, Image, Text} from '@mantine/core';
+'use client';
+import React, { useEffect, useState } from 'react';
+import { Card, Image, Text } from '@mantine/core';
 import { CiCalendar } from 'react-icons/ci';
 import ListBlog from '@/components/ListBlog';
 import TextHeader from '@/components/TextHeader';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { usePathname } from 'next/navigation';
+import { db } from '@/firebaseConfig';
+import { BlockNoteView, useCreateBlockNote } from '@blocknote/react';
+import HtmlConvert from '@/components/HtmlConvert';
+
+type Blog = {
+  avatar: string;
+  html: string;
+  introBlog: string;
+  nameBlog: string;
+  slug: string;
+  date: any;
+};
 
 const page = () => {
+  const [dataInFirebase, setDataInFirebase] = useState<Blog>({
+    avatar: '',
+    html: ' ',
+    introBlog: '',
+    nameBlog: '',
+    slug: '',
+    date: new Date(),
+  });
+  const pathname = usePathname();
+  const slugProduct = pathname?.replace('/blog/', '');
+  console.log(slugProduct);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const reference = query(
+        collection(db, 'listBlog'),
+        where('listBlog.slug', '==', slugProduct)
+      );
+      const querySnapshot = await getDocs(reference);
+      const data: any[] = [];
+      querySnapshot.forEach((doc) => {
+        data.push(doc.data());
+      });
+      setDataInFirebase(data[0].listBlog);
+    };
+    fetchData();
+  }, []);
+  const editor = useCreateBlockNote();
+
   return (
     <div className=''>
       <div className='container mx-auto'>
         <Card radius={'md'} className='m-4 p-10'>
           <div className='mx-auto'>
-            <TextHeader>Blog hôm nay</TextHeader>
+            <TextHeader>{dataInFirebase?.nameBlog}</TextHeader>
           </div>
           <span className='mb-[30px] flex h-[30px] items-center justify-center text-[14px]'>
             <span className='flex items-center border p-1'>
               <CiCalendar />
               <p>01/06/2024 - 09:00PM</p>
             </span>
-            <span className='mx-1 border p-1'>Tác giả: Lê Hoàng Anh.</span>
+            <span className='mx-1 border p-1'>Tác giả: Admin.</span>
           </span>
           <Text size='xl' lineClamp={4} className='border-b-2 pb-[20px]'>
-            Sức hút của bóng đá là điều không ai có thể bàn cãi. Và cũng chính
-            vì thế mà những đôi giày bóng đá luôn là cảm hứng bất bận cho các
-            nhà thiết kế không ngừng sáng tạo nên những đôi giày bóng đá đa dạng
-            về phong cách thiết kế, kiểu dáng và chất liệu.
+            {dataInFirebase?.introBlog}
           </Text>
           <Text
             size='xl'
@@ -34,8 +75,9 @@ const page = () => {
               radius='md'
               h={400}
               fit='contain'
-              src='https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-7.png'
+              src={dataInFirebase?.avatar}
             />
+            <HtmlConvert html={dataInFirebase.html} />
           </Text>
           <div className='my-[10px]'>
             <span>Xem Thếm:</span>

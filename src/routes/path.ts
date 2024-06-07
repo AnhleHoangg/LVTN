@@ -5,6 +5,7 @@ export const PATH_DASHBOARD = {
   order: '/dashboard/order',
   productDashboard: '/dashboard/productitem',
   dashboardblog: '/dashboard/blog',
+  dashboardlistblog: '/dashboard/listblog',
   cart: '/cart',
   blog: '/blog',
   product: '/product',

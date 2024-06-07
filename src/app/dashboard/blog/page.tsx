@@ -25,7 +25,7 @@ const DashboardBlog = () => {
       <Card className='m-4 p-6'>
         <ListBlog />
       </Card>
-      <Card className='relative m-4 p-6'>
+      <Card className='m-4 p-6'>
         <EditorBlog />
       </Card>
     </div>

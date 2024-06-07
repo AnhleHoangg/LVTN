@@ -14,10 +14,9 @@ import { PrimaryButton } from '@/components/Button';
 import UploadAvatar from '@/components/UploadAvatar';
 import { RootState } from '@/lib/store';
 import { useSelector } from 'react-redux';
-import { uploadAndReturnDownloadUrl } from '@/components/product/AddProduct';
-import { getStorage } from 'firebase/storage';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '@/firebaseConfig';
+import { createSlug } from '@/components/func';
 
 function EditorBlog() {
   const avatar = useSelector((state: RootState) => state.avatar);
@@ -65,6 +64,7 @@ function EditorBlog() {
   ) => {
     return {
       ...data,
+      slug: createSlug(data.nameBlog),
       html: html,
       avatar: avatarUrl,
       date: new Date(),
@@ -72,7 +72,7 @@ function EditorBlog() {
   };
 
   return (
-    <div className='relative h-[100vh]'>
+    <div className='h-full'>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <div className='flex'>
           <div className='mr-3 w-3/4'>
@@ -97,7 +97,7 @@ function EditorBlog() {
         <div className='mt-[10px]'>
           <BlockNoteView editor={editor} onChange={onChange} />
         </div>
-        <div className='absolute bottom-3'>
+        <div className='bottom-3'>
           <PrimaryButton type='submit' text='Đăng Bài' className='mt-3' />
         </div>
       </FormProvider>

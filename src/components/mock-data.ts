@@ -4,6 +4,10 @@ import { FaLinkedin } from "react-icons/fa";
 import { CiShoppingCart } from "react-icons/ci";
 import { SiZalo } from "react-icons/si";
 import { PATH_DASHBOARD } from "@/routes/path";
+import { RiShoppingCartLine } from 'react-icons/ri';
+import { PiMoney } from "react-icons/pi";
+import { FcMoneyTransfer } from "react-icons/fc";
+
 
 export const danhMuc = [
   { id: 'abc',
@@ -138,7 +142,8 @@ export const taskbarname: {
   {
     title: "Sản phẩm hot",
     list: [
-      {title: "Manchester united",
+    {
+      title: "Manchester united",
       src: "https://image.nhandan.vn/w800/Uploaded/2024/cvjntcbxcwigjcv/2023_10_24/mu111-9696.jpg.webp"
     },
     {
@@ -262,5 +267,20 @@ export const navigationDashboard = [
   },
   {title: "Đơn Hàng", icon: CiShoppingCart, to: PATH_DASHBOARD.order},
   {title: "Blog", icon: FaBlogger,  to: PATH_DASHBOARD.dashboardblog},
+
+]
+export const labelproductbuy = [
+  {
+    Title: 'Tổng Đơn Hàng',
+    icon: RiShoppingCartLine
+  },
+  {
+    Title: 'Tổng Phí Nhập Hàng',
+    icon: FcMoneyTransfer
+  },
+  {
+    Title: 'Tổng Tiền Bán Hàng',
+    icon: PiMoney
+  },
 
 ]
